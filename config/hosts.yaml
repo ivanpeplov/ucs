@@ -1,0 +1,137 @@
+mail_recipients_ts: 'a.kustov@ucscards.ru'
+#mail_recipients_ts: 'a.kustov@ucscards.ru', igorkir@ucscards.ru, kulagin.oleg@ucscards.ru
+#-----------------------------
+server:
+# RG1            
+    - name: RG1
+      vm: vm-99477
+      region: rg
+      nic: 4000
+
+# RG2            
+    - name: RG2
+      vm: vm-99479
+      region: rg
+      nic: 4000
+
+# RG3           
+    - name: RG3
+      vm: vm-524306
+      region: rg
+      nic: 4000
+#------------------------------
+# RDH1          
+    - name: RDH1
+      vm:  vm-425117
+      region: rdh
+
+# RDH2          
+    - name: RDH2
+      vm: vm-109387
+      region: rdh
+
+# RDH3          
+    - name: RDH3
+      vm: vm-109552
+      region: rdh
+
+# RDH4          
+    - name: RDH4
+      vm: vm-109553
+      region: rdh
+
+# RDH5          
+    - name: RDH5
+      vm: vm-120147
+      region: rdh
+
+# RDH6          
+    - name: RDH6
+      vm: vm-410963
+      region: rdh
+
+# RDH7          
+    - name: RDH7
+      vm: vm-124944
+      region: rdh
+
+# RDH8       
+    - name: RDH8
+    - vm: vm-124945
+      region: rdh
+
+# RDH9
+    - name: RDH9         
+      vm: vm-147381
+      region: rdh
+
+# RDH10          
+    - name: RDH10
+      vm: vm-802290
+      region: rdh
+#----------------------------
+#svp-tsora-14195
+    - name: svp-tsora-14195
+      vm: vm-167423
+      region: svp
+
+#svp-tso12-14181
+    - name: svp-tso12-14181
+      vm: vm-211459
+      region: svp
+
+#svp-tso12-14196
+    - name: svp-tso12-14196
+      vm: vm-277446
+      region: svp
+
+#rep1-w10ent64
+    - name: rep1-w10ent64
+      vm: vm-425013
+      region: svp
+
+#svp-tso12-14187
+    - name: svp-tso12-14187
+      vm: vm-258075
+      region: svp
+
+#svp-tso12-14188
+    - name: svp-tso12-14188
+      vm: vm-277716
+      region: svp
+
+#svp-tsora-14190
+    - name: svp-tsora-14190
+      vm: vm-171760
+      region: svp
+
+#svp-tsO12-14191
+    - name: svp-tsO12-14191
+      vm: vm-174160
+      region: svp
+
+#svp-tsO12-14197
+    - name: svp-tsO12-14197
+      vm: vm-277717
+      region: svp
+
+#svp-tsO12-14199
+    - name: svp-tsO12-14199
+      vm: vm-277715
+      region: svp
+
+#svp-tsora-14189
+    - name: svp-tsora-14189
+      vm: vm-167425
+      region: svp
+#-------------------------
+#svp-tsO12-14198
+    - name: svp-tsO12-14198
+      vm: vm-886771
+      region: tmp
+#-----------------------
+#PERSAPPTS
+#    - name: PERSAPPTS
+#      vm:
+#      region: svp
+
