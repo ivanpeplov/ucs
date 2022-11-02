@@ -1,0 +1,18 @@
+--- 
+MMS: 
+  bmp: "*.ini, *.dbf, *.tsk"
+  bpl: "borlndmm.dll, cc3260mt.dll"
+TID: 
+  bmp: "*.bmp, *.ini"
+  bpl: "bdertl60.bpl, dbrtl60.bpl, rtl60.bpl, vcl60.bpl, vcldb60.bpl"
+  exe: "CardPro.exe, CardPro.ini"
+
+#-----------------------------------------------
+#mail_recipients_dev: 'gerasimov.vyacheslav@ucscards.ru, titaev.leonid@ucscards.ru, shitikov.sergei@ucscards.ru, petelin.konstantin@ucscards.ru, konovalov.sergei@ucscards.ru, a.kustov@ucscards.ru'
+mail_recipients_dev: a.kustov@ucscards.ru
+# upload url
+nexus_url: "http://10.255.250.50:8081/repository/prime-artifacts-local/dev"
+nexus_url_1: "http://10.255.252.161:8081/repository/prime-artifacts-local/dev"
+# dnld url
+svn_url: svn/scm/svn/dev
+       
