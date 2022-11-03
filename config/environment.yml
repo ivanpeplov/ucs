@@ -5,7 +5,6 @@ MMS:
 TID: 
   bmp: "*.bmp, *.ini"
   bpl: "bdertl60.bpl, dbrtl60.bpl, rtl60.bpl, vcl60.bpl, vcldb60.bpl"
-  exe: "CardPro.exe, CardPro.ini"
 
 #-----------------------------------------------
 #mail_recipients_dev: 'gerasimov.vyacheslav@ucscards.ru, titaev.leonid@ucscards.ru, shitikov.sergei@ucscards.ru, petelin.konstantin@ucscards.ru, konovalov.sergei@ucscards.ru, a.kustov@ucscards.ru'
