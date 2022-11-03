@@ -5,8 +5,7 @@ def call(String operation) {
         //mmsEOD building
         case ('C:\\jenkins\\workspace\\UCS\\mms_eod') :
             BMP.split(', ').each { filename -> bat "xcopy ${filename} ${TARGET}" }
-            bat "make -f mmseod.mak"
-            bat "xcopy mmsEOD.exe ${TARGET}"
+            bat "make -f mmseod.mak & xcopy mmsEOD.exe ${TARGET}"
         break
         case ('C:\\Program Files\\Borland\\CBuilder6\\Bin') :
             BPL.split(', ').each { filename -> bat "xcopy ${filename} ${TARGET}" }
@@ -19,7 +18,7 @@ def call(String operation) {
         break
         case ('C:\\jenkins\\workspace\\UCS\\tid_man') :
             bat "make -f CardPro.mak"
-            EXE.split(', ').each { filename -> bat "xcopy ${filename} ${TARGET}" }
+            bat "xcopy Cardpro.exe ${TARGET} & xcopy Cardpro.ini ${TARGET}"
         break
         case ('FORM\\PRINT.CFG') :
             BMP.split(', ').each { filename -> bat "xcopy ${filename} ${TARGET}\\${operation}\\"}
