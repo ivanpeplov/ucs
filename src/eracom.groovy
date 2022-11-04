@@ -11,11 +11,11 @@ pipeline {
     } //parameters end
     environment {
     NODE='ERA'
-    SVN_PATH='PassKey/FM/FmUX'
-    SVN='trunk'
-    VERSION=' '
-    TARGET="FmUX/fm/obj-armfm${DIR}"
-    COMMAND='bat'
+    TARGET="FmUX/fm/obj-armfm${DIR}" //where find files for upload
+    ROOT='PassKey/FM/FmUX' //project root at SVN
+    SVN='trunk' //only for setDescription()
+    VERSION=' ' //only for setDescription()
+    SVN_PATH = "${ROOT}" //full path for download fron SVN
     PATH='c:\\jenkins\\bin;c:\\Windows\\System32;C:\\Program Files\\TortoiseSVN\\bin;c:\\jenkins\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Program Files\\Eclipse Adoptium\\jre-11.0.16.101-hotspot\\bin;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Eracom\\PCI HSM\\bin;C:\\Program Files\\Eracom\\Network HSM\\bin;C:\\Program Files\\Eracom\\ProtectToolkit C SDK\\bin;C:\\Program Files\\Eracom\\ProtectToolkit C SDK\\bin\\sw;C:\\Program Files\\Eracom\\ProtectProcessing Orange SDK\\bin;c:\\gcc-fm\\bin;C:\\Program Files\\Java\\jre1.8.0_341\\bin;C:\\Program Files\\Git\\bin,C:\\Program Files\\Git\\cmd,C:\\Program Files\\Git\\usr\\bin'
     }
     stages {

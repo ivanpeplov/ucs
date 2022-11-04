@@ -47,10 +47,11 @@ pipeline {
     } //parameters end
     environment {
     NODE='GEM'
-    SVN='trunk'
-    TARGET="FmUX/fm/obj-ppcfm${DIR}"
-    SVN_PATH='PassKey/FM/FmUX'
-    VERSION=' '
+    TARGET="FmUX/fm/obj-ppcfm${DIR}" //where find files for upload
+    ROOT='PassKey/FM/FmUX' //project root at SVN
+    SVN='trunk' //only for setDescription()
+    VERSION=' ' //only for setDescription()
+    SVN_PATH = "${ROOT}" //full path for download fron SVN
     CPROVDIR='/opt/safenet/protecttoolkit5/ptk'
     FMDIR='/opt/safenet/protecttoolkit5/fmsdk'
     LD_LIBRARY_PATH="/opt/safenet/protecttoolkit5/ptk/lib:"
@@ -100,7 +101,7 @@ pipeline {
             steps {
                 script {
                     echo "Sign pwd for GEMALTO: ${GEM_SIGN}"
-                    hsmSign("${TARGET}", "gem")
+                    hsmSign("${TARGET}", "gemalto")
                 }
             }
         }

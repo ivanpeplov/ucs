@@ -92,8 +92,8 @@ pipeline {
     } //parameters end
     environment {
     TARGET='bin' //target folder for binaries
-    PROJ_ROOT='FIS/new'
-    SVN_PATH = "${PROJ_ROOT}/${SVN}/${VERSION}units"
+    ROOT='FIS/new' //project root at SVN
+    SVN_PATH = "${ROOT}/${SVN}/${VERSION}units" //full path for download fron SVN
     PROJECTS="/home/jenkins/workspace/${JOB_NAME}"
     INFORMIXSERVER="shlag"
     INFORMIXDIR="/opt/IBM/informix"
@@ -111,6 +111,7 @@ pipeline {
         stage('SET Env') {
             steps {
                 script {
+                    catchErrors()
                     setDescription()
                     setEnv()
                 }

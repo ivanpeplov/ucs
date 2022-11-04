@@ -49,11 +49,11 @@ properties([
 pipeline {
   agent {label 'BORLAND'}
   environment {
-    APP='TID'
-    TARGET = "${WORKSPACE}\\UPLOAD" //target folder for binaries
+    APP='TID' //label for .yaml; Borland CB pipelines
+    TARGET = "${WORKSPACE}\\UPLOAD" //where find files for upload
     NODE = 'BORLAND'
-    PROJ_ROOT = "CardPro/TidManager/TID_v6"
-    SVN_PATH = "${PROJ_ROOT}/${SVN}/${VERSION}"
+    ROOT = "CardPro/TidManager/TID_v6" //project root at SVN
+    SVN_PATH = "${ROOT}/${SVN}/${VERSION}" //full path for download fron SVN
     PATH='C:\\Program Files\\Borland\\CBuilder6\\Bin;C:\\Program Files\\Borland\\CBuilder6\\Projects\\Bpl;c:\\jenkins\\bin;c:\\Windows\\System32;C:\\Program Files\\TortoiseSVN\\bin;c:\\jenkins\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Program Files\\Eclipse Adoptium\\jre-11.0.16.101-hotspot\\bin;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Git\\bin,C:\\Program Files\\Git\\cmd,C:\\Program Files\\Git\\usr\\bin'
   }
 stages {

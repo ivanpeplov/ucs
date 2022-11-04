@@ -100,9 +100,9 @@ pipeline {
         choice(name: 'RELEASE', choices: ['release', 'debug'], description: '')
     } //parameters end
     environment {
-    TARGET='bin' //target folder for binaries
-    PROJ_ROOT='FIS/new'
-    SVN_PATH = "${PROJ_ROOT}/${SVN}/${VERSION}/units"
+    TARGET='bin' //where find files for upload
+    ROOT='FIS/new' //project root at SVN
+    SVN_PATH = "${ROOT}/${SVN}/${VERSION}/units" //full path for download fron SVN
     PROJECTS="/home/jenkins/workspace/${JOB_NAME}"
     INFORMIXSERVER="shlag"
     INFORMIXDIR="/opt/informix"
@@ -120,6 +120,7 @@ pipeline {
         stage('SET Env') {
             steps {
                 script {
+                    catchErrors()
                     setDescription()
                     setEnv()
                 }
@@ -134,7 +135,7 @@ pipeline {
                 }
             }
         }
-        stage('BUILDING UNITS') {
+        stage('BUILD') {
             steps {
                 script {
                     prjMake('units/fis/samples/')
