@@ -10,7 +10,7 @@ pipeline {
     ROOT="${WORKSPACE}/${SVN_PATH}"
     }
     stages {
-        stage('SET ENV') {
+        stage('SET Env') {
             steps {
                 script {
                     setDescription()

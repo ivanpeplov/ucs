@@ -6,20 +6,20 @@ pipeline {
     }
     parameters {
     booleanParam(name: "SIGN", defaultValue: false, description: 'Only for test variant')
-
-        
+    choice(name: 'DIR', choices: ['', 'd'], description: 'DEBUG: d for obj-$(ARCH)d : $(OBJDIR) folder')
+     
     } //parameters end
     environment {
     NODE='ERA'
     SVN_PATH='PassKey/FM/FmUX'
     SVN='trunk'
     VERSION=' '
-    TARGET='fm\\obj-armfm'
+    TARGET="FmUX/fm/obj-armfm${DIR}"
     COMMAND='bat'
     PATH='c:\\jenkins\\bin;c:\\Windows\\System32;C:\\Program Files\\TortoiseSVN\\bin;c:\\jenkins\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Program Files\\Eclipse Adoptium\\jre-11.0.16.101-hotspot\\bin;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Eracom\\PCI HSM\\bin;C:\\Program Files\\Eracom\\Network HSM\\bin;C:\\Program Files\\Eracom\\ProtectToolkit C SDK\\bin;C:\\Program Files\\Eracom\\ProtectToolkit C SDK\\bin\\sw;C:\\Program Files\\Eracom\\ProtectProcessing Orange SDK\\bin;c:\\gcc-fm\\bin;C:\\Program Files\\Java\\jre1.8.0_341\\bin;C:\\Program Files\\Git\\bin,C:\\Program Files\\Git\\cmd,C:\\Program Files\\Git\\usr\\bin'
     }
     stages {
-        stage('Set Env') {
+        stage('SET Env') {
             steps {
                 script {
                     setDescription()
@@ -27,23 +27,24 @@ pipeline {
                 }
             }
         }
-        stage ('Prepare') {
+        stage ('PREPARE') {
             agent {label NODE}
             steps {
                 script {
                     getSVN()
+                    prepareFiles('eracom')
                 }
             }
         }
-        stage('App Build') {
+        stage('BUILD') {
             steps {
                 script {
                     echo "ERACOM FM build"
-                    hsmMake('FmUX\\fm', 'era')
+                    hsmMake('FmUX\\fm', 'eracom')
                 }
             }
         }
-        stage('App Sign') {
+        stage('SIGN') {
             when {
                     beforeInput true
                     expression { return env.SIGN.toBoolean() }
@@ -58,14 +59,14 @@ pipeline {
             steps {
                 script {
                     echo "Sign pwd for ERACOM: ${ERA_SIGN}"
-                    hsmSign('FmUX\\fm\\obj-armfm', 'era')
+                    hsmSign("${TARGET}", 'eracom')
                 }
             }
         }
-        stage('Upload') {
+        stage('UPLOAD') {
             steps {
                 script {
-                    uploadFiles('era')
+                    uploadFiles('eracom')
                 }
             }
         }

@@ -117,7 +117,7 @@ pipeline {
     MQM="/opt/mqm"
     }
     stages {
-        stage('SET ENV') {
+        stage('SET Env') {
             steps {
                 script {
                     setDescription()
@@ -141,10 +141,10 @@ pipeline {
                 }
             }
         }
-        stage('UPLOAD ARTIFACT') {
+        stage('UPLOAD') {
             steps {
                 script {
-                    uploadFiles('nix')
+                    uploadFiles('fis')
                 }
             }
         }
