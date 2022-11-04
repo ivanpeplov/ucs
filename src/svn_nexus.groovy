@@ -25,10 +25,10 @@ pipeline {
                 }
             }
         }
-        stage('CONVERTING') {
+        stage('GROUP.. UPLOAD') {
             steps {
                 script {
-                    conversionNexus()
+                    uploadNexus()
                 }
             }
         }
