@@ -66,7 +66,7 @@ pipeline {
         stage('UPLOAD') {
             steps {
                 script {
-                    uploadFiles('eracom')
+                    uploadFiles('eracom', "${TARGET}")
                 }
             }
         }

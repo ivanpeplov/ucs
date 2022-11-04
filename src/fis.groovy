@@ -144,7 +144,7 @@ pipeline {
         stage('UPLOAD') {
             steps {
                 script {
-                    uploadFiles('fis')
+                    uploadFiles('fis', "${TARGET}")
                 }
             }
         }

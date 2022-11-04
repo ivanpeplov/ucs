@@ -82,7 +82,7 @@ stages {
     stage('UPLOAD') {
       steps {
         script {
-            uploadFiles('palmera')
+            uploadFiles('palmera', "${TARGET}")
         }
       }
     }

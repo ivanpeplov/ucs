@@ -99,7 +99,7 @@ stages {
     stage('UPLOAD') {
       steps {
         script {
-            uploadFiles('tid_man')
+            uploadFiles('tid_man', "${TARGET}")
         }
       }
     }

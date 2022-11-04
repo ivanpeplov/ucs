@@ -107,7 +107,7 @@ pipeline {
         stage('UPLOAD') {
             steps {
                 script {
-                    uploadFiles('gemalto')
+                    uploadFiles('gemalto', "${TARGET}")
                 }
             }
         }

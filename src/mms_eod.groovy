@@ -83,7 +83,7 @@ stages {
     stage('UPLOAD') {
       steps {
         script {
-            uploadFiles("${JOB_BASE_NAME}")
+            uploadFiles("${JOB_BASE_NAME}", "${TARGET}")
         }
       }
     }
