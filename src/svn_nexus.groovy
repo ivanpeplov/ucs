@@ -6,8 +6,10 @@ pipeline {
     }
     environment {
     NODE='ROSA'
-    SVN_PATH = "NexusShareAsIs"
-    ROOT="${WORKSPACE}/${SVN_PATH}"
+    ROOT="NexusShareAsIs"
+    SVN=' '
+    VERSION=' '
+    SVN_PATH ="NexusShareAsIs"
     }
     stages {
         stage('SET Env') {
@@ -28,7 +30,7 @@ pipeline {
         stage('GROUP.. UPLOAD') {
             steps {
                 script {
-                    uploadNexus()
+                    uploadNexus("NexusShareAsIs")
                 }
             }
         }
