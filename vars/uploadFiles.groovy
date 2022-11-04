@@ -1,6 +1,6 @@
 def call(String os) {
     node (NODE) {
-    def dirpath="${TARGET}" //folder for uploading
+    def dirpath="${TARGET}"
     dir(dirpath) {
         //condition for BASELIB/LIBFIS/MQLIB .a library copy action to bin/$TARGET folder
         if (params.LIB_UPLOAD) { sh "cp -R ${WORKSPACE}/lib/ ./lib" }
@@ -18,21 +18,25 @@ def call(String os) {
             wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
                 //creating .zip artifact from bin/$TARGET folder and curl upload to nexus
                 switch (os) {
-                    case ['tid_man', 'mms_eod']:
+                    case ['tid_man', 'mms_eod', 'palmera']:
                     bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
                     bat "curl -s -u admin:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
                     break
-                    case 'era':
+                    case 'eracom':
                     bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip fmUX*, FmUX*"
                     bat "curl -s -u admin:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
                     break
-                    case 'gem':
+                    case 'gemalto':
                     sh "zip -q ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip [f-F]mUX.*"
                     sh "curl -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/"
-                    default:
+                    break
+                    case 'fis':
                     sh "zip -r -q ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
                     sh "curl  -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/${NODE}/"
-                }
+                    break                
+                    default:
+                    println "TBD"
+                }   
             }
         }
     }
