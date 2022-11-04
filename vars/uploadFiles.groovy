@@ -1,7 +1,7 @@
-def call(String os) {
+def call(String job, String path) {
     node (NODE) {
-    def dirpath="${TARGET}"
-    dir(dirpath) {
+    //path: ${TARGET}
+    dir(path) {
         //condition for BASELIB/LIBFIS/MQLIB .a library copy action to bin/$TARGET folder
         if (params.LIB_UPLOAD) { sh "cp -R ${WORKSPACE}/lib/ ./lib" }
         //Vars for folders naming (artifacts in nexus)
@@ -17,7 +17,7 @@ def call(String os) {
                 [envVar: 'nexus_pwd', vaultKey: 'password']]]]
             wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
                 //creating .zip artifact from bin/$TARGET folder and curl upload to nexus
-                switch (os) {
+                switch (job) {
                     case ['tid_man', 'mms_eod', 'palmera']:
                     bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
                     bat "curl -s -u admin:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
