@@ -1,4 +1,6 @@
 --- 
+PALMERA:
+  bmp: "*.ini, *.bat"
 MMS: 
   bmp: "*.ini, *.dbf, *.tsk"
   bpl: "borlndmm.dll, cc3260mt.dll"
