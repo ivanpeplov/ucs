@@ -1,15 +1,11 @@
 @Library("shared-library") _
 pipeline {
     agent {label 'ROSA'}
-    options {
-        timeout(time: 10, unit: 'MINUTES') 
-    }
+    options { timeout(time: 10, unit: 'MINUTES') }
     environment {
     NODE='ROSA'
-    ROOT="NexusShareAsIs"
-    SVN=' '
-    VERSION=' '
-    SVN_PATH ="NexusShareAsIs"
+    ROOT="NexusShareAsIs" //project root at SVN
+    SVN_PATH ="${ROOT}" //full path for download fron SVN
     }
     stages {
         stage('SET Env') {
@@ -35,19 +31,19 @@ pipeline {
             }
         }
     } //stages
-        post {
-            always {
-                script {             
-                    echo 'Clean Workspace'
-                    cleanWs()
-                    clearSlave()
-                }//script
-            }//always
-            failure {
-                script {
-                    echo 'emailing'
-                    sendEmail()               
-                }//script
-            }//failure
-        } //post actions
+    post {
+        always {
+            script {             
+                echo 'Clean Workspace'
+                cleanWs()
+                clearSlave()
+            }//script
+        }//always
+        failure {
+            script {
+                echo 'emailing'
+                sendEmail()               
+            }//script
+        }//failure
+    } //post actions
 } //pipeline
