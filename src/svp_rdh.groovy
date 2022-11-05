@@ -1,5 +1,5 @@
 pipeline {
-    agent {label ('master')}
+    agent {label 'OW'}
     parameters {
         choice(name: 'SVP', choices: ['skip', 'start', 'shutdown'], description: 'Reload operations for SVP hosts')
         choice(name: 'RDH', choices: ['skip','start', 'shutdown'], description: 'Reload operations for RDH hosts')
@@ -115,25 +115,18 @@ pipeline {
         }
     }
     post {
-            aborted {
-                script {             
-                    // Clean Workspace
-                    cleanWs()
-                }//script
-            }//always
-            failure {
-                script {
-                    //emailing
-                    patch.send_email()               
-                    // Clean Workspace
-                    cleanWs()
-                }//script
-            }
-            success {
-                script {              
-                    // Clean Workspace
-                    cleanWs()
-                }//script
-            }
-        } //post actions
+    always {
+      script {             
+          echo 'Clean Workspace'
+          cleanWs()
+      }//script
+    }//always
+    failure {
+      script {
+          //emailing
+          echo 'email'
+          //sendEmail()               
+      }//script
+    }//failure
+   }//post actions
 } //pipeline
