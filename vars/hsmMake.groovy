@@ -7,15 +7,14 @@ def call(String folder, String hsm) {
             //sh "sed -i 's;\\\\samples\\\\;/samples/;' Makefile"
             //temporary cp
                 sh """
-                cp ~/projects/cfgbuild.mak ${WORKSPACE}/FmUX/
-                cp ~/projects/Makefile ${WORKSPACE}/FmUX/fm/
+                cp ${WORKSPACE}/git/config/cfgbuild.mak ${WORKSPACE}/FmUX/
+                cp ${WORKSPACE}/git/config/Makefile ${WORKSPACE}/FmUX/fm/
                 """
-                if (DIR=='') {sh "unset ${DEBUG}; make"}
-                else {sh "make debug=1"}
-                
+                if (TAIL=='') {sh "unset ${DEBUG}; make"}
+                else {sh "make debug=1"}              
             break
             default:
-                if (DIR=='') {bat "gnumake"}
+                if (TAIL=='') {bat "gnumake"}
                 else {bat "gnumake debug=1"}
             }
         }
