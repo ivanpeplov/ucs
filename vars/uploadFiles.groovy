@@ -1,5 +1,4 @@
 def call(String job, String path) {
-    node (NODE) {
     //path: ${TARGET}
     dir(path) {
         // fis/utility_fis condition for BASELIB/LIBFIS/MQLIB .a libs copy action 
@@ -17,27 +16,26 @@ def call(String job, String path) {
                 [envVar: 'nexus_pwd', vaultKey: 'password']]]]
             wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
                 //creating .zip artifact from bin/$TARGET folder and curl upload to nexus
-                switch (job) {
-                    case ['tid_man', 'mms_eod', 'palmera']:
-                    bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
-                    bat "curl -s -u admin:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
-                    break
-                    case 'eracom':
-                    bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip fmUX*, FmUX*"
-                    bat "curl -s -u admin:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
-                    break
-                    case 'gemalto':
-                    sh "zip -q ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip [f-F]mUX.*"
-                    sh "curl -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/"
-                    break
-                    case 'fis':
-                    sh "zip -r -q ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
-                    sh "curl  -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/${NODE}/"
-                    break                
-                    default:
-                    println "TBD"
-                }   
-            }
+            switch (job) {
+                case ['tid_man', 'mms_eod', 'palmera']:
+                bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
+                bat "curl -s -u admin:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
+                break
+                case 'eracom':
+                bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip fmUX*, FmUX*"
+                bat "curl -s -u admin:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
+                break
+                case 'gemalto':
+                sh "zip -q ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip [f-F]mUX.*"
+                sh "curl -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/"
+                break
+                case 'fis':
+                sh "zip -r -q ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
+                sh "curl  -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/${NODE_NAME}/"
+                break                
+                default:
+                println "TBD"
+            }   
         }
     }
 }

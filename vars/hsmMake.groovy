@@ -1,5 +1,4 @@
 def call(String folder, String hsm) {
-    node (NODE) {
     dir (folder) {
         switch (hsm) {
             case "gemalto":
@@ -16,7 +15,7 @@ def call(String folder, String hsm) {
             default:
                 if (TAIL=='') {bat "gnumake"}
                 else {bat "gnumake debug=1"}
-            }
         }
     }
 }
+

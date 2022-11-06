@@ -1,5 +1,5 @@
 def call() {
-    node ("${NODE}") {
+    node (NODE) {
     deleteDir()
     }
 }

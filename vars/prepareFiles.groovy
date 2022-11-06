@@ -3,7 +3,7 @@ def call(String name) {
         case "fis":
             //local preliminary file operations
             sh  "cp -R ~/projects/{lib,bin,tools}/ ${WORKSPACE}/"
-            sh  "mkdir ${WORKSPACE}/${TARGET}"
+            sh  "cd bin ; mkdir fis.bin"
             break
         case "utility_fis":
             //local preliminary file operations

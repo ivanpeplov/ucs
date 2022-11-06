@@ -6,8 +6,8 @@ def call () {
         Build Start Date&Time: ${startTime}
         Build Status: ${currentBuild.result}
         Launched by ${BUILD_USER_ID}
-        ${NODE}-${JOB_BASE_NAME}-${BUILD_NUMBER}""",
+        ${NODE_NAME}-${JOB_BASE_NAME}-${BUILD_NUMBER}""",
             from: 'prime_news@ucscards.ru',
-            subject: "Build Status ${currentBuild.result}, ${NODE}-${JOB_BASE_NAME}-${BUILD_NUMBER}",
+            subject: "Build Status ${currentBuild.result}, ${NODE_NAME}-${JOB_BASE_NAME}-${BUILD_NUMBER}",
             to: "${env.MAIL_RECIPIENTS_DEV}";
 }

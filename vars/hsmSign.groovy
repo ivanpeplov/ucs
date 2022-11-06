@@ -3,7 +3,7 @@ def call(String folder, String hsm) {
     node ("${NODE}") {
         dir (folder) {
             switch (hsm) {
-            case "gem":
+            case  "gem":
             sh "mkfm -k ABG/fm -ffmUX.bin -oFmUX.fm <<< ${GEM_SIGN}"
             break
             default:
