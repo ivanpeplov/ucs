@@ -3,7 +3,7 @@ properties([
   parameters([
       [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select node',
+      description: 'Select node to run',
       filterLength: 1,
       filterable: false,
       name: 'NODE_NAME', 
@@ -114,7 +114,6 @@ pipeline {
     agent {label NODE_NAME}
     options { timeout(time: 10, unit: 'MINUTES') }
     parameters {
-        booleanParam(name: "LIB_UPLOAD", defaultValue: false, description: 'If checked, will add LIBFIS.a/BASELIB.a/LIBMQLIB.a to artifact.zip')
         choice(name: 'RELEASE', choices: ['release', 'debug'], description: '')
     } //parameters end
     environment {
