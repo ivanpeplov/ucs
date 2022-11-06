@@ -139,7 +139,7 @@ pipeline {
       steps {
         script {
             getSVN()
-            prepareFiles('utility_fis')
+            prepareFiles('fis_util')
         }
       }
     }
