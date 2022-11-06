@@ -39,24 +39,22 @@ properties([
 ])
 pipeline {
     agent {label 'jenkins-gem'}
-    options {
-        timeout(time: 10, unit: 'MINUTES') 
-    }
+    options { timeout(time: 10, unit: 'MINUTES') }
     parameters {
-    booleanParam(name: "SIGN", defaultValue: false, description: 'Only for testing')
+        booleanParam(name: "SIGN", defaultValue: false, description: 'Only for testing')
     } //parameters end
     environment {
-    NODE='GEM'
-    TARGET="FmUX/fm/obj-ppcfm${TAIL}" //where find files for upload
-    ROOT='PassKey/FM/FmUX' //project root at SVN
-    SVN_PATH = "${ROOT}" //full path for download fron SVN
-    CPROVDIR='/opt/safenet/protecttoolkit5/ptk'
-    FMDIR='/opt/safenet/protecttoolkit5/fmsdk'
-    LD_LIBRARY_PATH="${CPROVDIR}/lib:"
-    PATH="${CPROVDIR}/bin:/usr/local/bin:/usr/bin:/bin:"
-    PTKBIN="${CPROVDIR}/bin"
-    PTKLIB="${CPROVDIR}/lib"
-    PTKMAN="${CPROVDIR}/man"
+        TARGET="FmUX/fm/obj-ppcfm${TAIL}" //where find files for upload
+        ROOT='PassKey/FM/FmUX' //project root at SVN
+        SVN_PATH = "${ROOT}" //full path for download fron SVN
+        //environment for build
+        CPROVDIR='/opt/safenet/protecttoolkit5/ptk'
+        FMDIR='/opt/safenet/protecttoolkit5/fmsdk'
+        LD_LIBRARY_PATH="${CPROVDIR}/lib:"
+        PATH="${CPROVDIR}/bin:/usr/local/bin:/usr/bin:/bin:"
+        PTKBIN="${CPROVDIR}/bin"
+        PTKLIB="${CPROVDIR}/lib"
+        PTKMAN="${CPROVDIR}/man"
     }
     stages {
         stage('SET Env') {
@@ -78,7 +76,6 @@ pipeline {
         stage('BUILD') {
             steps {
                 script {
-                    echo "GEMALTO FM Build"
                     hsmMake('FmUX/fm', 'gemalto')
                 }
             }

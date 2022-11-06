@@ -106,24 +106,25 @@ pipeline {
   agent {label NODE_NAME}
   options { timeout(time: 10, unit: 'MINUTES') }
   parameters {
-      choice(name: 'RELEASE', choices: ['release', 'debug'], description: '')
+    choice(name: 'RELEASE', choices: ['release', 'debug'], description: '')
   } //parameters end
   environment {
-  TARGET='bin' //target folder for binaries
-  ROOT='FIS/new' //project root at SVN
-  SVN_PATH = "${ROOT}/${SVN}/${VERSION}units" //full path for download fron SVN
-  PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
-  INFORMIXSERVER="shlag"
-  INFORMIXDIR="/opt/IBM/informix"
-  INFORMIXSQLHOSTS="${INFORMIXDIR}/etc/sqlhosts"
-  LD_LIBRARY_PATH="${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql"
-  DB_LOCALE="ru_ru.1251"
-  CLIENT_LOCALE="ru_ru.1251"
-  DBMONEY="."
-  INCLUDE="-I. -I$PROJECTS/units -I./include -I../include"
-  LIB='-L${PROJECTS}/lib'
-  MQCCSID=1251
-  MQM="/opt/mqm"
+    TARGET='bin' //target folder for binaries
+    ROOT='FIS/new' //project root at SVN
+    SVN_PATH = "${ROOT}/${SVN}/${VERSION}units" //full path for download fron SVN
+    //environment for build
+    PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
+    INFORMIXSERVER="shlag"
+    INFORMIXDIR="/opt/IBM/informix"
+    INFORMIXSQLHOSTS="${INFORMIXDIR}/etc/sqlhosts"
+    LD_LIBRARY_PATH="${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql"
+    DB_LOCALE="ru_ru.1251"
+    CLIENT_LOCALE="ru_ru.1251"
+    DBMONEY="."
+    INCLUDE="-I. -I$PROJECTS/units -I./include -I../include"
+    LIB='-L${PROJECTS}/lib'
+    MQCCSID=1251
+    MQM="/opt/mqm"
   }
   stages {
     stage('SET Env') {
@@ -153,7 +154,7 @@ pipeline {
     stage('UPLOAD') {
       steps {
         script {
-            uploadFiles('fis', "${TARGET}")
+            uploadFiles('fis_util', "${TARGET}")
         }
       }
     }
