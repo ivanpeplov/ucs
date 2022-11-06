@@ -3,6 +3,27 @@ properties([
   parameters([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
+      description: 'Select node',
+      filterLength: 1,
+      filterable: false,
+      name: 'NODE_NAM', 
+      script: [
+        $class: 'GroovyScript', 
+        script: [
+          classpath: [], 
+          sandbox: false, 
+          script: '''
+          label='FIS'
+          def nodes = jenkins.model.Jenkins.get().computers
+          .findAll{ it.node.labelString.contains(label) }
+          .collect{ it.node.selfLabel.name }
+          return nodes
+          '''
+        ]
+      ]
+    ],
+    [$class: 'CascadeChoiceParameter', 
+      choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Trunk, Branches or Tags',
       filterLength: 1,
       filterable: false,
@@ -85,7 +106,6 @@ pipeline {
   agent {label NODE_NAME}
   options { timeout(time: 10, unit: 'MINUTES') }
   parameters {
-      choice(name: 'NODE_NAME', choices: ['jenkins-legacy', 'jenkins-rosa'], description: 'The node to run on')
       choice(name: 'RELEASE', choices: ['release', 'debug'], description: '')
   } //parameters end
   environment {
