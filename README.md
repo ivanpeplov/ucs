@@ -1,63 +1,54 @@
 # cpp
+**FIS server**
 FIS server C++ Jenkins declarative pipeline
-Полное название проекта: UCS/fis
-SVN проект FIS
-node LEGACY - jenkins-legacy - ip=172.16.10.235
-node ROSA   - jenkins-rosa   - ip=172.16.10.236
-Исходники:
-Trunk:
-https://svn/scm/svn/dev/FIS/new/trunk/units
-Tags: 
-https://svn/scm/svn/dev/FIS/new/tags/2019AU/units
-https://svn/scm/svn/dev/FIS/new/tags/2020KA/units - PROD
-
-Артифакты: http://10.255.252.161:8081/service/rest/repository/browse/prime-artifacts-local/dev/
-LIBs: baselib, libfis, mqlib
-BINARIES: fis/samples (deps from baselib and fis); 
+JIRA: CI-51
+SVN: FIS/new/
+node: jenkins-legacy : ip=172.16.10.235
+node: jenkins-rosa : ip=172.16.10.236
 #
-FIS server C++ Jenkins declarative pipeline - утилиты
-Полное название проекта: UCS/fis
-SVN проект FIS
-node LEGACY - jenkins-legacy - ip=172.16.10.235
-node ROSA   - jenkins-rosa   - ip=172.16.10.236
-Исходники:
-Trunk:
-https://svn/scm/svn/dev/FIS/new/trunk/opcpposcv (PutFileToQueue/GetFileFromQueue)
-Tags: 
-https://svn/scm/svn/dev/FIS/new/tags/2019AU/opcpposcv (PutFileToQueue/GetFileFromQueue)
-https://svn/scm/svn/dev/FIS/new/tags/2020KAopcpposcv  (PutFileToQueue/GetFileFromQueue) - PROD
-
-Артифакты: http://10.255.252.161:8081/service/rest/repository/browse/prime-artifacts-local/dev/
-BINARIES:opcpposcv, PutFileToQueue/GetFileFromQueue
+**Утилиты, относящиеся к проекту FIS**
+JIRA: CI-51
+SVN: FIS/new/
+node: jenkins-legacy : ip=172.16.10.235
+node: jenkins-rosa : ip=172.16.10.236
+BINARIES: opcpposcv, GetFileFromQueue, PutFileToQueue
 #
-Сборка функциональных модулей для HSM
-Полное название проекта: UCS/gemalto; UCS/eracom
-SVN проект FM
-node GEM - jenkins-gem - ip=172.16.64.70
-node ERA - eracom      - ip=172.24.31.199 (win7 32x)
-Исходники: https://svn/scm/svn/dev/PassKey/FM/FmUX
-Артифакты: http://10.255.252.161:8081/service/rest/repository/browse/prime-artifacts-local/dev/
-BINARIES: obj-ppcfm/FmUX.bin - GEMALTO; obj-armfm/FmUX.bin - ERACOM
+**Сборка функциональных модулей для HSM**
+сборка функц. модулей для HSM Eracom/
+JIRA: CI-52
+SVN: PassKey/FM/FmUX
+node: eracom : ip=172.24.31.199 (Win7, x86)
+BINARIES: obj-armfm/FmUX.bin
 #
-Сборка функциональных модулей для TID Manager (Borland C++ Builder 6.0)
-Полное название проекта: UCS/tid_man
-SVN проект CardPro
-node BORLAND - jenkins-borland - ip=10.255.250.10 (win10 32x)
-Исходники: https://svn/scm/svn/dev/CardPro/TidManager/TID_v6
-Артифакты: http://10.255.252.161:8081/service/rest/repository/browse/prime-artifacts-local/dev/
-BINARIES: .dll, exe, 
-nexus repo for artifacts 10.255.252.161
-gitlab: http://10.255.252.160/prime/cpp
+сборка функц. модулей для HSM Gemalto
+JIRA: CI-52
+SVN: PassKey/FM/FmUX
+node: jenkins-gem : ip=172.16.64.70 (SUSE 12.5)
+BINARIES: obj-ppcfm/FmUX.bin
 #
-Перекладка скриптов из svn в nexus
+**Сборка функциональных модулей (Borland C++ Builder 6.0)**
+Cборка TID Manager (Borland C++ Builder 6.0)
+JIRA CI-56
+SVN: CardPro/TidManager/TID_v6
+node: borland : ip=10.255.250.10 (win10 32x)
+BINARIES: .dll, .exe, .bpl, .bmp
+#
+Cборка mmsEOD (Borland C++ Builder 6.0)
+JIRA CI-58
+SVN: MMS/mmsEOD
+node: borland : ip=10.255.250.10 (win10 32x)
+BINARIES: .dll, .exe, .bpl, .bmp
+#
+Cборка PalmeraLoader (Borland C++ Builder 6.0)
+JIRA CI-59
+SVN: Util/PalmeraLoader
+node: borland : ip=10.255.250.10 (win10 32x)
+BINARIES: .exe, .ini, .bat
+#
+**Перекладка скриптов из svn в nexus**
 Полное название проекта: UCS/svn_nexus
-SVN проект NexusShareAsIs
-node ROSA   - jenkins-rosa   - ip=172.16.10.236
-Исходники: https://svn/scm/svn/dev/NexusShareAsIs
-Артифакты: http://10.255.252.161:8081/service/rest/repository/browse/prime-artifacts-local/dev/
-BINARIES: 
-nexus repo for artifacts 10.255.252.161
-gitlab: http://10.255.252.160/prime/cpp
+IRA: CI-57
+SVN: NexusShareAsIs
+node: jenkins-rosa : ip=172.16.10.236
 #
 shared-library in gitlab: /vars
-scriptler scripts: /var/lib/jenkins/.jenkins/scriptler/scripts
