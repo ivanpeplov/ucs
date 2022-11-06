@@ -5,7 +5,7 @@ def call(String name) {
             sh  "cp -R ~/projects/{lib,bin,tools}/ ${WORKSPACE}/"
             sh  "cd bin ; mkdir fis.bin"
             break
-        case "utility_fis":
+        case "fis_util":
             //local preliminary file operations
             sh  "cp -R ~/projects/{lib,bin,tools}/ ${WORKSPACE}/"
             break
@@ -18,6 +18,6 @@ def call(String name) {
             bat "mkdir ${TARGET}"
             break
         default:
-            println ("gemalto & eracom")
+            println ("gemalto || eracom || svn_nexus")
     }
 }
