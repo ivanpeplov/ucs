@@ -1,8 +1,6 @@
 def call(String job, String path) {
     //path: ${TARGET}
     dir(path) {
-        // fis/utility_fis condition for BASELIB/LIBFIS/MQLIB .a libs copy action 
-        if (params.LIB_UPLOAD) { sh "cp -R ${WORKSPACE}/lib/ ./lib" }
         //Vars for folders naming (artifacts in nexus)
         def currentDate = new Date().format( 'yyyyMMdd' )
             echo currentDate
