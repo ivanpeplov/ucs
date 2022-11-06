@@ -1,9 +1,8 @@
 @Library("shared-library") _
 pipeline {
-    agent {label 'ROSA'}
+    agent {label 'jenkins-rosa'}
     options { timeout(time: 10, unit: 'MINUTES') }
     environment {
-    NODE='ROSA'
     ROOT="NexusShareAsIs" //project root at SVN
     SVN_PATH ="${ROOT}" //full path for download fron SVN
     }
