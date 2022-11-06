@@ -36,7 +36,6 @@ pipeline {
             script {             
                 echo 'Clean Workspace'
                 cleanWs()
-                clearSlave()
             }//script
         }//always
         failure {

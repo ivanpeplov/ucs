@@ -82,78 +82,74 @@ properties([
   ])
 ])
 pipeline {
-    agent {label 'master'}
-    options {
-        timeout(time: 10, unit: 'MINUTES') 
+  agent {label NODE_NAME}
+  options { timeout(time: 10, unit: 'MINUTES') }
+  parameters {
+      choice(name: 'NODE_NAME', choices: ['jenkins-legacy', 'jenkins-rosa'], description: 'The node to run on')
+      choice(name: 'RELEASE', choices: ['release', 'debug'], description: '')
+  } //parameters end
+  environment {
+  TARGET='bin' //target folder for binaries
+  ROOT='FIS/new' //project root at SVN
+  SVN_PATH = "${ROOT}/${SVN}/${VERSION}units" //full path for download fron SVN
+  PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
+  INFORMIXSERVER="shlag"
+  INFORMIXDIR="/opt/IBM/informix"
+  INFORMIXSQLHOSTS="${INFORMIXDIR}/etc/sqlhosts"
+  LD_LIBRARY_PATH="${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql"
+  DB_LOCALE="ru_ru.1251"
+  CLIENT_LOCALE="ru_ru.1251"
+  DBMONEY="."
+  INCLUDE="-I. -I$PROJECTS/units -I./include -I../include"
+  LIB='-L${PROJECTS}/lib'
+  MQCCSID=1251
+  MQM="/opt/mqm"
+  }
+  stages {
+    stage('SET Env') {
+      steps {
+        script {
+          catchErrors()
+          setDescription()
+          setEnv()
+        }
+      }
     }
-    parameters {
-        choice(name: 'NODE', choices: ['LEGACY', 'ROSA'], description: 'The node to run on')
-        choice(name: 'RELEASE', choices: ['release', 'debug'], description: '')
-    } //parameters end
-    environment {
-    TARGET='bin' //target folder for binaries
-    ROOT='FIS/new' //project root at SVN
-    SVN_PATH = "${ROOT}/${SVN}/${VERSION}units" //full path for download fron SVN
-    PROJECTS="/home/jenkins/workspace/${JOB_NAME}"
-    INFORMIXSERVER="shlag"
-    INFORMIXDIR="/opt/IBM/informix"
-    INFORMIXSQLHOSTS="${INFORMIXDIR}/etc/sqlhosts"
-    LD_LIBRARY_PATH="${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql"
-    DB_LOCALE="ru_ru.1251"
-    CLIENT_LOCALE="ru_ru.1251"
-    DBMONEY="."
-    INCLUDE="-I. -I$PROJECTS/units -I./include -I../include"
-    LIB='-L${PROJECTS}/lib'
-    MQCCSID=1251
-    MQM="/opt/mqm"
+    stage ('PREPARE') {
+      steps {
+        script {
+            getSVN()
+            prepareFiles('utility_fis')
+        }
+      }
     }
-    stages {
-        stage('SET Env') {
-            steps {
-                script {
-                    catchErrors()
-                    setDescription()
-                    setEnv()
-                }
-            }
+    stage('BUILD UTILITIES') {
+      steps {
+        script {
+            prjMake('units')
         }
-        stage ('PREPARE') {
-            agent {label NODE}
-            steps {
-                script {
-                    getSVN()
-                    prepareFiles('utility_fis')
-                }
-            }
+      }
+    }
+    stage('UPLOAD') {
+      steps {
+        script {
+            uploadFiles('fis', "${TARGET}")
         }
-        stage('BUILD UTILITIES') {
-            steps {
-                script {
-                    prjMake('units')
-                }
-            }
-        }
-        stage('UPLOAD') {
-            steps {
-                script {
-                    uploadFiles('fis', "${TARGET}")
-                }
-            }
-        }
-    } //stages
-        post {
-            always {
-                script {             
-                    echo "Clean Workspace"
-                    cleanWs()
-                    clearSlave()
-                }//script
-            }//always
-            failure {
-                script {
-                    //emailing
-                    sendEmail()               
-                }//script
-            }//failure
-        } //post actions
+      }
+    }
+  } //stages
+  post {
+    always {
+      script {             
+          echo "Clean Workspace"
+          cleanWs()
+      }//script
+    }//always
+    failure {
+      script {
+          //emailing
+          sendEmail()               
+      }//script
+    }//failure
+  } //post actions
 } //pipeline

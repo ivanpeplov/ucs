@@ -90,20 +90,18 @@ properties([
   ])
 ])
 pipeline {
-    agent {label 'master'}
-    options {
-        timeout(time: 10, unit: 'MINUTES') 
-    }
+    agent {label NODE_NAME}
+    options { timeout(time: 10, unit: 'MINUTES') }
     parameters {
-        choice(name: 'NODE', choices: ['LEGACY', 'ROSA'], description: 'The node to run on')
+        choice(name: 'NODE_NAME', choices: ['jenkins-legacy', 'jenkins-rosa'], description: 'The node to run on')
         booleanParam(name: "LIB_UPLOAD", defaultValue: false, description: 'If checked, will add LIBFIS.a/BASELIB.a/LIBMQLIB.a to artifact.zip')
         choice(name: 'RELEASE', choices: ['release', 'debug'], description: '')
     } //parameters end
     environment {
-    TARGET='bin' //where find files for upload
+    TARGET='bin/fis.bin' //where find files for upload
     ROOT='FIS/new' //project root at SVN
     SVN_PATH = "${ROOT}/${SVN}/${VERSION}/units" //full path for download fron SVN
-    PROJECTS="/home/jenkins/workspace/${JOB_NAME}"
+    PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
     INFORMIXSERVER="shlag"
     INFORMIXDIR="/opt/informix"
     INFORMIXSQLHOSTS="${INFORMIXDIR}/etc/sqlhosts"
@@ -117,51 +115,50 @@ pipeline {
     MQM="/opt/mqm"
     }
     stages {
-        stage('SET Env') {
-            steps {
-                script {
-                    catchErrors()
-                    setDescription()
-                    setEnv()
-                }
-            }
+      stage('SET Env') {
+        steps {
+          script {
+            catchErrors()
+            setDescription()
+            setEnv()
+          }
         }
-        stage ('PREPARE') {
-            agent {label NODE}
-            steps {
-                script {
-                    getSVN()
-                    prepareFiles('fis')
-                }
-            }
+      }
+      stage ('PREPARE') {
+        steps {
+          script {
+            getSVN()
+            prepareFiles('fis')
+          }
         }
-        stage('BUILD') {
-            steps {
-                script {
-                    prjMake('units/fis/samples/')
-                }
-            }
+      }
+      stage('BUILD') {
+        steps {
+          script {
+            prjMake('units/fis/samples/')
+          }
         }
-        stage('UPLOAD') {
-            steps {
-                script {
-                    uploadFiles('fis', "${TARGET}")
-                }
-            }
+      }
+      stage('UPLOAD') {
+        steps {
+          script {
+            uploadFiles('fis', "${TARGET}")
+          }
         }
+      }
     } //stages
-        post {
-            always {
-                script {             
-                    // Clean Workspace
-                    clearSlave()
-                }//script
-            }//always
-            failure {
-                script {
-                    //emailing
-                    sendEmail()               
-                }//script
-            }//failure
-        } //post actions
+    post {
+      always {
+        script {             
+            echo "Clean Workspace"
+            cleanWs()
+        }//script
+      }//always
+      failure {
+        script {
+          //emailing
+          sendEmail()               
+        }//script
+      }//failure
+    } //post actions
 } //pipeline

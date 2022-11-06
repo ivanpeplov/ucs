@@ -19,11 +19,11 @@ properties([
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'd for obj-$(ARCH)d : $(OBJDIR) folder',
+      description: 'obj-$(ARCH)d : $(OBJDIR) folder',
       filterLength: 1,
       filterable: false,
       referencedParameters: 'DEBUG',
-      name: 'DIR', 
+      name: 'TAIL', 
       script: [
         $class: 'GroovyScript', 
         script: [
@@ -38,7 +38,7 @@ properties([
   ])
 ])
 pipeline {
-    agent {label 'master'}
+    agent {label 'jenkins-gem'}
     options {
         timeout(time: 10, unit: 'MINUTES') 
     }
@@ -47,18 +47,16 @@ pipeline {
     } //parameters end
     environment {
     NODE='GEM'
-    TARGET="FmUX/fm/obj-ppcfm${DIR}" //where find files for upload
+    TARGET="FmUX/fm/obj-ppcfm${TAIL}" //where find files for upload
     ROOT='PassKey/FM/FmUX' //project root at SVN
-    SVN='trunk' //only for setDescription()
-    VERSION=' ' //only for setDescription()
     SVN_PATH = "${ROOT}" //full path for download fron SVN
     CPROVDIR='/opt/safenet/protecttoolkit5/ptk'
     FMDIR='/opt/safenet/protecttoolkit5/fmsdk'
-    LD_LIBRARY_PATH="/opt/safenet/protecttoolkit5/ptk/lib:"
-    PATH="/opt/safenet/protecttoolkit5/ptk/bin:/usr/local/bin:/usr/bin:/bin:"
-    PTKBIN="/opt/safenet/protecttoolkit5/ptk/bin"
-    PTKLIB="/opt/safenet/protecttoolkit5/ptk/lib"
-    PTKMAN="/opt/safenet/protecttoolkit5/ptk/man"
+    LD_LIBRARY_PATH="${CPROVDIR}/lib:"
+    PATH="${CPROVDIR}/bin:/usr/local/bin:/usr/bin:/bin:"
+    PTKBIN="${CPROVDIR}/bin"
+    PTKLIB="${CPROVDIR}/lib"
+    PTKMAN="${CPROVDIR}/man"
     }
     stages {
         stage('SET Env') {
@@ -70,7 +68,6 @@ pipeline {
             }
         }
         stage ('PREPARE') {
-            agent {label NODE}
             steps {
                 script {
                     getSVN()
@@ -88,10 +85,10 @@ pipeline {
         }
         stage('SIGN') {
             when {
-                    beforeInput true
-                    expression { return env.SIGN.toBoolean() }
-                }
-                input {
+                beforeInput true
+                expression { return env.SIGN.toBoolean() }
+            }
+            input {
                 message "PWD for GEMALTO FM Sign-in"
                 ok "Yes"
                 parameters {
@@ -113,18 +110,18 @@ pipeline {
             }
         }
     } //stages
-        post {
-            always {
-                script {             
-                    echo 'Clean Workspace'
-                    clearSlave()
-                }//script
-            }//always
-            failure {
-                script {
-                    //emailing
-                    sendEmail()               
-                }//script
-            }//failure
-        } //post actions
+    post {
+        always {
+            script {             
+                echo 'Clean Workspace'
+                cleanWs()
+            }//script
+        }//always
+        failure {
+            script {
+                //emailing
+                sendEmail()               
+            }//script
+        }//failure
+    } //post actions
 } //pipeline

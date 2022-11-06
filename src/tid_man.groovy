@@ -47,76 +47,75 @@ properties([
   ])
 ])
 pipeline {
-  agent {label 'BORLAND'}
+  agent {label 'borland'}
   environment {
     APP='TID' //label for .yaml; Borland CB pipelines
     TARGET = "${WORKSPACE}\\UPLOAD" //where find files for upload
-    NODE = 'BORLAND'
     ROOT = "CardPro/TidManager/TID_v6" //project root at SVN
     SVN_PATH = "${ROOT}/${SVN}/${VERSION}" //full path for download fron SVN
     PATH='C:\\Program Files\\Borland\\CBuilder6\\Bin;C:\\Program Files\\Borland\\CBuilder6\\Projects\\Bpl;c:\\jenkins\\bin;c:\\Windows\\System32;C:\\Program Files\\TortoiseSVN\\bin;c:\\jenkins\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Program Files\\Eclipse Adoptium\\jre-11.0.16.101-hotspot\\bin;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Git\\bin,C:\\Program Files\\Git\\cmd,C:\\Program Files\\Git\\usr\\bin'
   }
-stages {
+  stages {
     stage('SET Env') {
-        steps {
-            script {
-                setDescription()
-                setEnv()
-            }
+      steps {
+        script {
+          setDescription()
+          setEnv()
         }
+      }
     }
     stage ('PREPARE') {
-        steps {
-          script {
-            getSVN()
-            prepareFiles('tid_man')      
-          }
+      steps {
+        script {
+          getSVN()
+          prepareFiles('tid_man')      
         }
+      }
     }
     stage('CARDLIB') {
-        steps {
-            script {
-                makeBorland("CARDLIB")
-            }
+      steps {
+        script {
+          makeBorland("CARDLIB")
         }
+      }
     }
     stage('FORM') {
       steps {
         script {
-            makeBorland('FORM')
+          makeBorland('FORM')
         }
       }
     }
     stage('CARDPRO PRINT.CFG *.BPL') {
       steps {
         script {
-            makeBorland('C:\\jenkins\\workspace\\UCS\\tid_man')
-            makeBorland('C:\\Windows\\System32')
-            makeBorland('FORM\\PRINT.CFG')
+          makeBorland("${WORKSPACE}")
+          makeBorland('C:\\Windows\\System32')
+          makeBorland('FORM\\PRINT.CFG')
         }
       }
     }
     stage('UPLOAD') {
       steps {
         script {
-            uploadFiles('tid_man', "${TARGET}")
+          uploadFiles('tid_man', "${TARGET}")
         }
       }
     }
   }//stages
   post {
-      always {
-          script {             
-              echo 'Clean Workspace'
-              cleanWs()
-          }//script
-      }//always
-      failure {
-          script {
-              //emailing
-              echo 'email'
-              //sendEmail()               
-          }//script
-      }//failure
+    always {
+      script {             
+          echo 'Clean Workspace'
+          cleanWs()
+      }//script
+    }//always
+    failure {
+      script {
+          //emailing
+          echo 'email'
+          //sendEmail()               
+      }//script
+    }//failure
   }//post actions
 }//pipeline
