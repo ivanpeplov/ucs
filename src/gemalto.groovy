@@ -41,7 +41,7 @@ pipeline {
     agent {label 'jenkins-gem'}
     options { timeout(time: 10, unit: 'MINUTES') }
     parameters {
-        booleanParam(name: "SIGN", defaultValue: false, description: 'Only for testing')
+        //booleanParam(name: "SIGN", defaultValue: false, description: 'Only for testing')
     } //parameters end
     environment {
         TARGET="FmUX/fm/obj-ppcfm${TAIL}" //where find files for upload
@@ -52,9 +52,9 @@ pipeline {
         FMDIR='/opt/safenet/protecttoolkit5/fmsdk'
         LD_LIBRARY_PATH="${CPROVDIR}/lib:"
         PATH="${CPROVDIR}/bin:/usr/local/bin:/usr/bin:/bin:"
-        PTKBIN="${CPROVDIR}/bin"
-        PTKLIB="${CPROVDIR}/lib"
-        PTKMAN="${CPROVDIR}/man"
+        //PTKBIN="${CPROVDIR}/bin"
+        //PTKLIB="${CPROVDIR}/lib"
+        //PTKMAN="${CPROVDIR}/man"
     }
     stages {
         stage('SET Env') {
@@ -76,11 +76,11 @@ pipeline {
         stage('BUILD') {
             steps {
                 script {
-                    hsmMake('FmUX/fm', 'gemalto')
+                    hsmMakeOld('FmUX/fm', 'gemalto')
                 }
             }
         }
-        stage('SIGN') {
+        /*stage('SIGN') {
             when {
                 beforeInput true
                 expression { return env.SIGN.toBoolean() }
@@ -98,7 +98,7 @@ pipeline {
                     hsmSign("${TARGET}", "gemalto")
                 }
             }
-        }
+        }*/
         stage('UPLOAD') {
             steps {
                 script {
