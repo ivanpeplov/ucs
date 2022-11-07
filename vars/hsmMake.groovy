@@ -1,4 +1,4 @@
-def call(String folder, String hsm) {
+def call(String folder, String arch) {
     dir (folder) {
         switch (arch) {
             case "ppcfm": //gemalto
