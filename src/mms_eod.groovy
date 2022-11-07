@@ -74,7 +74,7 @@ pipeline {
     stage('BUILD') {
       steps {
         script {
-          makeBorland("${WORKSPACE}")
+          makeBorland('C:\\jenkins\\workspace\\UCS\\mms_eod')
           makeBorland('C:\\Program Files\\Borland\\CBuilder6\\Bin')
         }
       }

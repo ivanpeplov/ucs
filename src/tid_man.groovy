@@ -89,7 +89,7 @@ pipeline {
     stage('CARDPRO PRINT.CFG *.BPL') {
       steps {
         script {
-          makeBorland("${WORKSPACE}")
+          makeBorland('C:\\jenkins\\workspace\\UCS\\tid_man')
           makeBorland('C:\\Windows\\System32')
           makeBorland('FORM\\PRINT.CFG')
         }

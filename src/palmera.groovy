@@ -66,7 +66,7 @@ stages {
     stage ('PREPARE') {
       steps {
         script {
-          //getSVN()
+          getSVN()
           prepareFiles('palmera')      
         }
       }
@@ -74,7 +74,7 @@ stages {
     stage('BUILD') {
       steps {
         script {
-          makeBorland("${WORKSPACE}")
+          makeBorland('C:\\jenkins\\workspace\\UCS\\palmera')
         }
       }
     }
