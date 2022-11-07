@@ -1,7 +1,7 @@
 def call(String folder, String hsm) {
     dir (folder) {
-        switch (arch) {
-            case "ppcfm": //gemalto
+        switch (hsm) {
+            case "gemalto":
             //obligatory for single makefile support
             //sh "sed -i 's;\\\\samples\\\\;/samples/;' Makefile"
             //temporary cp

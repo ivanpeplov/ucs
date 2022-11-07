@@ -19,13 +19,13 @@ def call(String job, String path) {
                 bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
                 bat "curl -s -u admin:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
                 break
-                case 'eracom':
-                bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip fmUX*, FmUX*"
-                bat "curl -s -u admin:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
+                case ['eracom', 'armfm']:
+                bat "7z a ${ARCH}_${BUILD_NUMBER}.zip fmUX*, FmUX*"
+                bat "curl -s -u admin:${nexus_pwd} --upload-file ${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
                 break
-                case 'gemalto':
-                sh "zip -q ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip [f-F]mUX.*"
-                sh "curl -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/"
+                case ['gemalto', 'ppcfm']:
+                sh "zip -q ${ARCH}_${BUILD_NUMBER}.zip [f-F]mUX.*"
+                sh "curl -s -u admin:"+'${nexus_pwd}'+" --upload-file ${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/"
                 break
                 case ['fis', 'fis_util']:
                 sh "zip -r -q ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
