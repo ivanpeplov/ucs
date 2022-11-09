@@ -50,5 +50,11 @@ BINARIES: .exe, .ini, .bat
 IRA: CI-57
 SVN: NexusShareAsIs
 node: jenkins-rosa : ip=172.16.10.236
+**Преобразование скриптов .ktr из svn в .xml для nexus**
+Полное название проекта: UCS/sql_nexus
+IRA: CI-60
+SVN: TestSQLtoNexus
+node: jenkins-rosa : ip=172.16.10.236
 #
 shared-library in gitlab: /vars
+NEXUS repo: http://10.255.250.50:8081/service/rest/repository/browse/orpo/
