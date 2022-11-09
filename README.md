@@ -50,6 +50,7 @@ BINARIES: .exe, .ini, .bat
 IRA: CI-57
 SVN: NexusShareAsIs
 node: jenkins-rosa : ip=172.16.10.236
+#
 **Преобразование скриптов .ktr из svn в .xml для nexus**
 Полное название проекта: UCS/sql_nexus
 IRA: CI-60
