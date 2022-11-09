@@ -12,9 +12,9 @@ def call(String name) {
         case ["tid_man", "mms_eod", "palmera", "sql_nexus"] :
             //local preliminary file operations
             def workspace = WORKSPACE.replaceAll('/','\\\\')
-            //bat "xcopy C:\\jenkins\\trunk ${workspace} /i /q /d /e"
-            bat "xcopy ${workspace}\\${SVN}\\${VERSION} ${workspace} /i /q /d /e"
-            bat "mkdir ${TARGET}"
+            sh "cp -R /home/jenkins/TestSQLtoNexus ${WORKSPACE}"
+            //bat "xcopy ${workspace}\\${SVN}\\${VERSION} ${workspace} /i /q /d /e"
+            //bat "mkdir ${TARGET}"
             break
         default:
             println ("Default: fm, svn_nexus")

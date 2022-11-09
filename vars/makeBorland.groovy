@@ -9,7 +9,6 @@ def call(String operation) {
         break
         //mmsEOD building
         case ('C:\\jenkins\\workspace\\UCS\\mms_eod') :
-            echo operation
             bat "make -f mmseod.mak & xcopy mmsEOD.exe ${TARGET}"
             bmp.split(', ').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
@@ -20,11 +19,11 @@ def call(String operation) {
         case ("CARDLIB") :
             mod1=operation.toLowerCase()
             bat "make -f ${mod1}.mak"
-            bat "xcopy C:\\bpl\\*.bpl ${TARGET}\\ /i /q /d /e"
+            bat "xcopy C:\\bpl\\*.bpl ${TARGET}"
         break
         case ('C:\\jenkins\\workspace\\UCS\\tid_man') :
-            bat "make -f CardPro.mak"
-            bat "xcopy Cardpro.exe ${TARGET} & xcopy Cardpro.ini ${TARGET}"
+            bat "make -f CardPro.mak & xcopy Cardpro.exe ${TARGET}"
+            bat "xcopy Cardpro.ini ${TARGET}"
         break
         case ('FORM\\PRINT.CFG') :
             bmp.split(', ').each { filename -> bat "xcopy ${filename} ${TARGET}\\${operation}\\"}
@@ -34,7 +33,7 @@ def call(String operation) {
         break
         case ("FORM") :
             nomakList=['TEMPLATE', 'PRINT.CFG']
-            def dir = listFiles (operation)
+            def dir = listDir (operation)
             def makList = dir - nomakList
             def makList1 = makList.collect{ it.toLowerCase() }
             for (int i=0; i < makList.size(); i++) {
