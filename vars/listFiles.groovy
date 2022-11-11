@@ -10,6 +10,7 @@ def call(String dir, String ext) { //get filename.ext list from current dir
         fileList = output.tokenize('\n').collect() { it }
         break
         default :
+        echo "default"
         def output = sh returnStdout: true, script: "ls -l ${WORKSPACE}/${dir} | grep -v '^d' | awk '{a=match(\$0, \$9); print substr(\$0,a)}' | tail -n +2"
         fileList = output.tokenize('\n').collect() { it }
         }
