@@ -9,7 +9,7 @@ def call(String name) {
             //local preliminary file operations
             sh  "cp -R ~/projects/{lib,bin,tools}/ ${WORKSPACE}/"
             break
-        case ["tid_man", "mms_eod", "palmera", "sql_nexus"] :
+        case ["tid_man", "mms_eod", "palmera"] :
             //local preliminary file operations
             def workspace = WORKSPACE.replaceAll('/','\\\\')
             //bat "xcopy C:\\jenkins\\trunk ${workspace} /i /q /d /e"
@@ -17,6 +17,6 @@ def call(String name) {
             bat "mkdir ${TARGET}"
             break
         default:
-            println ("Default: fm, svn_nexus")
+            println ("Default: fm, svn_nexus, etl_nexus")
     }
 }
