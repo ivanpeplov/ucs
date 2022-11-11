@@ -46,13 +46,15 @@ node: borland : ip=10.255.250.10 (win10 32x)
 BINARIES: .exe, .ini, .bat
 #
 **Перекладка скриптов из svn в nexus**
-Полное название проекта: UCS/svn_nexus
+Полное название проекта: UCS/svn_nexus\n
+Скрипты Пентахо для конвертирования в тестовые скрипты
 IRA: CI-57
 SVN: NexusShareAsIs
 node: jenkins-rosa : ip=172.16.10.236
 #
-**Преобразование скриптов .ktr из svn в .xml для nexus**
-Полное название проекта: UCS/sql_nexus
+**Преобразование скриптов .ktr/.kjb из svn в .xml для nexus**
+Автотестирование sql запросов для релиза ТИЕТО MNR19
+Полное название проекта: UCS/etl_nexus
 IRA: CI-60
 SVN: TestSQLtoNexus
 node: jenkins-rosa : ip=172.16.10.236
