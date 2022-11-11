@@ -1,9 +1,6 @@
 import org.apache.commons.io.FilenameUtils
 def call(String path) {
     dir (path) {
-        /*def nexus_creds = [
-        [path: 'secrets/creds/nexus', secretValues: [
-        [envVar: 'nexus_pwd', vaultKey: 'password']]]]*/
         lvl1 = listDir(path) //level 1 - group folder
         println lvl1 //[MNR19]
         lvl2=[] //[AMSBatch.PTH, BIN, BonusETL_top.PTH, ETL_CDWH.PTH]
