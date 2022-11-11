@@ -46,7 +46,7 @@ node: borland : ip=10.255.250.10 (win10 32x)
 BINARIES: .exe, .ini, .bat
 #
 **Перекладка скриптов из svn в nexus**
-Полное название проекта: UCS/svn_nexus\n
+Полное название проекта: UCS/svn_nexus
 Скрипты Пентахо для конвертирования в тестовые скрипты
 IRA: CI-57
 SVN: NexusShareAsIs
