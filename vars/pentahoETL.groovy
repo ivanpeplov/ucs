@@ -1,6 +1,6 @@
 import org.apache.commons.io.FilenameUtils
 def call(String path) {
-    dir (path) {
+    dir (path) { //path="TestSQLtoNexus"
         lvl1 = listDir(path) //level 1 - group folder
         println lvl1 //[MNR19]
         lvl2=[] //[AMSBatch.PTH, BIN, BonusETL_top.PTH, ETL_CDWH.PTH]
@@ -35,6 +35,10 @@ def call(String path) {
                                 ext[m] = FilenameUtils.getExtension(substage_list[m]) //each .ktr/.kjb filename
                                 name[m] = FilenameUtils.removeExtension(substage_list[m]) //each .ktr/.kjb extension
                                 //main pentaho conversion .sh script
+                                //sh """
+                                //chmod 750 ${BASH}/pth.sh;
+                                //${BASH}/pth.sh ${lvl1[i]} ${exe[i][j]} ${stage[l]} ${name[m]} ${ext[m]}
+                                //"""
                                 pthConversion ("${lvl1[i]}", "${exe[i][j]}", "${stage[l]}", "${name[m]}", "${ext[m]}")
                             }
                         }
