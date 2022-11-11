@@ -1,7 +1,7 @@
 @Library("shared-library") _
 pipeline { //CI-60
     agent {label 'jenkins-rosa'}
-    options { timeout(time: 10, unit: 'MINUTES') }
+    options { timeout(time: 20, unit: 'MINUTES') }
     environment {
         ROOT="TestSQLtoNexus" //project root at SVN
         SVN_PATH ="${ROOT}" //full path for download fron SVN
@@ -18,9 +18,7 @@ pipeline { //CI-60
         stage ('PREPARE') {
             steps {
                 script {
-                    echo 'no svn'
                     getSVN()
-                    //prepareFiles_sql('sql_nexus')
                 }
             }
         }
