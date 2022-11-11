@@ -21,8 +21,7 @@ def call(String dir, String ext) { //get filename.ext list from current dir
         proc = bat (returnStdout: true, script: "dir /b /o:gn /A-D")
         removeList = proc.split().toList()
         //for (i in 0..<removeList.size()) {
-        //removeList[i] = FilenameUtils.removeExtension(removeList[i])
-        }
+        //removeList[i] = FilenameUtils.removeExtension(removeList[i])}
         return removeList
     }
 }
