@@ -11,43 +11,46 @@ def call(String path) {
         exe=[]
         ext=[]
         ktr=[]
-        //to delete ./svn folder
-        sh "rm -rf ./.svn"
+        //to delete /.svn folder recursively
+        sh "find . -type d -name .svn -exec rm -rf {} +"
         //level 2 - define conversion dirs
         for (int i = 0; i < lvl1.size(); i++) {
         println lvl1[i] // BNR15
         lvl2[i] = listDir("${path}/${lvl1[i]}/")
-        println lvl2[i] //[AMSBatch.PTH, BIN, BMSBatch.PTH, CMSBatch.ATH]
+        println lvl2[i] //[AMSBatch.PTH, BIN, BonusETL_top.PTH, ETL_CDWH.PTH]
         bin=['BIN']
         exe[i]=lvl2[i] - bin
-        println exe[i] //[AMSBatch.PTH, BMSBatch.PTH, CMSBatch.ATH] - [BIN]
+        println exe[i] //[AMSBatch.PTH, BonusETL_top.PTH, ETL_CDWH.PTH]
             for (int j=0; j < exe[i].size(); j++) {
             //Get folder extension. PTH from AMSBatch.PTH
             ext[j] = FilenameUtils.getExtension(exe[i][j])
                 // switch for different conversion scripts. currently active: PTH (.ktr to .xml)
                 switch ("${ext[j]}") {
                     case ('PTH'): //PTH conversion for Pentaho
-                    println "${ext[j]}"
-                    ktr = listFiles("${ROOT}/${lvl1[i]}/${exe[i][j]}")
-                        for (int k=0; k < ktr.size(); k++) {
-                        println "${ktr[k]}" //each .ktp script
-                        sh """
-                        # set +e - for testing only. In prod - comment it
-                        set +e
-                        pushd ${lvl1[i]}; java -jar ./BIN/xsltc.jar -i "./${exe[i][j]}/${ktr[k]}.ktr" -o "./${exe[i][j]}/${ktr[k]}.xml" -l stdout.log -x ./BIN/pth2lst.xslt
-                        # conversion log
-                        cat stdout.log >> ktr_xml.log
-                        # verification log
-                        pushd BIN; echo "---------- ${ktr[k]}.xml ----------" >> CheckSql.log; java -jar checkersql.jar "../${exe[i][j]}/${ktr[k]}.xml"
-                        popd +0; zip -q -u ${exe[i][j]}.zip ./${exe[i][j]}/*.xml
-                        # true - for testing only. In prod - comment it
-                        true
-                        """
-                        //def sql = sh (returnStatus: true, script: "pushd ${lvl1[i]}/BIN; tail -n 1 CheckSql.log | awk '{print \$6}'")
-                        //if (sql=='-1') {
-                        //stopBuild('aborted')
-                        //return
+                    //check for dirs at level 'exe[i]' than
+                    stage=listDir("${path}/${lvl1[i]}/${exe[i][j]}")
+                    if (stage != '') { //if target PTH folder has a folders
+                        for (int l=0; l < stage.size(); l++) {
+                        substage_list = listFiles("${path}/${lvl1[i]}/${exe[i][j]}/${stage[l]}", ".ktr")
+                            for (int m=0; m < substage_list.size(); m++) {
+                                ext=[]
+                                name=[]
+                                println "${substage_list[m]}" //each .ktr/.kjb file at subfolder under PTH
+                                ext[m] = FilenameUtils.getExtension(substage_list[m]) //each .ktr/.kjb filename
+                                name[m] = FilenameUtils.removeExtension(substage_list[m]) //each .ktr/.kjb extension
+                                pthConversion ("${lvl1[i]}", "${exe[i][j]}", "${stage[l]}", "${name[m]}", "${ext[m]}")
+                            }
                         }
+                    }
+                        stage_list = listFiles("${path}/${lvl1[i]}/${exe[i][j]}", "ktr")
+                            for (int k=0; k < stage_list.size(); k++) {
+                                ext1=[]
+                                name1=[]
+                                println "${stage_list[k]}" //each .ktr/.kjb file under PTH
+                                ext1[k] = FilenameUtils.getExtension(stage_list[k]) //each .ktr/.kjb filename
+                                name1[k] = FilenameUtils.removeExtension(stage_list[k]) //each .ktr/.kjb extension
+                                pthConversion ("${lvl1[i]}", "${exe[i][j]}", '', "${name1[k]}", "${ext1[k]}")
+                            }
                     wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
                     sh """
                     pushd ${lvl1[i]}; zip -q -u  ${exe[i][j]}.zip ktr_xml.log ; zip -q -u -j ${exe[i][j]}.zip ./BIN/CheckSql.log;
@@ -55,14 +58,11 @@ def call(String path) {
                     rm ${exe[i][j]}.zip; rm *.log; rm ./BIN/*.log
                     """}
                     break
-                    case ('RTH'): //future extensions; fake RTH
-                    println 'to be define RTH method'
-                    break
                     case ('ATH'): //future extensions; fake ATH
-                    println 'to be define ATH method'
+                        println 'to be define ATH method'
                     break
                     default:
-                    println 'TBD'
+                        println 'TBD'
                 }
             }
         }        
