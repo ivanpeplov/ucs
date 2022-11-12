@@ -13,7 +13,7 @@ node: jenkins-legacy : ip=172.16.10.235
 node: jenkins-rosa : ip=172.16.10.236
 BINARIES: opcpposcv, GetFileFromQueue, PutFileToQueue
 ##
-***Сборка функциональных модулей для HSM***
+**Сборка функциональных модулей для HSM**
 ##
 **сборка функц. модулей для HSM Eracom**
 JIRA: CI-52
@@ -27,7 +27,7 @@ SVN: PassKey/FM/FmUX
 node: jenkins-gem : ip=172.16.64.70 (SUSE 12.5)
 BINARIES: obj-ppcfm/FmUX.bin
 ##
-***Сборка функциональных модулей (Borland C++ Builder 6.0)***
+***Сборка функциональных модулей (Borland C++ Builder 6.0)**
 ##
 **Cборка TID Manager (Borland C++ Builder 6.0)**
 JIRA CI-56
@@ -47,19 +47,21 @@ SVN: Util/PalmeraLoader
 node: borland : ip=10.255.250.10 (win10 32x)
 BINARIES: .exe, .ini, .bat
 ##
+**В интересах тестирования ТИЕТО**
+##
 **Перекладка скриптов из svn в nexus**
 Полное название проекта: UCS/svn_nexus\n
 Скрипты Пентахо для конвертирования в тестовые скрипты
-IRA: CI-57
+JIRA: CI-57
 SVN: NexusShareAsIs
 node: jenkins-rosa : ip=172.16.10.236
 ##
 **Преобразование скриптов .ktr/.kjb из svn в .xml для nexus**
 Автотестирование sql запросов для релиза ТИЕТО MNR19
 Полное название проекта: UCS/etl_nexus
-IRA: CI-60
+JIRA: CI-60
 SVN: TestSQLtoNexus
 node: jenkins-rosa : ip=172.16.10.236
-#
+##
 shared-library in gitlab: /vars
 NEXUS repo: http://10.255.250.50:8081/service/rest/repository/browse/orpo/
