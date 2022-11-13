@@ -25,7 +25,7 @@ def call(String path) {
                     if (stage != '') { //if target PTH folder has a subfolders
                         for (int l=0; l < stage.size(); l++) { //PTH has a subfolders
                             //get filename.ext list (.ktr/.kjb) inside each subfolder
-                            substage_list = listFiles("${path}/${lvl1[i]}/${exe[i][j]}/${stage[l]}", "ktr")
+                            substage_list = listFiles("${WORKSPACE}/${path}/${lvl1[i]}/${exe[i][j]}/${stage[l]}", "ktr")
                             for (int m=0; m < substage_list.size(); m++) {
                                 ext=[]
                                 name=[]
@@ -38,7 +38,7 @@ def call(String path) {
                             }   
                         }
                     }       //as abobe actions but inside .PTH folder directly
-                            stage_list = listFiles("${path}/${lvl1[i]}/${exe[i][j]}", "ktr")
+                            stage_list = listFiles("${WORKSPACE}/${path}/${lvl1[i]}/${exe[i][j]}", "ktr")
                             for (int k=0; k < stage_list.size(); k++) {
                                 ext=[]
                                 name=[]
