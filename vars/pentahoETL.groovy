@@ -34,6 +34,7 @@ def call(String path) {
                                 name[m] = FilenameUtils.removeExtension(substage_list[m]) //each .ktr/.kjb extension
                                 //main pentaho conversion .sh script
                                 pthConversion ("${lvl1[i]}", "${exe[i][j]}", "${stage[l]}", "${name[m]}", "${ext[m]}")
+
                             }   
                         }
                     }       //as abobe actions but inside .PTH folder directly
