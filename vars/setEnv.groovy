@@ -6,8 +6,12 @@ def call() {
         env.NEXUS_URL_TEST = yaml_cfg.get('nexus_url_test')
         env.SVN_URL = yaml_cfg.get('svn_url')
         env.MAIL_RECIPIENTS_DEV = yaml_cfg.get('mail_recipients_dev')
-        if (JOB_BASE_NAME=='mms_eod' || JOB_BASE_NAME=='tid_man' || JOB_BASE_NAME=='palmera') {
-            env.bmp=yaml_cfg.get(APP).get('bmp')
-            env.bpl=yaml_cfg.get(APP).get('bpl')
+        switch (JOB_BASE_NAME) {
+            case ['mms_eod', 'tid_man', 'palmera'] :
+                env.bmp=yaml_cfg.get(APP).get('bmp')
+                env.bpl=yaml_cfg.get(APP).get('bpl')
+            break
+            default :
+            println "TBD"
         }
 }
