@@ -10,9 +10,7 @@ def call(String path) {
         sh "find . -type d -name .svn -exec rm -rf {} +"
         //level 2 - define conversion folders
         for (int i = 0; i < lvl1.size(); i++) {
-        println lvl1[i] // [MNR19]
         lvl2[i] = listDir("${path}/${lvl1[i]}/")
-        println lvl2[i] // [AMSBatch.PTH, BIN, BonusETL_top.PTH, ETL_CDWH.PTH]
         bin=['BIN'] // remove BIN from lvl2 folders list
         exe[i]=lvl2[i] - bin
         println exe[i] // [AMSBatch.PTH, BonusETL_top.PTH, ETL_CDWH.PTH]
@@ -27,7 +25,7 @@ def call(String path) {
                     if (stage != '') { //if target PTH folder has a subfolders
                         for (int l=0; l < stage.size(); l++) { //PTH has a subfolders
                         //get filename.ext list (.ktr/.kjb) inside each subfolder
-                        substage_list = listFiles("${path}/${lvl1[i]}/${exe[i][j]}/${stage[l]}", "ktr")
+                            substage_list = listFiles("${path}/${lvl1[i]}/${exe[i][j]}/${stage[l]}", "ktr")
                             for (int m=0; m < substage_list.size(); m++) {
                                 ext=[]
                                 name=[]
@@ -35,15 +33,11 @@ def call(String path) {
                                 ext[m] = FilenameUtils.getExtension(substage_list[m]) //each .ktr/.kjb filename
                                 name[m] = FilenameUtils.removeExtension(substage_list[m]) //each .ktr/.kjb extension
                                 //main pentaho conversion .sh script
-                                //sh """
-                                //chmod 750 ${BASH}/pth.sh;
-                                //${BASH}/pth.sh ${lvl1[i]} ${exe[i][j]} ${stage[l]} ${name[m]} ${ext[m]}
-                                //"""
                                 pthConversion ("${lvl1[i]}", "${exe[i][j]}", "${stage[l]}", "${name[m]}", "${ext[m]}")
-                            }
+                            }   
                         }
                     }   //as abobe actions but inside .PTH folder directly
-                        stage_list = listFiles("${path}/${lvl1[i]}/${exe[i][j]}", "ktr")
+                            stage_list = listFiles("${path}/${lvl1[i]}/${exe[i][j]}", "ktr")
                             for (int k=0; k < stage_list.size(); k++) {
                                 ext1=[]
                                 name1=[]
