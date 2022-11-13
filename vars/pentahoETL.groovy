@@ -24,7 +24,7 @@ def call(String path) {
                     stage=listDir("${path}/${lvl1[i]}/${exe[i][j]}")
                     if (stage != '') { //if target PTH folder has a subfolders
                         for (int l=0; l < stage.size(); l++) { //PTH has a subfolders
-                        //get filename.ext list (.ktr/.kjb) inside each subfolder
+                            //get filename.ext list (.ktr/.kjb) inside each subfolder
                             substage_list = listFiles("${path}/${lvl1[i]}/${exe[i][j]}/${stage[l]}", "ktr")
                             for (int m=0; m < substage_list.size(); m++) {
                                 ext=[]
@@ -36,15 +36,15 @@ def call(String path) {
                                 pthConversion ("${lvl1[i]}", "${exe[i][j]}", "${stage[l]}", "${name[m]}", "${ext[m]}")
                             }   
                         }
-                    }   //as abobe actions but inside .PTH folder directly
+                    }       //as abobe actions but inside .PTH folder directly
                             stage_list = listFiles("${path}/${lvl1[i]}/${exe[i][j]}", "ktr")
                             for (int k=0; k < stage_list.size(); k++) {
-                                ext1=[]
-                                name1=[]
+                                ext=[]
+                                name=[]
                                 println "${stage_list[k]}" //each .ktr/.kjb file under PTH
-                                ext1[k] = FilenameUtils.getExtension(stage_list[k]) //each .ktr/.kjb filename
-                                name1[k] = FilenameUtils.removeExtension(stage_list[k]) //each .ktr/.kjb extension
-                                pthConversion ("${lvl1[i]}", "${exe[i][j]}", '', "${name1[k]}", "${ext1[k]}")
+                                ext[k] = FilenameUtils.getExtension(stage_list[k]) //each .ktr/.kjb filename
+                                name[k] = FilenameUtils.removeExtension(stage_list[k]) //each .ktr/.kjb extension
+                                pthConversion ("${lvl1[i]}", "${exe[i][j]}", '', "${name[k]}", "${ext[k]}")
                             }
                     //zipping .log files, curl artifact to repo, rm temp files at the each .PTH stage finish
                     pthUpload("${lvl1[i]}", "${exe[i][j]}")
