@@ -3,10 +3,7 @@ def call(String dir) {
     if(isUnix()) {
         def foldersList = []
         //dont use 'ls -la'. 'a' option adds dot folders in output: . and ..
-        //if (ext=='Stage') {
-        //def output = sh returnStdout: true, script: "ls -l ${WORKSPACE}/${dir} | grep ^d | awk '{print \$9}' | sed -n '/Stage/p'"
-        //}
-        def output = sh returnStdout: true, script: "ls -l ${WORKSPACE}/${dir} | grep ^d | awk '{print \$9}'"
+        def output = sh returnStdout: true, script: "ls -l ${dir} | grep ^d | awk '{print \$9}'"
         foldersList = output.tokenize('\n').collect() { it }
         return foldersList
     } else {

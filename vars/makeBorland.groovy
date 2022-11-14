@@ -33,7 +33,7 @@ def call(String operation) {
         break
         case ("FORM") :
             nomakList=['TEMPLATE', 'PRINT.CFG']
-            def dir = listDir (operation)
+            def dir = listDir ("${WORKSPACE}/${operation}")
             def makList = dir - nomakList
             def makList1 = makList.collect{ it.toLowerCase() }
             for (int i=0; i < makList.size(); i++) {
