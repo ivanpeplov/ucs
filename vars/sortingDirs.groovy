@@ -1,8 +1,10 @@
-def call(String test) {
-//sorting for BonusETL_top.PTH
-///DummyJob' should contain 1 at tail - Dummyjob1
-//def test =[ 'DummyJob1', 'Stage10', 'Stage100', 'Stage101', 'Stage102', 'Stage103', 'Stage104', 'Stage20', 'Stage30', 'Stage40', 'Stage50', 'Stage60', 'Stage70', 'Stage80', 'Stage90']
-test.sort{ a,b ->
+//test =[ 'DummyJob1', 'Stage10', 'Stage100', 'Stage101', 'Stage102', 'Stage103', 'Stage104', 'Stage20', 'Stage30', 'Stage40', 'Stage50', 'Stage60', 'Stage70', 'Stage80', 'Stage90']
+//sortExample(test)
+//println test
+//def call (String tst)
+@NonCPS
+def sortExample(tst) {
+tst.sort{ a,b ->
     def n1 = (a =~ /\d+/)[-1] as Integer
     def n2 = (b =~ /\d+/)[-1] as Integer
 
@@ -16,6 +18,4 @@ test.sort{ a,b ->
         return s1 <=> s2
     }
 }
-return test
-//Result: [DummyJob1, Stage10, Stage20, Stage30, Stage40, Stage50, Stage60, Stage70, Stage80, Stage90, Stage100, Stage101, Stage102, Stage103, Stage104]
 }
