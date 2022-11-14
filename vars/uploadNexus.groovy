@@ -1,4 +1,3 @@
-import org.apache.commons.io.FilenameUtils
 def call(String path) {
     dir (path) {
         def nexus_creds = [
@@ -15,7 +14,6 @@ def call(String path) {
             for (int j=0; j < lvl2[i].size(); j++) {
                 //level 3 - target folder: workspace/svn_path/lvl1/lvl2/LVL3
                 lvl3=listDir("${path}/${lvl1[i]}/${lvl2[i][j]}")
-                // all = workspace/svn_path/lvl1/lvl2/lvl3
                 for (int k=0; k < lvl3.size(); k++) {
                     wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
                     sh """
@@ -26,9 +24,9 @@ def call(String path) {
                     curl -s -u admin:'${nexus_pwd}' --upload-file ${lvl3[k]}.zip ${nexus_url}/${SVN_PATH}/${lvl1[i]}/${lvl2[i][j]}/
                     fi
                     """
-                    }
-                }
-            }
-        }
-    }
+                    } // vault wrapper
+                } //lvl3 loop
+            } //lvl2 loop
+        } //lvl1 loop
+    } // dir ()
 }//end of def call()
