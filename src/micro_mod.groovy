@@ -47,10 +47,8 @@ properties([
 pipeline { //CI-62
     agent {label NODE_NAME}
     options { timeout(time: 10, unit: 'MINUTES') }
-    parameters {
-        choice(name: 'RELEASE', choices: ['release'], description: '')
-    } //parameters end
     environment {
+      APP='MMM'
       TARGET='bin' //where find files for upload
       ROOT='VT/MicroModule' //project root at SVN
       TOOR='MicroModule'
