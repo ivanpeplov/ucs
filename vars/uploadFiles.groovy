@@ -30,7 +30,11 @@ def call(String job, String path) {
                 case ['fis', 'fis_util']:
                 sh "zip -r -q ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
                 sh "curl  -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/${NODE_NAME}/"
-                break                
+                break
+                case ['micro_mod']:
+                sh "zip -r -q ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip *"
+                sh "curl  -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/${NODE_NAME}/"
+                break                  
                 default:
                 println "TBD"
             }   
