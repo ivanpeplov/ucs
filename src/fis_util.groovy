@@ -4,8 +4,42 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select node to run',
-      filterLength: 1,
-      filterable: false,
+      name: 'RELEASE', 
+      script: [
+        $class: 'GroovyScript', 
+        script: [
+          classpath: [], 
+          sandbox: false, 
+          script:
+          'return["release", "debug"]'
+        ]
+      ]
+    ],
+    [$class: 'CascadeChoiceParameter', 
+      choiceType: 'PT_SINGLE_SELECT', 
+      description: 'Select',
+      referencedParameters: 'RELEASE',
+      name: 'CLEAR', 
+      script: [
+        $class: 'GroovyScript', 
+        script: [
+          classpath: [], 
+          sandbox: false, 
+          script: '''
+            switch(RELEASE) {
+            case ('release') :
+            return ["rclear:selected:disabled"]
+            break
+            default :
+            return ["dclear:selected:disabled"]
+            }
+            '''
+        ]
+      ]
+    ],
+    [$class: 'CascadeChoiceParameter', 
+      choiceType: 'PT_SINGLE_SELECT', 
+      description: 'Select node to run',
       name: 'NODE_NAME', 
       script: [
         $class: 'GroovyScript', 
@@ -25,8 +59,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Trunk, Branches or Tags',
-      filterLength: 1,
-      filterable: false,
       name: 'SVN', 
       script: [
         $class: 'GroovyScript', 
@@ -41,8 +73,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Version for Tags/Branches',
-      filterLength: 1,
-      filterable: false,
       referencedParameters: 'SVN',
       name: 'VERSION', 
       script: [
@@ -61,8 +91,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description:'',
-      filterLength: 1,
-      filterable: false,
       name: 'SAMPLES', 
       script: [
         $class: 'GroovyScript', 
@@ -77,8 +105,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_CHECKBOX', 
       description: 'Select',
-      filterLength: 1,
-      filterable: false,
       referencedParameters: 'SAMPLES',
       name: 'MODULES', 
       script: [
@@ -102,12 +128,9 @@ properties([
     ]
   ])
 ])
-pipeline {
+pipeline { //CI-51
   agent {label NODE_NAME}
   options { timeout(time: 10, unit: 'MINUTES') }
-  parameters {
-    choice(name: 'RELEASE', choices: ['release', 'debug'], description: '')
-  } //parameters end
   environment {
     TARGET='bin' //target folder for binaries
     ROOT='FIS/new' //project root at SVN

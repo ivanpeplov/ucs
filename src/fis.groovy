@@ -1,11 +1,45 @@
 @Library("shared-library") _
 properties([
   parameters([
+    [$class: 'CascadeChoiceParameter', 
+      choiceType: 'PT_SINGLE_SELECT', 
+      description: 'Select node to run',
+      name: 'RELEASE', 
+      script: [
+        $class: 'GroovyScript', 
+        script: [
+          classpath: [], 
+          sandbox: false, 
+          script:
+          'return["release", "debug"]'
+        ]
+      ]
+    ],
+    [$class: 'CascadeChoiceParameter', 
+      choiceType: 'PT_SINGLE_SELECT', 
+      description: 'Select',
+      referencedParameters: 'RELEASE',
+      name: 'CLEAR', 
+      script: [
+        $class: 'GroovyScript', 
+        script: [
+          classpath: [], 
+          sandbox: false, 
+          script: '''
+            switch(RELEASE) {
+            case ('release') :
+            return ["rclear:selected:disabled"]
+            break
+            default :
+            return ["dclear:selected:disabled"]
+            }
+            '''
+        ]
+      ]
+    ],
       [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select node to run',
-      filterLength: 1,
-      filterable: false,
       name: 'NODE_NAME', 
       script: [
         $class: 'GroovyScript', 
@@ -25,8 +59,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Trunk, Branches or Tags',
-      filterLength: 1,
-      filterable: false,
       name: 'SVN', 
       script: [
         $class: 'GroovyScript', 
@@ -41,8 +73,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Version for Tags/Branches',
-      filterLength: 1,
-      filterable: false,
       referencedParameters: 'SVN',
       name: 'VERSION', 
       script: [
@@ -67,8 +97,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description:'',
-      filterLength: 1,
-      filterable: false,
       name: 'SAMPLES', 
       script: [
         $class: 'GroovyScript', 
@@ -83,8 +111,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_CHECKBOX', 
       description: 'Select',
-      filterLength: 1,
-      filterable: false,
       referencedParameters: 'SAMPLES',
       name: 'MODULES', 
       script: [
@@ -110,28 +136,29 @@ properties([
     ]
   ])
 ])
-pipeline {
+pipeline { //CI-51
     agent {label NODE_NAME}
     options { timeout(time: 10, unit: 'MINUTES') }
-    parameters {
+    /*parameters {
         choice(name: 'RELEASE', choices: ['release', 'debug'], description: '')
-    } //parameters end
+    }*/ //parameters end
     environment {
-    TARGET='bin/fis.bin' //where find files for upload
-    ROOT='FIS/new' //project root at SVN
-    SVN_PATH = "${ROOT}/${SVN}/${VERSION}/units" //full path for download fron SVN
-    PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
-    INFORMIXSERVER="shlag"
-    INFORMIXDIR="/opt/informix"
-    INFORMIXSQLHOSTS="${INFORMIXDIR}/etc/sqlhosts"
-    LD_LIBRARY_PATH="${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql"
-    DB_LOCALE="ru_ru.1251"
-    CLIENT_LOCALE="ru_ru.1251"
-    DBMONEY="."
-    INCLUDE="-I. -I${PROJECTS}/units -I./include -I../include"
-    LIB='-L${PROJECTS}/lib'
-    MQCCSID=1251
-    MQM="/opt/mqm"
+      TARGET='bin/fis.bin' //where find files for upload
+      ROOT='FIS/new' //project root at SVN
+      SVN_PATH = "${ROOT}/${SVN}/${VERSION}/units" //full path for download fron SVN
+      //environment for build
+      PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
+      INFORMIXSERVER="shlag"
+      INFORMIXDIR="/opt/informix"
+      INFORMIXSQLHOSTS="${INFORMIXDIR}/etc/sqlhosts"
+      LD_LIBRARY_PATH="${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql"
+      DB_LOCALE="ru_ru.1251"
+      CLIENT_LOCALE="ru_ru.1251"
+      DBMONEY="."
+      INCLUDE="-I. -I${PROJECTS}/units -I./include -I../include"
+      LIB='-L${PROJECTS}/lib'
+      MQCCSID=1251
+      MQM="/opt/mqm"
     }
     stages {
       stage('SET Env') {
