@@ -11,7 +11,11 @@ def call() {
                 env.bmp=yaml_cfg.get(APP).get('bmp')
                 env.bpl=yaml_cfg.get(APP).get('bpl')
             break
+            case ['micro_mod'] :
+                env.mm=yaml_cfg.get(APP).get('mm')
+                env.mmm=yaml_cfg.get(APP).get('mmm')
+            break
             default :
-            println "TBD"
+            println "For Non-Borland C++ Builder pipelines"
         }
 }

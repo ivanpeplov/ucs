@@ -2,44 +2,28 @@ def call(String path, String arch) {
     dir (path) {
         switch (path) {
         case ('units') :
-            sample=['myizip_z', 'microx_t']
-            for (int i=0; i < sample.size(); i++) {
+            sample=mm.split(', ') //'myizip_z', 'microx_t', 'cyassl-3.2.0', 'axcoder'
+            for (int i=0; i < 2; i++) { //myizip_z', 'microx_t
                 switch (arch) {
                     case ('x64') :
-                    sh """
-                    pushd ${sample[i]}
-                    awk -i inplace '/^CCFLAGS /{\$0=\$0 " -DPROCMACH64"}1' filedefs.inc
-                    echo release 2>errs | xargs -n 1 ${PROJECTS}/tools/Make
-                    """
+                    mmX64(sample[i])
                     break
-                    default :
-                    sh """
-                    pushd ${sample[i]}
-                    awk -i inplace '/ATOL Frontol/{ rl = NR + 1 } NR == rl { gsub( /#/,"") } 1' filedefs.inc
-                    echo release 2>errs | xargs -n 1 ${PROJECTS}/tools/Make
-                    """
+                    default : //'atol' currently
+                    mmX86(sample[i])
                 }//switch (arch) finished
             }//loop for sample[i] finished
         break
         case ('units/microx_t/samples') :
-            sample1=['microp', 'ucs_mm', 'ucs_ms', 'ucs_dt']
+            sample1=mmm.split(', ') //'microp', 'ucs_mm', 'ucs_ms', 'ucs_dt'
             for (int i=0; i < sample1.size(); i++) {
                 switch (arch) {
                     case ('x64') :
-                    sh """
-                    pushd ${sample1[i]}
-                    awk -i inplace '/^CCFLAGS /{\$0=\$0 " -DPROCMACH64"}1' filedefs.inc
-                    echo release 2>errs | xargs -n 1 ${PROJECTS}/tools/Make
-                    """
-                    default :
-                    sh """
-                    pushd ${sample[i]}
-                    awk -i inplace '/ATOL Frontol/{ rl = NR + 1 } NR == rl { gsub( /#/,"") } 1' filedefs.inc
-                    echo release 2>errs | xargs -n 1 ${PROJECTS}/tools/Make
-                    """
+                    mmX64(sample1[i])
+                    default : // 'atol' currently
+                    mmX86(sample1[i])
                 } //switch (arch) finished
             }//loop for sample1[i] finished
-            sh "cp ${PROJECTS}/lib/*.so ${PROJECTS}/bin/"
+            sh "cp ${PROJECTS}/lib/*.so ${PROJECTS}/bin/" //cp libucs_ms.so to TARGET
         break
         default:
             println "TBD"
