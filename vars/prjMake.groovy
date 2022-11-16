@@ -4,13 +4,7 @@ def call(String operation) {
     mod = MODULES.split(',').toList()
     dirList = mod
         for (int i=0; i < dirList.size(); i++) {
-            switch (RELEASE) {
-                case 'release':
-                sh "pushd ${dirList[i]} ; echo rclear ${RELEASE} | xargs -n 1 ${PROJECTS}/tools/prjMake"
-                break
-                default:
-                sh "pushd ${dirList[i]} ; echo dclear ${RELEASE} | xargs -n 1 ${PROJECTS}/tools/prjMake"
-            }
+        sh "pushd ${dirList[i]} ; echo ${CLEAR} ${RELEASE} | xargs -n 1 ${PROJECTS}/tools/prjMake"
         }
     }
 }
