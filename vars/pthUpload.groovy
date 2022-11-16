@@ -5,7 +5,7 @@ def nexus_creds = [
     wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
     sh """
     pushd ${lvl1}; zip -q -u  ${exe}.zip ktr_xml.log ; zip -q -u -j ${exe}.zip ./BIN/CheckSql.log;
-    curl -s -u admin:'${nexus_pwd}' --upload-file ${exe}.zip ${NEXUS_URL_TEST}/${SVN_PATH}/${lvl1}/; 
+    curl -s -u admin:'${nexus_pwd}' --upload-file ${exe}.zip ${NEXUS_URL}/${SVN_PATH}/${lvl1}/; 
     rm ${exe}.zip; rm *.log; rm ./BIN/*.log
     """
     }
