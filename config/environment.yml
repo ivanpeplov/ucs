@@ -7,6 +7,9 @@ MMS:
 TID: 
   bmp: "*.bmp, *.ini"
   bpl: "bdertl60.bpl, dbrtl60.bpl, rtl60.bpl, vcl60.bpl, vcldb60.bpl"
+MMM:
+  mm: "myizip_z, microx_t, cyassl-3.2.0, axcoder"
+  mmm: "microp, ucs_mm, ucs_ms, ucs_dt"
 
 #mail_recipients_dev: 'gerasimov.vyacheslav@ucscards.ru, titaev.leonid@ucscards.ru, shitikov.sergei@ucscards.ru, petelin.konstantin@ucscards.ru, konovalov.sergei@ucscards.ru, a.kustov@ucscards.ru'
 mail_recipients_dev: a.kustov@ucscards.ru
