@@ -20,84 +20,28 @@ properties([
         ]
       ]
     ],
-    /*[$class: 'CascadeChoiceParameter', 
-      choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select Trunk, Branches or Tags',
-      name: 'SVN', 
-      script: [
-        $class: 'GroovyScript', 
-        script: [
-          classpath: [], 
-          sandbox: false, 
-          script: 
-            'return["trunk", "tags"]'
-        ]
-      ]
-    ],
-    [$class: 'CascadeChoiceParameter', 
-      choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select Version for Tags/Branches',
-      referencedParameters: 'SVN',
-      name: 'VERSION', 
-      script: [
-        $class: 'GroovyScript', 
-        script: [
-          classpath: [], 
-          sandbox: false, 
-          script: '''
-            svn_url='172.16.10.230/scm/svn/dev'
-            proj='FIS/new'
-            if (SVN == "tags") {
-            proc1= ["bash", "-c", "svn list --username jenkins --password mRovmZVpt  https://${svn_url}/${proj}/${SVN}"].execute()
-            proc2= ["bash", "-c", "rev | cut -c2- | rev"].execute()
-            all = proc1 | proc2
-            choices = all.text
-            return choices.split().toList()
-            }
-            '''
-        ]
-      ]
-    ],
-    [$class: 'CascadeChoiceParameter', 
-      choiceType: 'PT_SINGLE_SELECT', 
-      description:'',
-      name: 'SAMPLES', 
-      script: [
-        $class: 'GroovyScript', 
-        script: [
-          classpath: [], 
-          sandbox: false, 
-          script: 
-            'return["all","by one"]'
-        ]
-      ]
-    ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_CHECKBOX', 
       description: 'Select',
-      referencedParameters: 'SAMPLES',
-      name: 'MODULES', 
+      referencedParameters: 'NODE_NAME',
+      name: 'ARCH', 
       script: [
         $class: 'GroovyScript', 
         script: [
           classpath: [], 
           sandbox: false, 
           script: '''
-            svn_url='172.16.10.230/scm/svn/dev'
-            proj='FIS/new/trunk/units/fis'
-            if (SAMPLES == "all") { return ["all:selected:disabled"] }
-            else {
-            proc1= ["bash", "-c", "svn list --username jenkins --password mRovmZVpt  https://${svn_url}/${proj}/samples"].execute()
-            proc2= ["bash", "-c", "rev | cut -c2- | rev"].execute()
-            proc3= ["bash", "-c", "tail -n +2"].execute()
-            all = proc1 | proc2 | proc3
-            choices = all.text
-            return choices.split().toList()
+            switch(NODE_NAME) {
+            case ('jenkins-rosa') :
+            return ["x64:selected:disabled"]
+            break
+            default :
+            return [" "]
             }
             '''
         ]
       ]
-    ]*/
+    ]
   ])
 ])
 pipeline { //CI-62
@@ -105,7 +49,6 @@ pipeline { //CI-62
     options { timeout(time: 10, unit: 'MINUTES') }
     parameters {
         choice(name: 'RELEASE', choices: ['release'], description: '')
-        choice(name: 'ARCH', choices: ['atol', 'x64'], description: '')
     } //parameters end
     environment {
       TARGET='bin' //where find files for upload
