@@ -1,10 +1,10 @@
 @Library("shared-library") _
-pipeline {
+pipeline { //CI-57
     agent {label 'jenkins-rosa'}
     options { timeout(time: 10, unit: 'MINUTES') }
     environment {
-    ROOT="NexusShareAsIs" //project root at SVN
-    SVN_PATH ="${ROOT}" //full path for download fron SVN
+        ROOT="NexusShareAsIs" //project root at SVN
+        SVN_PATH ="${ROOT}" //full path for download fron SVN
     }
     stages {
         stage('SET Env') {
@@ -25,7 +25,7 @@ pipeline {
         stage('GROUP.. UPLOAD') {
             steps {
                 script {
-                    uploadNexus("NexusShareAsIs")
+                    svnToNexus("NexusShareAsIs")
                 }
             }
         }
