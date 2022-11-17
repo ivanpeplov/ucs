@@ -7,7 +7,7 @@ if [ "${JOB_BASE_NAME}" = "fis" ]; then
 cd ./bin
 mkdir fis.bin
 fi
-if [ "${JOB_BASE_NAME}" = "micro_mod" ]; then
+if [ "${JOB_BASE_NAME}" = "mm_nix" ]; then
 mkdir units
 cp -R ${WORKSPACE}/MicroModule/{axcoder,cyassl-3.2.0,microx_t,myizip_z}/ ${PROJECTS}/units
 cp ${PROJECTS}/units/axcoder/axorlib.* ${PROJECTS}/units/microx_t/samples/ucs_mm/sources/
