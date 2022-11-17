@@ -62,6 +62,27 @@ node: jenkins-rosa : ip=172.16.10.236
 JIRA: CI-60
 SVN: TestSQLtoNexus
 node: jenkins-rosa : ip=172.16.10.236
+
+##
+**Сборка микромодулей VT Linux**
+Virtual terminal MM Jenkins declarative pipeline /Linux
+JIRA: CI-62
+SVN: VT/MicroModules
+
+nodes: 
+jenkins-rosa : ip=172.16.10.236 (rosa-linux, X64), label MICROMOD --only for test
+jenkins-atol : 10.255.250.X (ubuntu 16.04 X86), label MICROMOD
+jenkins-ubun : 10.255.250.X (ubuntu 18.04 X64), label MICROMOD
+jenkins-fedora:  : 10.255.250.X (fedora34 5.13.19-200.fc34.X64), label MICROMOD
+##
+##
+**Сборка микромодулей VT Win**
+Virtual terminal MM Jenkins declarative pipeline /Windows
+JIRA: CI-63
+SVN: VT/MicroModules
+
+nodes: TBD
+##
 ##
 shared-library in gitlab: /vars
 NEXUS repo: http://10.255.250.50:8081/service/rest/repository/browse/orpo/
