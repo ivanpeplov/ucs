@@ -1,13 +1,14 @@
 import org.apache.commons.io.FilenameUtils
 def call(String path) {
     dir (path) { //path="TestSQLtoNexus"
-        loadLinuxScript('pth.sh')
+        loadLinuxScript('pthConversion.sh')
         lvl1 = listDir("${WORKSPACE}/${path}") //level 1 - group folder
         println lvl1 //[MNR19]
         lvl2=[] //[AMSBatch.PTH, BIN, BonusETL_top.PTH, ETL_CDWH.PTH]
         exe=[] //[AMSBatch.PTH, BonusETL_top.PTH, ETL_CDWH.PTH]
         ext=[] //[PTH]
         sh "find . -type d -name .svn -exec rm -rf {} +" //to delete junk /.svn folder recursively from lvl1
+        spaceToUnderscore() //change " " to "_" in filenames recursively
         for (int i = 0; i < lvl1.size(); i++) { //level 2 - define conversion folders
         lvl2[i] = listDir("${WORKSPACE}/${path}/${lvl1[i]}")
         bin=['BIN'] // remove BIN from lvl2 folders list
@@ -44,6 +45,7 @@ def call(String path) {
                                 ext[k] = FilenameUtils.getExtension(stage_list[k]) //each .ktr/.kjb filename
                                 name[k] = FilenameUtils.removeExtension(stage_list[k]) //each .ktr/.kjb extension
                                 pthConversion ("${lvl1[i]}", "${exe[i][j]}", "", "${name[k]}", "${ext[k]}")
+                                
                             }
                     pthUpload("${lvl1[i]}", "${exe[i][j]}")  //zip .log files, curl artifact, rm temp files at the each .PTH stage finish
                     break //PTH stage finished
