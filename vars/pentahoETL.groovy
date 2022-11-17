@@ -9,6 +9,7 @@ def call(String path) {
         ext=[] //[PTH]
         sh "find . -type d -name .svn -exec rm -rf {} +" //to delete junk /.svn folder recursively from lvl1
         spaceToUnderscore() //change " " to "_" in filenames recursively
+        loadLinuxScript('pthUpload.sh')
         for (int i = 0; i < lvl1.size(); i++) { //level 2 - define conversion folders
         lvl2[i] = listDir("${WORKSPACE}/${path}/${lvl1[i]}")
         bin=['BIN'] // remove BIN from lvl2 folders list
