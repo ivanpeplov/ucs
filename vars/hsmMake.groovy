@@ -4,10 +4,9 @@ def call(String folder, String arch) {
             case "ppcfm": //gemalto
             //obligatory for single makefile support
             //sh "sed -i 's;\\\\samples\\\\;/samples/;' Makefile"
-                sh """
-                cp ${WORKSPACE}/git/config/fm/cfgbuild.mak ${WORKSPACE}/FmUX/
-                cp ${WORKSPACE}/git/config/fm/Makefile ${WORKSPACE}/FmUX/fm/
-                """
+                loadLinuxScript('Makefile')
+                loadLinuxScript('cfgbuild.mak')
+                sh "cp ./cfgbuild.mak ${WORKSPACE}/FmUX/"
                 if (TAIL=="") {sh "unset ${DEBUG} ; make"}
                 else {sh "make debug=1"}             
             break
