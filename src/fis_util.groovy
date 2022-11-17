@@ -170,7 +170,7 @@ pipeline { //CI-51
     stage('BUILD UTILITIES') {
       steps {
         script {
-            prjMake('units')
+            fisMake('units')
         }
       }
     }

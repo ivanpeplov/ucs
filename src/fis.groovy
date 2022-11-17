@@ -139,9 +139,6 @@ properties([
 pipeline { //CI-51
     agent {label NODE_NAME}
     options { timeout(time: 10, unit: 'MINUTES') }
-    /*parameters {
-        choice(name: 'RELEASE', choices: ['release', 'debug'], description: '')
-    }*/ //parameters end
     environment {
       TARGET='bin/fis.bin' //where find files for upload
       ROOT='FIS/new' //project root at SVN
@@ -181,7 +178,7 @@ pipeline { //CI-51
       stage('BUILD') {
         steps {
           script {
-            prjMake('units/fis/samples/')
+            fisMake('units/fis/samples/')
           }
         }
       }
