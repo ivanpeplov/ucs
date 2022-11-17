@@ -9,8 +9,8 @@ def call(String path) {
         sh "find . -type d -name .svn -exec rm -rf {} +" //to delete junk /.svn folder recursively from lvl1
         loadLinuxScript('spaceToUnderscore.sh')
         sh "./spaceToUnderscore.sh" //change " " to "_" in filenames recursively
-        loadLinuxScript('pthUpload.sh')
-        loadLinuxScript('pthConversion.sh')
+        loadLinuxScript('pthUpload.sh') //load bash script for upload .xml to Nexus
+        loadLinuxScript('pthConversion.sh') //load bash script for PTH conversion
         for (int i = 0; i < lvl1.size(); i++) { //level 2 - define conversion folders
         lvl2[i] = listDir("${WORKSPACE}/${path}/${lvl1[i]}")
         bin=['BIN'] // remove BIN from lvl2 folders list
@@ -34,7 +34,7 @@ def call(String path) {
                                 ext[m] = FilenameUtils.getExtension(substage_list[m]) //each .ktr/.kjb filename
                                 name[m] = FilenameUtils.removeExtension(substage_list[m]) //each .ktr/.kjb extension
                                 //main pentaho conversion .sh script
-                                sh "./pthConversion.sh ${lvl1[i]} ${exe[i][j]} ${name[m]} ${ext[m]} ${stage[l]}"
+                                sh "./pthConversion.sh ${lvl1[i]} ${exe[i][j]} ${name[m]} ${ext[m]} ${stage[l]}" //include stage (5 parameters)
                             }   
                         }
                     }       //as abobe actions but inside .PTH folder directly
@@ -46,7 +46,7 @@ def call(String path) {
                                 println "${stage_list[k]}" //each .ktr/.kjb file under PTH folder
                                 ext[k] = FilenameUtils.getExtension(stage_list[k]) //each .ktr/.kjb filename
                                 name[k] = FilenameUtils.removeExtension(stage_list[k]) //each .ktr/.kjb extension
-                                sh "./pthConversion.sh ${lvl1[i]} ${exe[i][j]} ${name[k]} ${ext[k]}"
+                                sh "./pthConversion.sh ${lvl1[i]} ${exe[i][j]} ${name[k]} ${ext[k]}" //without stage (4 parameters)
                             }
                     def nexus_creds = [
                     [path: 'secrets/creds/nexus', secretValues: [

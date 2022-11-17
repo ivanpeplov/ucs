@@ -1,6 +1,6 @@
 def call(String name) {
     switch (name) {//local preliminary file operations
-        case ["fis", "fis_util", "micro_mod"] :
+        case ["fis", "fis_util", "mm_nix"] :
             loadLinuxScript('prepFiles.sh')
             sh "./prepFiles.sh"
             break
