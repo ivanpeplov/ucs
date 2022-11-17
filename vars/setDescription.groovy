@@ -7,5 +7,4 @@ def call() {
     default:
     currentBuild.description = "node: ${NODE_NAME}\nbuild_number: ${BUILD_NUMBER}"
     }
-    
 }

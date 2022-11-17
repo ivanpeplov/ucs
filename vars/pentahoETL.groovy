@@ -1,6 +1,7 @@
 import org.apache.commons.io.FilenameUtils
 def call(String path) {
     dir (path) { //path="TestSQLtoNexus"
+        loadLinuxScript('pth.sh')
         lvl1 = listDir("${WORKSPACE}/${path}") //level 1 - group folder
         println lvl1 //[MNR19]
         lvl2=[] //[AMSBatch.PTH, BIN, BonusETL_top.PTH, ETL_CDWH.PTH]
@@ -42,7 +43,7 @@ def call(String path) {
                                 println "${stage_list[k]}" //each .ktr/.kjb file under PTH folder
                                 ext[k] = FilenameUtils.getExtension(stage_list[k]) //each .ktr/.kjb filename
                                 name[k] = FilenameUtils.removeExtension(stage_list[k]) //each .ktr/.kjb extension
-                                pthConversion ("${lvl1[i]}", "${exe[i][j]}", '', "${name[k]}", "${ext[k]}")
+                                pthConversion ("${lvl1[i]}", "${exe[i][j]}", "", "${name[k]}", "${ext[k]}")
                             }
                     pthUpload("${lvl1[i]}", "${exe[i][j]}")  //zip .log files, curl artifact, rm temp files at the each .PTH stage finish
                     break //PTH stage finished

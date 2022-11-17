@@ -2,7 +2,11 @@ def call (String lvl1, String exe, String stage, String name, String ext) {
     sh """
     # set +e - for testing only. Clear pth.sh - 1min build time slower
     set +e
+    if [ -z "${stage}" ]; then
+    pushd ${lvl1}; java -jar BIN/xsltc.jar -i "${exe}/${name}.${ext}" -o "${exe}/${name}.xml" -l stdout.log -x BIN/pth2lst.xslt
+    else
     pushd ${lvl1}; java -jar BIN/xsltc.jar -i "${exe}/${stage}/${name}.${ext}" -o "${exe}/${stage}/${name}.xml" -l stdout.log -x BIN/pth2lst.xslt
+    fi
     cat stdout.log >> ktr_xml.log
     pushd BIN; echo "---------- ${name}.xml ----------" >> CheckSql.log;
     if [ -z "${stage}" ]; then
