@@ -15,13 +15,11 @@ def call(String path, String arch) {
                 { arch=='x64' ? sh(script:"./mmX64.sh ${sample[i]}") : sh(script:"./mmX86.sh ${sample[i]}") }
             break
             case ('units/microx_t/samples') : //loop for submodules under microx_t
-                loadLinuxScript('mmX64.sh')
-                loadLinuxScript('mmX86.sh')
                 println "microp, ucs_mm, ucs_ms, ucs_dt"
                 sample1=mmm.split(', ') //'microp', 'ucs_mm', 'ucs_ms', 'ucs_dt'
                 for (int i=0; i < sample1.size(); i++)
                 //elvis groovy operator
-                { arch=='x64' ? sh(script:"./mmX64.sh ${sample1[i]}") : sh(script:"./mmX86.sh ${sample1[i]}") }
+                { arch=='x64' ? sh(script:"../../mmX64.sh ${sample1[i]}") : sh(script:"../../mmX86.sh ${sample1[i]}") }
                 sh "cp ${PROJECTS}/lib/*.so ${PROJECTS}/bin/" //cp libucs_ms.so to TARGET
             break
             default:
