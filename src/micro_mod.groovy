@@ -79,7 +79,7 @@ pipeline { //CI-62
       stage('CYASSL 3.2.0') {
         steps {
           script {
-            cyasslLib('units/cyassl-3.2.0')
+            mmMake('units/cyassl-3.2.0', "${ARCH}")
           }
         }
       }
