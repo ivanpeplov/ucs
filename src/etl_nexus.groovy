@@ -3,9 +3,9 @@ pipeline { //CI-60
     agent {label 'jenkins-rosa'}
     //options { timeout(time: 20, unit: 'MINUTES') }
     environment {
-        ROOT="TestSQLtoNexus" //project root at SVN
+        ROOT="TestSQLtoNexus" //project root at SVN 
         SVN_PATH ="${ROOT}" //full path for download fron SVN
-        BASH="${WORKSPACE}/git/vars" //for test only: pth.sh
+        //BASH="${WORKSPACE}/git/vars" //for test only: pth.sh
     }
     stages {
         stage('SET Env') {
