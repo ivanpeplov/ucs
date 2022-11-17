@@ -2,7 +2,9 @@ def call(String path, String arch) {
     dir (path) {
         switch (path) {
             case ('units/cyassl-3.2.0') :
-            cyasslMake()
+            loadLinuxScript('cyasslMake.sh')
+            sh "./cyasslMake.sh"
+            //cyasslMake()
             break
             case ('units') :
                 loadLinuxScript('mmX64.sh')

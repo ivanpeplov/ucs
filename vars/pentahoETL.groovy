@@ -1,7 +1,6 @@
 import org.apache.commons.io.FilenameUtils
 def call(String path) {
     dir (path) { //path="TestSQLtoNexus"
-        loadLinuxScript('pthConversion.sh')
         lvl1 = listDir("${WORKSPACE}/${path}") //level 1 - group folder
         println lvl1 //[MNR19]
         lvl2=[] //[AMSBatch.PTH, BIN, BonusETL_top.PTH, ETL_CDWH.PTH]
@@ -10,6 +9,7 @@ def call(String path) {
         sh "find . -type d -name .svn -exec rm -rf {} +" //to delete junk /.svn folder recursively from lvl1
         spaceToUnderscore() //change " " to "_" in filenames recursively
         loadLinuxScript('pthUpload.sh')
+        loadLinuxScript('pthConversion.sh')
         for (int i = 0; i < lvl1.size(); i++) { //level 2 - define conversion folders
         lvl2[i] = listDir("${WORKSPACE}/${path}/${lvl1[i]}")
         bin=['BIN'] // remove BIN from lvl2 folders list
@@ -33,7 +33,7 @@ def call(String path) {
                                 ext[m] = FilenameUtils.getExtension(substage_list[m]) //each .ktr/.kjb filename
                                 name[m] = FilenameUtils.removeExtension(substage_list[m]) //each .ktr/.kjb extension
                                 //main pentaho conversion .sh script
-                                pthConversion ("${lvl1[i]}", "${exe[i][j]}", "${stage[l]}", "${name[m]}", "${ext[m]}")
+                                sh "./pthConversion.sh ${lvl1[i]} ${exe[i][j]} ${name[m]} ${ext[m]} ${stage[l]}"
                             }   
                         }
                     }       //as abobe actions but inside .PTH folder directly
@@ -45,10 +45,13 @@ def call(String path) {
                                 println "${stage_list[k]}" //each .ktr/.kjb file under PTH folder
                                 ext[k] = FilenameUtils.getExtension(stage_list[k]) //each .ktr/.kjb filename
                                 name[k] = FilenameUtils.removeExtension(stage_list[k]) //each .ktr/.kjb extension
-                                pthConversion ("${lvl1[i]}", "${exe[i][j]}", "", "${name[k]}", "${ext[k]}")
-                                
+                                sh "./pthConversion.sh ${lvl1[i]} ${exe[i][j]} ${name[k]} ${ext[k]}"
                             }
-                    pthUpload("${lvl1[i]}", "${exe[i][j]}")  //zip .log files, curl artifact, rm temp files at the each .PTH stage finish
+                    def nexus_creds = [
+                    [path: 'secrets/creds/nexus', secretValues: [
+                    [envVar: 'nexus_pwd', vaultKey: 'password']]]]
+                    wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
+                    sh "./pthUpload.sh ${lvl1[i]} ${exe[i][j]}" }
                     break //PTH stage finished
                     case ('ATH'): //future extensions; fake ATH
                         println 'to be define ATH method'
