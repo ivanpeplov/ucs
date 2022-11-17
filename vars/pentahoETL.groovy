@@ -7,7 +7,8 @@ def call(String path) {
         exe=[] //[AMSBatch.PTH, BonusETL_top.PTH, ETL_CDWH.PTH]
         ext=[] //[PTH]
         sh "find . -type d -name .svn -exec rm -rf {} +" //to delete junk /.svn folder recursively from lvl1
-        spaceToUnderscore() //change " " to "_" in filenames recursively
+        loadLinuxScript('spaceToUnderscore.sh')
+        sh "./spaceToUnderscore.sh" //change " " to "_" in filenames recursively
         loadLinuxScript('pthUpload.sh')
         loadLinuxScript('pthConversion.sh')
         for (int i = 0; i < lvl1.size(); i++) { //level 2 - define conversion folders
