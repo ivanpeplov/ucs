@@ -4,7 +4,7 @@ def call(String operation) {
     mod = MODULES.split(',').toList()
     dirList = mod
         for (int i=0; i < dirList.size(); i++) {
-        sh "pushd ${dirList[i]} ; echo ${CLEAR} ${RELEASE} | xargs -n 1 ${PROJECTS}/tools/prjMake"
+        sh "pushd ${dirList[i]} ; echo ${CLEAR} ${RELEASE} | xargs -n 1 ${PROJECTS}/tools/Make"
         }
     }
 }
