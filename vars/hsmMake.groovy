@@ -7,12 +7,10 @@ def call(String folder, String arch) {
                 loadLinuxScript('Makefile')
                 loadLinuxScript('cfgbuild.mak')
                 sh "cp ./cfgbuild.mak ${WORKSPACE}/FmUX/"
-                if (TAIL=="") {sh "unset ${DEBUG} ; make"}
-                else {sh "make debug=1"}             
+                { TAIL=="" ? sh(script:"unset ${DEBUG} ; make") : sh(script:"make debug=1") }           
             break
             default: //eracom
-                if (TAIL=="") {bat "gnumake"}
-                else {bat "gnumake debug=1"}             
+                { TAIL=="" ? bat(script:"gnumake") : bat(script:"gnumake debug=1") }           
         }
     }
 }
