@@ -11,13 +11,8 @@ def call(String name) {
             break
         case "micro_mod":
             //local preliminary file operations
-            sh  "cp -R ~/orpo/micromod/{lib,bin,tools,units}/ ${WORKSPACE}/"
-            mm.split(', ').each { filename -> sh "cp -r ${WORKSPACE}/${TOOR}/${filename}/ ${PROJECTS}/units"}
-            sh """
-            cp ${PROJECTS}/units/axcoder/axorlib.* ${PROJECTS}/units/microx_t/samples/ucs_mm/sources/
-            cp ${PROJECTS}/units/microx_t/sources/SLogger.cpp ${PROJECTS}/units/microx_t/samples/ucs_mm/sources/
-            cp ${PROJECTS}/units/microx_t/sources/SLogger.cpp ${PROJECTS}/units/microx_t/samples/ucs_ms/sources/
-            """
+            loadLinuxScript('prepFilesMmod.sh')
+            sh "./prepFilesMmod.sh"
             break
         case ["tid_man", "mms_eod", "palmera"] :
             //local preliminary file operations
