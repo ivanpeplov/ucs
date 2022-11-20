@@ -13,4 +13,5 @@ cp -R ${WORKSPACE}/MicroModule/{axcoder,cyassl-3.2.0,microx_t,myizip_z}/ ${PROJE
 cp ${PROJECTS}/units/axcoder/axorlib.* ${PROJECTS}/units/microx_t/samples/ucs_mm/sources/
 cp ${PROJECTS}/units/microx_t/sources/SLogger.cpp ${PROJECTS}/units/microx_t/samples/ucs_mm/sources/
 cp ${PROJECTS}/units/microx_t/sources/SLogger.cpp ${PROJECTS}/units/microx_t/samples/ucs_ms/sources/
+mv ${PROJECTS}/units/cyassl-3.2.0 ${PROJECTS}/units/cyassl
 fi
