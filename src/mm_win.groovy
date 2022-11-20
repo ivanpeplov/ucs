@@ -14,6 +14,28 @@ properties([
           'return ["Win32", "x64"]'
         ]
       ]
+    ],
+    [$class: 'CascadeChoiceParameter', 
+      choiceType: 'PT_CHECKBOX', 
+      description: 'Select',
+      referencedParameters: 'ARCH',
+      name: 'REL', 
+      script: [
+        $class: 'GroovyScript', 
+        script: [
+          classpath: [], 
+          sandbox: false, 
+          script: '''
+            switch(ARCH) {
+            case ('x64') :
+            return ["64:selected:disabled"]
+            break
+            default :
+            return [" "]
+            }
+            '''
+        ]
+      ]
     ]
   ])
 ])
@@ -47,8 +69,8 @@ stages {
     stage('Build.. cyassl myizip microx') {
       steps {
         script {
-          mmMSbuild("${WORKSPACE}/cyassl-3.2.0", "${ARCH}")
-          mmMSbuild("${WORKSPACE}", "${ARCH}")
+          mmMSbuild("${WORKSPACE}/cyassl-3.2.0", "${ARCH}", "${REL}")
+          mmMSbuild("${WORKSPACE}", "${ARCH}", "${REL}")
         }
       }
     }
@@ -56,7 +78,7 @@ stages {
       steps {
         script {
           println 'BUILD MICROP UCS_xx'
-          mmMSbuild("${WORKSPACE}/microx_t/samples", "${ARCH}")
+          mmMSbuild("${WORKSPACE}/microx_t/samples", "${ARCH}", "${REL}")
         }
       }
     }
@@ -64,7 +86,7 @@ stages {
       steps {
         script {
           println 'BUILD SETUP_P'
-          //mmMSbuild("${WORKSPACE}", "${ARCH}")
+          //mmMSbuild("${WORKSPACE}", "${ARCH}", "${REL}")
         }
       }
     }
@@ -81,7 +103,7 @@ stages {
     always {
       script {             
           echo 'Clean Workspace'
-          cleanWs()
+          //cleanWs()
       }//script
     }//always
     failure {
