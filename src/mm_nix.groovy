@@ -48,7 +48,7 @@ pipeline { //CI-62
     agent {label NODE_NAME}
     options { timeout(time: 10, unit: 'MINUTES') }
     environment {
-      APP='MMW' //label for .yaml;
+      APP='MMM' //label for .yaml;
       TARGET='bin' //where find files for upload
       ROOT='VT/MicroModule' //project root at SVN
       TOOR='MicroModule'
@@ -79,11 +79,12 @@ pipeline { //CI-62
       stage(' CYASSL MYIZIP_Z MICROX_T') {
         steps {
           script {
+            mmMake('units/cyassl-3.2.0', "${ARCH}")
             mmMake('units', "${ARCH}")
           }
         }
       }
-      stage('MICROP UCS_MM UCS_MS UCS_DT') {
+      stage('MICROP UCS_MS UCS_DT UCS_MM') {
         steps {
           script {
             mmMake('units/microx_t/samples', "${ARCH}")

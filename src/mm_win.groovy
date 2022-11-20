@@ -14,28 +14,6 @@ properties([
           'return ["Win32", "x64"]'
         ]
       ]
-    ],
-    [$class: 'CascadeChoiceParameter', 
-      choiceType: 'PT_CHECKBOX', 
-      description: 'Select',
-      referencedParameters: 'ARCH',
-      name: 'REL', 
-      script: [
-        $class: 'GroovyScript', 
-        script: [
-          classpath: [], 
-          sandbox: false, 
-          script: '''
-            switch(ARCH) {
-            case ('x64') :
-            return ["64:selected:disabled"]
-            break
-            default :
-            return [" "]
-            }
-            '''
-        ]
-      ]
     ]
   ])
 ])
@@ -62,14 +40,15 @@ stages {
       steps {
         script {
           //getSVN()
-          prepareFiles1('mm_win')      
+          prepareFiles('mm_win')      
         }
       }
     }
     stage('Build.. cyassl myizip microx') {
       steps {
         script {
-          makeVC120("${WORKSPACE}", "${ARCH}", "${REL}")
+          mmMSbuild("${WORKSPACE}/cyassl-3.2.0", "${ARCH}")
+          mmMSbuild("${WORKSPACE}", "${ARCH}")
         }
       }
     }
@@ -77,7 +56,7 @@ stages {
       steps {
         script {
           println 'BUILD MICROP UCS_xx'
-          makeVC120("${WORKSPACE}/microx_t/samples", "${ARCH}", "${REL}")
+          mmMSbuild("${WORKSPACE}/microx_t/samples", "${ARCH}")
         }
       }
     }
@@ -85,7 +64,7 @@ stages {
       steps {
         script {
           println 'BUILD SETUP_P'
-          //makeVC120("${WORKSPACE}", "${ARCH}", "${REL}")
+          //mmMSbuild("${WORKSPACE}", "${ARCH}")
         }
       }
     }
