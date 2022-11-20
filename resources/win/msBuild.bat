@@ -1,5 +1,5 @@
 pushd %1
-msbuild %1.sln /t:build /p:configuration=Release /p:Platform=%2
+msbuild %1.sln /t:build /p:configuration=Release%3 /p:Platform=%2
 
 
 
