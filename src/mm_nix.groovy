@@ -48,7 +48,7 @@ pipeline { //CI-62
     agent {label NODE_NAME}
     options { timeout(time: 10, unit: 'MINUTES') }
     environment {
-      APP='MMM' //label for .yaml;
+      APP='MMX' //label for .yaml;
       TARGET='bin' //where find files for upload
       ROOT='VT/MicroModule' //project root at SVN
       TOOR='MicroModule'
