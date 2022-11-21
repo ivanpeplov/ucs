@@ -10,7 +10,7 @@ TID:
 MMW:
   mm: "cyassl-3.2.0, myizip_z, microx_t"
   mmm: "microp, ucs_ms, ucs_dt, ucs_mm, ucs_mu"
-MMM:
+MMX:
   mm: "cyassl-3.2.0, myizip_z, microx_t"
   mmm: "microp, ucs_ms, ucs_dt, ucs_mm"
 
