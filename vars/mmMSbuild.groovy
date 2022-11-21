@@ -1,9 +1,6 @@
 def call(String path, String arch, String rel ) {
     dir (path) {
         switch (path) {
-            case ("${WORKSPACE}/cyassl-3.2.0") :
-            bat (script:"msbuild cyassl.sln /t:build /p:configuration=Release${rel} /p:Platform=${arch}")
-            break
             case ("${WORKSPACE}") : //build for "cyassl, myizip_z, microx_t"
                 loadWinBat('msBuild.bat')
                 sample=mm.split(', ') 
@@ -15,7 +12,7 @@ def call(String path, String arch, String rel ) {
                 loadWinBat('msBuild_ucs_mm.bat')
                 sample1=mmm.split(', ') 
                 for (int i=0; i < sample1.size(); i++) {
-                    sample1[i]=='ucs_mm' ? bat(script:"msBuild_ucs_mm.bat ${sample1[i]} ${arch} ${rel}") : bat(script:"msBuild.bat ${sample1[i]} ${arch} ${rel}")
+                    sample1[i]=='ucs_mm' ? bat(script:"msBuild_ucs_mm.bat ${sample1[i]} ${arch}") : bat(script:"msBuild.bat ${sample1[i]} ${arch} ${rel}")
                     switch (sample1[i]) {
                         case ('microp') :
                         loadWinBat('myizip_lib.bat') //myizip_z.lib service copy for build to ./microx_t/samples/microp
