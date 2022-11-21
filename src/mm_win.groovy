@@ -69,7 +69,6 @@ stages {
     stage('Build.. cyassl myizip microx') {
       steps {
         script {
-          mmMSbuild("${WORKSPACE}/cyassl-3.2.0", "${ARCH}", "${REL}")
           mmMSbuild("${WORKSPACE}", "${ARCH}", "${REL}")
         }
       }
@@ -103,7 +102,7 @@ stages {
     always {
       script {             
           echo 'Clean Workspace'
-          //cleanWs()
+          cleanWs()
       }//script
     }//always
     failure {

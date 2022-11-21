@@ -79,7 +79,6 @@ pipeline { //CI-62
       stage(' CYASSL MYIZIP_Z MICROX_T') {
         steps {
           script {
-            mmMake('units/cyassl-3.2.0', "${ARCH}")
             mmMake('units', "${ARCH}")
           }
         }
