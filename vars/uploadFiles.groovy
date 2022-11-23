@@ -34,6 +34,9 @@ def call(String job, String path) {
                 case ['mm_nix']:
                 sh "zip -r -q ${JOB_BASE_NAME}_${ARCH}_${BUILD_NUMBER}.zip *"
                 sh "curl  -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/${NODE_NAME}/"
+                case ['mm_win']:
+                bat "curl  -s -u admin:${nexus_pwd} --upload-file setup_p.msi  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/"
+                
                 break                  
                 default:
                 println "TBD"
