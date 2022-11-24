@@ -16,26 +16,27 @@ def call(String job, String path) {
                 //creating .zip artifact from bin/$TARGET folder and curl upload to nexus
             switch (job) {
                 case ['tid_man', 'mms_eod', 'palmera']:
-                bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
-                bat "curl -s -u admin:'%nexus_pwd%' --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
+                    bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
+                    bat "curl -u admin:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/Borland/" 
                 break
                 case ['armfm']:
-                bat "7z a ${ARCH}_${BUILD_NUMBER}.zip fmUX*, FmUX*"
-                bat "curl -s -u admin:'%nexus_pwd%' --upload-file ${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/" 
+                    bat "7z a ${ARCH}_${BUILD_NUMBER}.zip fmUX*, FmUX*"
+                    bat "curl  -u admin:${nexus_pwd} --upload-file ${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/FM/" 
                 break
                 case ['ppcfm']:
-                sh "zip -q ${ARCH}_${BUILD_NUMBER}.zip [f-F]mUX.*"
-                sh "curl -s -u admin:"+'${nexus_pwd}'+" --upload-file ${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/"
+                    sh "zip -q ${ARCH}_${BUILD_NUMBER}.zip [f-F]mUX.*"
+                    sh "curl -s -u admin:"+'${nexus_pwd}'+" --upload-file ${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/FM/"
                 break
                 case ['fis', 'fis_util']:
-                sh "zip -r -q ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
-                sh "curl  -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/${NODE_NAME}/"
+                    sh "zip -r -q ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
+                    sh "curl  -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/FIS/${NODE_NAME}/"
                 break
                 case ['mm_nix']:
-                sh "zip -r -q ${JOB_BASE_NAME}_${ARCH}_${BUILD_NUMBER}.zip *"
-                sh "curl  -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/${NODE_NAME}/"
+                    sh "zip -r -q ${JOB_BASE_NAME}_${ARCH}_${BUILD_NUMBER}.zip *"
+                    sh "curl  -s -u admin:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL}/MicroModule/Linux/${NODE_NAME}/"
+                break
                 case ['mm_win']:
-                bat "curl  -s -u admin:'%nexus_pwd%' --upload-file setup_p.msi  ${NEXUS_URL}/${yy}/${mm}/${dd}/${JOB_BASE_NAME}/"
+                    bat "curl  -s -u admin:${nexus_pwd} --upload-file setup_p.msi  ${NEXUS_URL}/MicroModule/Windows/"
                 break                  
                 default:
                 println "TBD"

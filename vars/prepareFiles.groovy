@@ -11,10 +11,10 @@ def call(String name) {
             bat "mkdir ${TARGET}"
             break
         case ["mm_win"] :
-            bat "xcopy C:\\MicroModule ${workspace} /i /q /d /e"
-            //bat "xcopy ${workspace}\\MicroModule ${workspace} /i /q /d /e"
-            //bat "rename cyassl-3.2.0 cyassl"
-            //bat "mkdir ${TARGET}"
+            //bat "xcopy C:\\MicroModule ${workspace} /i /q /d /e"
+            bat "xcopy ${workspace}\\MicroModule ${workspace} /i /q /d /e"
+            bat "copy ${workspace}\\git\\config\\sln_proj.zip ${workspace}"
+            bat("7z x -y sln_proj.zip")
         default:
             println ("Default: fm, svn_nexus, etl_nexus")
     }
