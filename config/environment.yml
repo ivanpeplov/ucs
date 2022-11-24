@@ -1,18 +1,20 @@
 --- 
 PALMERA:
-  bmp: "*.ini, *.bat"
+  bmp: "*.ini,*.bat"
 MMS: 
-  bmp: "*.ini, *.dbf, *.tsk"
-  bpl: "borlndmm.dll, cc3260mt.dll"
+  bmp: "*.ini,*.dbf,*.tsk"
+  bpl: "borlndmm.dll,cc3260mt.dll"
 TID: 
-  bmp: "*.bmp, *.ini"
-  bpl: "bdertl60.bpl, dbrtl60.bpl, rtl60.bpl, vcl60.bpl, vcldb60.bpl"
+  bmp: "*.bmp,*.ini"
+  bpl: "bdertl60.bpl,dbrtl60.bpl,rtl60.bpl,vcl60.bpl,vcldb60.bpl"
 MMW:
-  mm: "cyassl-3.2.0, myizip_z, microx_t"
-  mmm: "microp, ucs_ms, ucs_dt, ucs_mm, ucs_mu"
+  mm: "cyassl-3.2.0,myizip_z,myizip_u,microx_t"
+  mmm: "microp,ucs_ms,ucs_dt,ucs_mu,ucs_mm"
+  arch: "Win32, x64"
 MMX:
-  mm: "cyassl-3.2.0, myizip_z, microx_t"
-  mmm: "microp, ucs_ms, ucs_dt, ucs_mm"
+  mm: "cyassl-3.2.0,myizip_z,microx_t"
+  mmm: "microp,ucs_ms,ucs_dt,ucs_mm"
+  arch: 
 
 #mail_recipients_dev: 'gerasimov.vyacheslav@ucscards.ru, titaev.leonid@ucscards.ru, shitikov.sergei@ucscards.ru, petelin.konstantin@ucscards.ru, konovalov.sergei@ucscards.ru, a.kustov@ucscards.ru'
 mail_recipients_dev: a.kustov@ucscards.ru
