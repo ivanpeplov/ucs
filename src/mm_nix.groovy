@@ -33,7 +33,7 @@ properties([
           script: '''
             switch(NODE_NAME) {
             case ('jenkins-rosa') :
-            return ["x64:selected:disabled"]
+            return ["x64:selected"]
             break
             default :
             return [" "]
@@ -49,6 +49,7 @@ pipeline { //CI-62
     options { timeout(time: 10, unit: 'MINUTES') }
     environment {
       APP='MMX' //label for .yaml;
+      ARCH='x64' //temp
       TARGET='bin' //where find files for upload
       ROOT='VT/MicroModule' //project root at SVN
       TOOR='MicroModule'

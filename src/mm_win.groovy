@@ -1,44 +1,4 @@
 @Library("shared-library") _
-/*properties([
-  parameters([
-      [$class: 'CascadeChoiceParameter', 
-      choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select Win 32/64',
-      name: 'ARCH', 
-      script: [
-        $class: 'GroovyScript', 
-        script: [
-          classpath: [], 
-          sandbox: false, 
-          script:
-          'return ["Win32", "x64"]'
-        ]
-      ]
-    ],
-    [$class: 'CascadeChoiceParameter', 
-      choiceType: 'PT_CHECKBOX', 
-      description: 'Select',
-      referencedParameters: 'ARCH',
-      name: 'REL', 
-      script: [
-        $class: 'GroovyScript', 
-        script: [
-          classpath: [], 
-          sandbox: false, 
-          script: '''
-            switch(ARCH) {
-            case ('x64') :
-            return ["64:selected:disabled"]
-            break
-            default :
-            return [" "]
-            }
-            '''
-        ]
-      ]
-    ]
-  ])
-])*/
 pipeline { //CI-63
   agent {label 'borland'}
   environment {
@@ -74,10 +34,10 @@ stages {
         }
       }
     }
-        stage('Build.. microp ucs_xx') {
+        stage('Build..  microp  ucs_xx  setup_p') {
       steps {
         script {
-          println 'Build.. microp ucs_xx'
+          println 'Build.. microp ucs_xx setup_p'
           mmMSbuild("microx_t/samples")
         }
       }
