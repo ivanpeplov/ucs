@@ -14,7 +14,7 @@ def call() {
             case ['mm_nix', 'mm_win'] :
                 env.mm=yaml_cfg.get(APP).get('mm')
                 env.mmm=yaml_cfg.get(APP).get('mmm')
-                env.id=yaml_cfg.get(APP).get('id')
+                env.arch=yaml_cfg.get(APP).get('arch')
             break
             default :
             println "For Non-Borland C++ Builder pipelines"

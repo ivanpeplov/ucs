@@ -14,8 +14,6 @@ def call(String path, String arch) {
                 sh(script:"./mmCpp.sh ${sample1[i]} ${arch}") }
                 sh "cp ${PROJECTS}/lib/*.so ${PROJECTS}/bin/" //cp libucs_ms.so to TARGET
             break
-            default:
-                println "TBD"
         }//switch $path
     }//dir()
-}//def call()
+}//end
