@@ -34,18 +34,21 @@ JIRA CI-56
 SVN: CardPro/TidManager/TID_v6
 node: borland : ip=10.255.250.10 (win10 32x)
 BINARIES: .dll, .exe, .bpl, .bmp
+Builder: Borland C Builder 6.0
 ##
 **Cборка mmsEOD (Borland C++ Builder 6.0)**
 JIRA CI-58
 SVN: MMS/mmsEOD
 node: borland : ip=10.255.250.10 (win10 32x)
 BINARIES: .dll, .exe, .bpl, .bmp
+Builder: Borland C Builder 6.0
 ##
 **Cборка PalmeraLoader (Borland C++ Builder 6.0)**
 JIRA CI-59
 SVN: Util/PalmeraLoader
 node: borland : ip=10.255.250.10 (win10 32x)
 BINARIES: .exe, .ini, .bat
+Builder: Borland C Builder 6.0
 ##
 **В интересах тестирования ТИЕТО**
 ##
@@ -81,8 +84,9 @@ Virtual terminal MM Jenkins declarative pipeline /Windows
 JIRA: CI-63
 SVN: VT/MicroModules
 
-nodes: TBD
+nodes: borland : ip=10.255.250.10 (win10 32x)
 ##
+Builder: MS Visual Studio 2013
 ##
 shared-library in gitlab: /vars
 NEXUS repo: http://10.255.250.50:8081/service/rest/repository/browse/orpo/
