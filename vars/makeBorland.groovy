@@ -5,15 +5,15 @@ def call(String operation) {
         //PalmeraUloader building
         case ('C:\\jenkins\\workspace\\UCS\\palmera') :
             bat "make -f palmerauloade.mak & xcopy PalmeraULoade.exe ${TARGET}"
-            bmp.split(', ').each { filename -> bat "xcopy ${filename} ${TARGET}" }
+            bmp.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
         //mmsEOD building
         case ('C:\\jenkins\\workspace\\UCS\\mms_eod') :
             bat "make -f mmseod.mak & xcopy mmsEOD.exe ${TARGET}"
-            bmp.split(', ').each { filename -> bat "xcopy ${filename} ${TARGET}" }
+            bmp.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
         case ('C:\\Program Files\\Borland\\CBuilder6\\Bin') :
-            bpl.split(', ').each { filename -> bat "xcopy ${filename} ${TARGET}" }
+            bpl.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
         //TID Manager building
         case ("CARDLIB") :
@@ -26,10 +26,10 @@ def call(String operation) {
             bat "xcopy Cardpro.ini ${TARGET}"
         break
         case ('FORM\\PRINT.CFG') :
-            bmp.split(', ').each { filename -> bat "xcopy ${filename} ${TARGET}\\${operation}\\"}
+            bmp.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}\\${operation}\\"}
         break
         case ('C:\\Windows\\System32') :
-            bpl.split(', ').each { filename -> bat "xcopy ${filename} ${TARGET}" }
+            bpl.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
         case ("FORM") :
             nomakList=['TEMPLATE', 'PRINT.CFG']
@@ -40,9 +40,6 @@ def call(String operation) {
                 bat "cd ${makList[i]} & make -f ${makList1[i]}.mak"
                 bat "cd ${makList[i]} & xcopy ${makList1[i]}.dll ${TARGET}\\${operation}\\${makList[i]}\\"
             }  
-            //mod2=operation.substring(operation.lastIndexOf("\\")+1).toLowerCase()
-            //bat "make -f ${mod2}.mak"
-            //bat "xcopy ${mod2}.dll ${TARGET}\\${operation}\\"
         break
         default:
             println "TBD"       
