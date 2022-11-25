@@ -12,7 +12,7 @@ def call(String path) {
         loadLinuxScript('pthUpload.sh') //load bash script for upload .xml to Nexus
         loadLinuxScript('pthConversion.sh') //load bash script for PTH conversion
         for (int i = 0; i < lvl1.size(); i++) { //level 2 - define conversion folders
-        lvl2[i] = listDir("${WORKSPACE}/${path}/${lvl1[i]}")
+        lvl2[i] = listDirNix("${WORKSPACE}/${path}/${lvl1[i]}")
         bin=['BIN'] // remove BIN from lvl2 folders list
         exe[i]=lvl2[i] - bin
         println exe[i] // [AMSBatch.PTH, BonusETL_top.PTH, ETL_CDWH.PTH]
@@ -21,16 +21,15 @@ def call(String path) {
                 switch ("${ext[j]}") { // switch for different conversion scripts. currently active: PTH (.ktr to .xml)
                     case ('PTH'): // PTH conversion for Pentaho
                     //check for dirs at level 'exe[i]' than
-                    stage=listDir("${WORKSPACE}/${path}/${lvl1[i]}/${exe[i][j]}")
+                    stage=listDirNix("${WORKSPACE}/${path}/${lvl1[i]}/${exe[i][j]}")
                     if (stage != '') { //if target PTH folder has a subfolders
                         for (int l=0; l < stage.size(); l++) { //PTH has a subfolders
                             //get filename.ext list (.ktr/.kjb) inside each subfolder
-                            substage_list = listFiles("${WORKSPACE}/${path}/${lvl1[i]}/${exe[i][j]}/${stage[l]}")
+                            substage_list = listFilesNix("${WORKSPACE}/${path}/${lvl1[i]}/${exe[i][j]}/${stage[l]}")
                             .findAll{it.toLowerCase().contains('.ktr') || it.toLowerCase().contains('.kjb')}
                             for (int m=0; m < substage_list.size(); m++) {
                                 ext=[]
-                                name=[]
-                                println "${substage_list[m]}" //each .ktr/.kjb file at 'substage' folder under PTH folder
+                                name=[] //each .ktr/.kjb file at 'substage' folder under PTH folder
                                 ext[m] = FilenameUtils.getExtension(substage_list[m]) //each .ktr/.kjb filename
                                 name[m] = FilenameUtils.removeExtension(substage_list[m]) //each .ktr/.kjb extension
                                 //main pentaho conversion .sh script
@@ -38,12 +37,11 @@ def call(String path) {
                             }   
                         }
                     }       //as abobe actions but inside .PTH folder directly
-                            stage_list = listFiles("${WORKSPACE}/${path}/${lvl1[i]}/${exe[i][j]}")
+                            stage_list = listFilesNix("${WORKSPACE}/${path}/${lvl1[i]}/${exe[i][j]}")
                             .findAll{it.toLowerCase().contains('.ktr') || it.toLowerCase().contains('.kjb')}
                             for (int k=0; k < stage_list.size(); k++) {
                                 ext=[]
-                                name=[]
-                                println "${stage_list[k]}" //each .ktr/.kjb file under PTH folder
+                                name=[] //each .ktr/.kjb file under PTH folder
                                 ext[k] = FilenameUtils.getExtension(stage_list[k]) //each .ktr/.kjb filename
                                 name[k] = FilenameUtils.removeExtension(stage_list[k]) //each .ktr/.kjb extension
                                 sh "./pthConversion.sh ${lvl1[i]} ${exe[i][j]} ${name[k]} ${ext[k]}" //without stage (4 parameters)
