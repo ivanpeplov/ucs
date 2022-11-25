@@ -11,7 +11,7 @@ def call(String name) {
             bat "mkdir ${TARGET}"
             break
         case ["mm_win"] :
-            bat "xcopy ${workspace}\\MicroModule ${workspace} /i /q /d /e"
+            //bat "xcopy ${workspace}\\MicroModule ${workspace} /i /q /d /e"
             bat "copy ${workspace}\\git\\config\\sln_proj.zip ${workspace}"
             bat "7z x -y sln_proj.zip" //temp step, extract .sln/.vcxproj for build
         default:
