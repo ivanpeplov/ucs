@@ -1,7 +1,7 @@
 import org.apache.commons.io.FilenameUtils
 def call(String path) {
     dir (path) { //path="TestSQLtoNexus"
-        lvl1 = listDir("${WORKSPACE}/${path}") //level 1 - group folder
+        lvl1 = listDirNix("${WORKSPACE}/${path}") //level 1 - group folder
         println lvl1 //[MNR19]
         lvl2=[] //[AMSBatch.PTH, BIN, BonusETL_top.PTH, ETL_CDWH.PTH]
         exe=[] //[AMSBatch.PTH, BonusETL_top.PTH, ETL_CDWH.PTH]
@@ -60,5 +60,5 @@ def call(String path) {
                 } //switch for .PTH/.ATH/TBD extensions finished
             } //loop for lvl2  [AMSBatch.PTH, BonusETL_top.PTH, ETL_CDWH.PTH] finished
         } //loop for lvl1 [MNR19] finished 
-    } //end of dir () closure
-}//end of def call()
+    } //dir () closure
+}//def call()
