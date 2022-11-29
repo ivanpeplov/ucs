@@ -7,9 +7,11 @@ echo "osName: " + osName
     [envVar: 'svn_pwd', vaultKey: 'password']]]]
     wrap([$class: 'VaultBuildWrapper', vaultSecrets: svn_creds]) {
         if(isUnix()) {
-          sh "svn co --quiet --username jenkins --password "+'${svn_pwd}'+" https://${SVN_URL}/${SVN_PATH}"
+          loadLinuxScript('getNixSVN.sh')
+          sh "./getNixSVN.sh"
         } else {
-          bat "svn co --quiet --username jenkins --password=${svn_pwd} --non-interactive --trust-server-cert-failures=unknown-ca,cn-mismatch,expired,not-yet-valid,other https://${SVN_URL}/${SVN_PATH}"
+          loadWinBat('getWinSVN.bat')
+          bat "getWinSVN.bat"
         }
     }
 }
