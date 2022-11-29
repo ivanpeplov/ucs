@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #usage: pthUpload.sh ${lvl1} ${exe}
 #etl_nexus.groovy
 pushd $1

@@ -1,5 +1,5 @@
-#!/bin/sh
-#usage: mX64.sh ${sample} | CCADDFLAGS addin for X64 micro_mod.groovy
+#!/bin/bash
+#usage: "./mmCpp.sh ${sample[i]} | ./mmCpp.sh ${sample[i]} ${arch}") | CCADDFLAGS addin for X64 micro_mod.groovy
 #pushd $1
 if [ "$#" -eq 1 ]; then
 pushd $1
@@ -17,4 +17,3 @@ awk '/ATOL Frontol/{ rl = NR + 1 } NR == rl { gsub( /#/,"") } 1' filedefs.inc > 
 echo release 2>errs | xargs -n 1 "${PROJECTS}"/tools/Make
 fi
 fi
-

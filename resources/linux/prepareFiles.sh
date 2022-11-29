@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #prepare folders for fis/fis_util/micro_mod.groovy
 mkdir {lib,bin}
 cp -r ${WORKSPACE}/git/config/${JOB_BASE_NAME}/tools ${WORKSPACE}/
@@ -13,5 +13,4 @@ cp -R ${WORKSPACE}/MicroModule/{axcoder,cyassl-3.2.0,microx_t,myizip_z}/ ${PROJE
 cp ${PROJECTS}/units/axcoder/axorlib.* ${PROJECTS}/units/microx_t/samples/ucs_mm/sources/
 cp ${PROJECTS}/units/microx_t/sources/SLogger.cpp ${PROJECTS}/units/microx_t/samples/ucs_mm/sources/
 cp ${PROJECTS}/units/microx_t/sources/SLogger.cpp ${PROJECTS}/units/microx_t/samples/ucs_ms/sources/
-mv ${PROJECTS}/units/cyassl-3.2.0 ${PROJECTS}/units/cyassl
 fi
