@@ -20,12 +20,12 @@ def call(String job, String path) {
                 bat "borlandUpload.bat ${JOB_BASE_NAME} ${SVN} ${VERSION}"
                break
                 case ['armfm']:
-                    bat "7z a ${ARCH}_${BUILD_NUMBER}.zip fmUX*, FmUX*"
-                    bat "curl  -u jenkucs_sa:${nexus_pwd} --upload-file ${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/FM/" 
-                break
+                    loadWinBat('armfmUpload.bat')
+                    bat "armfmUpload.bat"
+               break
                 case ['ppcfm']:
-                    sh "zip -q ${ARCH}_${BUILD_NUMBER}.zip [f-F]mUX.*"
-                    sh "curl -s -u jenkucs_sa:"+'${nexus_pwd}'+" --upload-file ${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/FM/"
+                    loadLinuxScript('ppcfmUpload.sh')
+                    sh "./ppcfmUpload.sh"
                 break
                 case ['fis', 'fis_util']:
                     loadLinuxScript('uploadFIS.sh')
@@ -36,7 +36,8 @@ def call(String job, String path) {
                     sh "./uploadFIS.sh ${JOB_BASE_NAME} ${ARCH} ${NODE_NAME}"
                 break
                 case ['mm_win']:
-                    bat "curl  -s -u jenkucs_sa:${nexus_pwd} --upload-file setup_p.zip  ${NEXUS_URL}/${TOOR}"
+                    loadWinBat('mmUpload.bat')
+                    bat "mmUpload.bat"
                 break                  
                 default:
                 println "TBD"
