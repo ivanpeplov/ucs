@@ -15,14 +15,18 @@ def call(String job, String path) {
             wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
                 //creating .zip artifact from bin/$TARGET folder and curl upload to nexus
             switch (job) {
-                case ['tid_man', 'mms_eod', 'palmera']:
+                case ['tid_man', 'mms_eod', 'palmera',]:
                 loadWinBat('borlandUpload.bat')
                 bat "borlandUpload.bat ${JOB_BASE_NAME} ${SVN} ${VERSION}"
-               break
+                break
+                case ['borland']:
+                loadWinBat('borlandUpload.bat')
+                bat "borlandUpload.bat ${LABEL} ${SVN} ${VERSION}"
+                break
                 case ['armfm']:
                     loadWinBat('armfmUpload.bat')
                     bat "armfmUpload.bat"
-               break
+                break
                 case ['ppcfm']:
                     loadLinuxScript('ppcfmUpload.sh')
                     sh "./ppcfmUpload.sh"
@@ -32,8 +36,8 @@ def call(String job, String path) {
                     sh "./fisUpload.sh ${JOB_BASE_NAME} ${SVN} ${NODE_NAME} ${VERSION}"
                 break
                 case ['mm_nix']:
-                    loadLinuxScript('uploadFIS.sh')
-                    sh "./uploadFIS.sh ${JOB_BASE_NAME} ${ARCH} ${NODE_NAME}"
+                    loadLinuxScript('fisUpload.sh')
+                    sh "./fisUpload.sh ${JOB_BASE_NAME} ${ARCH} ${NODE_NAME}"
                 break
                 case ['mm_win']:
                     loadWinBat('mmUpload.bat')
