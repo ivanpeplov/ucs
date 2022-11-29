@@ -141,7 +141,8 @@ pipeline { //CI-51
     options { timeout(time: 10, unit: 'MINUTES') }
     environment {
       TARGET='bin/fis.bin' //where find files for upload
-      ROOT='FIS/new' //project root at SVN
+      ROOT='FIS/new'
+      TOOR='FIS' //project root at SVN
       SVN_PATH = "${ROOT}/${SVN}/${VERSION}/units" //full path for download fron SVN
       //environment for build
       PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here

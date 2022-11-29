@@ -3,7 +3,7 @@ pipeline { //CI-63
   agent {label 'borland'}
   environment {
     APP='MMW' //label for .yaml;
-    TARGET = "${WORKSPACE}\\microx_t\\samples\\setup_p\\Release" //where find files for upload
+    TARGET = "${WORKSPACE}\\microx_t\\samples\\rel_p" //where find files for upload
     ROOT = "VT/MicroModule" //project root at SVN
     TOOR='MicroModule'
     SVN_PATH = "${ROOT}" //full path for download fron SVN
@@ -21,7 +21,7 @@ stages {
     stage ('PREPARE') {
       steps {
         script {
-          //getSVN()
+          getSVN()
           prepareFiles('mm_win')      
         }
       }

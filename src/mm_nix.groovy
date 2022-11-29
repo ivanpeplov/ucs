@@ -33,10 +33,8 @@ properties([
           script: '''
             switch(NODE_NAME) {
             case ('jenkins-rosa') :
-            return ["x64:selected"]
+            return ["x64:selected:disabled"]
             break
-            default :
-            return [" "]
             }
             '''
         ]
