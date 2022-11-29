@@ -50,7 +50,7 @@ pipeline { //CI-62
       ARCH='x64' //temp
       TARGET='bin' //where find files for upload
       ROOT='VT/MicroModule' //project root at SVN
-      TOOR='MicroModule'
+      TOOR='MicroModule/Linux'
       SVN_PATH = "${ROOT}" //full path for download fron SVN
       //environment for build
       PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
