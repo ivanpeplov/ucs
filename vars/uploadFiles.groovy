@@ -28,8 +28,8 @@ def call(String job, String path) {
                     sh "./ppcfmUpload.sh"
                 break
                 case ['fis', 'fis_util']:
-                    loadLinuxScript('uploadFIS.sh')
-                    sh "./uploadFIS.sh ${JOB_BASE_NAME} ${SVN} ${NODE_NAME} ${VERSION}"
+                    loadLinuxScript('fisUpload.sh')
+                    sh "./fisUpload.sh ${JOB_BASE_NAME} ${SVN} ${NODE_NAME} ${VERSION}"
                 break
                 case ['mm_nix']:
                     loadLinuxScript('uploadFIS.sh')
