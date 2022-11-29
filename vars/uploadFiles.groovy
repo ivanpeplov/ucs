@@ -16,8 +16,12 @@ def call(String job, String path) {
                 //creating .zip artifact from bin/$TARGET folder and curl upload to nexus
             switch (job) {
                 case ['tid_man', 'mms_eod', 'palmera']:
-                    bat "7z a ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
-                    bat "curl -u jenkucs_sa:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/Borland/" 
+                if ("${VERSION}"=='')
+                    {bat "7z a ${JOB_BASE_NAME}_${SVN}.zip *"
+                    bat "curl -u jenkucs_sa:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${SVN}.zip  ${NEXUS_URL}/Borland/" }
+                    else 
+                    {bat "7z a ${JOB_BASE_NAME}_${SVN}_${VERSION}.zip *"
+                    bat "curl -u jenkucs_sa:${nexus_pwd} --upload-file ${JOB_BASE_NAME}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/Borland/"}
                 break
                 case ['armfm']:
                     bat "7z a ${ARCH}_${BUILD_NUMBER}.zip fmUX*, FmUX*"
@@ -28,15 +32,15 @@ def call(String job, String path) {
                     sh "curl -s -u jenkucs_sa:"+'${nexus_pwd}'+" --upload-file ${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL_1}/FM/"
                 break
                 case ['fis', 'fis_util']:
-                    sh "zip -r -q ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip *"
-                    sh "curl  -s -u jenkucs_sa:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${BUILD_NUMBER}_${SVN}_${VERSION}.zip  ${NEXUS_URL}/FIS/${NODE_NAME}/"
+                    loadLinuxScript("uploadFIS.sh")
+                    {sh( "./uploadFIS.sh ${JOB_BASE_NAME} ${SVN} ${NODE_NAME} ${VERSION}")}
                 break
                 case ['mm_nix']:
-                    sh "zip -r -q ${JOB_BASE_NAME}_${ARCH}_${BUILD_NUMBER}.zip *"
-                    sh "curl  -s -u jenkucs_sa:"+'${nexus_pwd}'+" --upload-file ${JOB_BASE_NAME}_${ARCH}_${BUILD_NUMBER}.zip  ${NEXUS_URL}/MicroModule/Linux/${NODE_NAME}/"
+                    loadLinuxScript("uploadFIS.sh")
+                    {sh( "./uploadFIS.sh ${JOB_BASE_NAME} ${ARCH} ${NODE_NAME}")}
                 break
                 case ['mm_win']:
-                    bat "curl  -s -u jenkucs_sa:${nexus_pwd} --upload-file setup_p.msi  ${NEXUS_URL}/MicroModule/Windows/"
+                    bat "curl  -s -u jenkucs_sa:${nexus_pwd} --upload-file setup_p.zip  ${NEXUS_URL}/${TOOR}"
                 break                  
                 default:
                 println "TBD"
