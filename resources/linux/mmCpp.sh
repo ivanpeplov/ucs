@@ -5,6 +5,7 @@ if [ "$#" -eq 1 ]; then
 pushd $1
 chmod 750 configure
 ./configure --enable-opensslextra --enable-aesgcm --enable-sha512 --enable-ripemd --enable-ecc --enable-static
+autoreconf
 make 2>errs
 cp ./src/.libs/libcyassl.a ${PROJECTS}/lib
 else
