@@ -22,7 +22,6 @@ properties([
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_CHECKBOX', 
-      description: 'Select',
       referencedParameters: 'NODE_NAME',
       name: 'ARCH', 
       script: [
@@ -31,12 +30,9 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: '''
-            switch(NODE_NAME) {
-            case ('jenkins-rosa') :
-            return ["x64:selected:disabled"]
-            break
-            }
-            '''
+          if (NODE_NAME=='jenkins-ubuntu') {return ["x64:selected:disabled"]}
+          if (NODE_NAME=='jenkins-rosa') {return ["x64:selected:disabled"]}
+          '''
         ]
       ]
     ]
@@ -48,9 +44,10 @@ pipeline { //CI-62
     environment {
       APP='MMX' //label for .yaml;
       ARCH='x64' //temp
-      TARGET='bin' //where find files for upload
+      TARGET='units/microx_t/samples/Linux_Install'
+      //TARGET='bin' //where find files for upload
       ROOT='VT/MicroModule' //project root at SVN
-      TOOR='MicroModule/Linux'
+      TOOR='MicroModule/Linux' // upload trunk at Nexus
       SVN_PATH = "${ROOT}" //full path for download fron SVN
       //environment for build
       PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
