@@ -9,9 +9,10 @@ def call(String path, String arch) {
             break
             case ('units/microx_t/samples') : //build loop for "microp, ucs_mm, ucs_ms, ucs_dt"
                 loadScript(place:'linux', name:'mmCpp.sh')
+                loadScript(place:'linux', name:'mmArt.sh')
                 sample1=mmm.split(',') 
                 for (int i=0; i < sample1.size(); i++) { sh(script:"./mmCpp.sh ${sample1[i]} ${arch}") }
-                sh "cp ${PROJECTS}/lib/*.so ${PROJECTS}/bin/" //cp libucs_ms.so to TARGET
+                sh "./mmArt.sh"
             break
         }//switch $path
     }//dir()
