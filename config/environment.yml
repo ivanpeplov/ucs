@@ -10,7 +10,7 @@ TID:
 MMW:
   mm: "cyassl-3.2.0,myizip_z,myizip_u,microx_t"
   mmm: "microp,ucs_ms,ucs_dt,ucs_mu,ucs_mm"
-  arch: "Win32, x64"
+  arch: "Win32,x64"
 MMX:
   mm: "cyassl-3.2.0,myizip_z,microx_t"
   mmm: "microp,ucs_ms,ucs_dt,ucs_mm"
@@ -23,5 +23,5 @@ nexus_url:   "http://10.255.250.50:8081/repository/orpo"
 nexus_url_1: "http://10.255.252.161:8081/repository/orpo"
 nexus_url_test: "http://10.255.252.161:8081/repository/test"
 # dnld url
-svn_url: svn/scm/svn/dev
+svn_url: '172.16.10.230/scm/svn/dev'
        
