@@ -16,31 +16,31 @@ def call(String job, String path) {
                 //creating .zip artifact from bin/$TARGET folder and curl upload to nexus
             switch (job) {
                 case ['tid_man', 'mms_eod', 'palmera',]:
-                loadWinBat('borlandUpload.bat')
-                bat "borlandUpload.bat ${JOB_BASE_NAME} ${SVN} ${VERSION}"
+                    loadScript(place:'win', name:'borlandUpload.bat')
+                    bat "borlandUpload.bat ${JOB_BASE_NAME} ${SVN} ${VERSION}"
                 break
                 case ['borland']:
-                loadWinBat('borlandUpload.bat')
-                bat "borlandUpload.bat ${LABEL} ${SVN} ${VERSION}"
+                    loadScript(place:'win', name:'borlandUpload.bat')
+                    bat "borlandUpload.bat ${LABEL} ${SVN} ${VERSION}"
                 break
                 case ['armfm']:
-                    loadWinBat('armfmUpload.bat')
+                    loadScript(place:'win', name:'armfmUpload.bat')
                     bat "armfmUpload.bat"
                 break
                 case ['ppcfm']:
-                    loadLinuxScript('ppcfmUpload.sh')
+                    loadScript(place:'linux', name:'ppcfmUpload.sh')
                     sh "./ppcfmUpload.sh"
                 break
                 case ['fis', 'fis_util']:
-                    loadLinuxScript('fisUpload.sh')
+                    loadScript(place:'linux', name:'fisUpload.sh')
                     sh "./fisUpload.sh ${JOB_BASE_NAME} ${SVN} ${NODE_NAME} ${VERSION}"
                 break
                 case ['mm_nix']:
-                    loadLinuxScript('fisUpload.sh')
+                    loadScript(place:'linux', name:'fisUpload.sh')
                     sh "./fisUpload.sh ${JOB_BASE_NAME} ${ARCH} ${NODE_NAME}"
                 break
                 case ['mm_win']:
-                    loadWinBat('mmUpload.bat')
+                    loadScript(place:'win', name:'mmUpload.bat')
                     bat "mmUpload.bat"
                 break                  
                 default:

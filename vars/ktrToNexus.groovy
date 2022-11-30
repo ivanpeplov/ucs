@@ -8,7 +8,7 @@ def call(String path) {
         lvl2=[]
         //to delete ./svn folder recursively
         sh "find . -type d -name .svn -exec rm -rf {} +"
-        loadLinuxScript('ktrUpload.sh') //bash for curl to Nexus
+        loadScript(place:'linux', name:'ktrUpload.sh') //bash for curl to Nexus
         //level 2 - project folder
         for (int i = 0; i < lvl1.size(); i++) {
         lvl2[i] = listDirNix("${WORKSPACE}/${path}/${lvl1[i]}")

@@ -7,10 +7,10 @@ def call(String path) {
         exe=[] //[AMSBatch.PTH, BonusETL_top.PTH, ETL_CDWH.PTH]
         ext=[] //[PTH]
         sh "find . -type d -name .svn -exec rm -rf {} +" //to delete junk /.svn folder recursively from lvl1
-        loadLinuxScript('spaceToUnderscore.sh')
+        loadScript(place:'linux', name:'spaceToUnderscore.sh')
         sh "./spaceToUnderscore.sh" //change " " to "_" in filenames recursively
-        loadLinuxScript('pthUpload.sh') //load bash script for upload .xml to Nexus
-        loadLinuxScript('pthConversion.sh') //load bash script for PTH conversion
+        loadScript(place:'linux', name:'pthUpload.sh') //load bash script for upload .xml to Nexus
+        loadScript(place:'linux', name:'pthConversion.sh') //load bash script for PTH conversion
         for (int i = 0; i < lvl1.size(); i++) { //level 2 - define conversion folders
         lvl2[i] = listDirNix("${WORKSPACE}/${path}/${lvl1[i]}")
         bin=['BIN'] // remove BIN from lvl2 folders list

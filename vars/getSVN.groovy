@@ -7,10 +7,10 @@ echo "osName: " + osName
     [envVar: 'svn_pwd', vaultKey: 'password']]]]
     wrap([$class: 'VaultBuildWrapper', vaultSecrets: svn_creds]) {
         if(isUnix()) {
-          loadLinuxScript('getNixSVN.sh')
+          loadScript(place:'linux', name:'getNixSVN.sh')
           sh "./getNixSVN.sh"
         } else {
-          loadWinBat('getWinSVN.bat')
+          loadScript(place:'win', name:'getWinSVN.bat')
           bat "getWinSVN.bat"
         }
     }
