@@ -5,7 +5,7 @@ def call(String name) {
             loadScript(place:'linux', name:'prepareFiles.sh')
             sh "./prepareFiles.sh"
             break
-        case ["tid_man", "mms_eod", "palmera", "borland"] :
+        case ["borland"] :
             //bat "xcopy C:\\jenkins\\trunk ${workspace} /i /q /d /e"
             bat "xcopy ${workspace}\\${SVN}\\${VERSION} ${workspace} /i /q /d /e"
             bat "mkdir ${TARGET}"
