@@ -4,8 +4,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Trunk, Branches or Tags',
-      filterLength: 1,
-      filterable: false,
       name: 'SVN', 
       script: [
         $class: 'GroovyScript', 
@@ -20,8 +18,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Version for Tags/Branches',
-      filterLength: 1,
-      filterable: false,
       referencedParameters: 'SVN',
       name: 'VERSION', 
       script: [
@@ -45,7 +41,7 @@ properties([
     ]
   ])
 ])
-pipeline {
+pipeline { //CI-58
   agent {label 'borland'}
   environment {
     APP='MMS' //label for .yaml; Borland CB pipelines
@@ -74,8 +70,8 @@ pipeline {
     stage('BUILD') {
       steps {
         script {
-          makeBorland('C:\\jenkins\\workspace\\UCS\\mms_eod')
-          makeBorland('C:\\Program Files\\Borland\\CBuilder6\\Bin')
+          makeBorland_old('C:\\jenkins\\workspace\\UCS\\mms_eod')
+          makeBorland_old('C:\\Program Files\\Borland\\CBuilder6\\Bin')
         }
       }
     }

@@ -4,8 +4,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Trunk, Branches or Tags',
-      filterLength: 1,
-      filterable: false,
       name: 'SVN', 
       script: [
         $class: 'GroovyScript', 
@@ -20,8 +18,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Version for Tags/Branches',
-      filterLength: 1,
-      filterable: false,
       referencedParameters: 'SVN',
       name: 'VERSION', 
       script: [
@@ -46,7 +42,7 @@ properties([
     ]
   ])
 ])
-pipeline {
+pipeline { //CI-56
   agent {label 'borland'}
   environment {
     APP='TID' //label for .yaml; Borland CB pipelines
@@ -75,23 +71,23 @@ pipeline {
     stage('CARDLIB') {
       steps {
         script {
-          makeBorland("CARDLIB")
+          makeBorland_old("CARDLIB")
         }
       }
     }
     stage('FORM') {
       steps {
         script {
-          makeBorland('FORM')
+          makeBorland_old('FORM')
         }
       }
     }
     stage('CARDPRO PRINT.CFG *.BPL') {
       steps {
         script {
-          makeBorland('C:\\jenkins\\workspace\\UCS\\tid_man')
-          makeBorland('C:\\Windows\\System32')
-          makeBorland('FORM\\PRINT.CFG')
+          makeBorland_old('C:\\jenkins\\workspace\\UCS\\tid_man')
+          makeBorland_old('C:\\Windows\\System32')
+          makeBorland_old('FORM\\PRINT.CFG')
         }
       }
     }

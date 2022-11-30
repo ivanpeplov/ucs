@@ -108,7 +108,7 @@ pipeline { //CI-56,58,59
       steps {
         script {
           getSVN()
-          prepareFiles("${LABEL}")      
+          prepareFiles("${JOB_BASE_NAME}")      
         }
       }
     }

@@ -4,8 +4,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Trunk, Branches or Tags',
-      filterLength: 1,
-      filterable: false,
       name: 'SVN', 
       script: [
         $class: 'GroovyScript', 
@@ -20,8 +18,6 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Version for Tags/Branches',
-      filterLength: 1,
-      filterable: false,
       referencedParameters: 'SVN',
       name: 'VERSION', 
       script: [
@@ -45,7 +41,7 @@ properties([
     ]
   ])
 ])
-pipeline {
+pipeline { //CI-59
   agent {label 'borland'}
   environment {
     APP='PALMERA' //label for .yaml; Borland CB pipelines
@@ -74,7 +70,7 @@ stages {
     stage('BUILD') {
       steps {
         script {
-          makeBorland('C:\\jenkins\\workspace\\UCS\\palmera')
+          makeBorland_old('C:\\jenkins\\workspace\\UCS\\palmera')
         }
       }
     }

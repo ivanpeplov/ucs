@@ -134,6 +134,7 @@ pipeline { //CI-51
   environment {
     TARGET='bin' //target folder for binaries
     ROOT='FIS/new' //project root at SVN
+    TOOR='FIS' //project root at SVN
     SVN_PATH = "${ROOT}/${SVN}/${VERSION}units" //full path for download fron SVN
     //environment for build
     PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
