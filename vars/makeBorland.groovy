@@ -1,37 +1,37 @@
-def call(String operation) {
+def call(String operation, String label) {
     dir (operation) {
         //module selection
-        switch (operation) {
+        switch (label) {
         //PalmeraUloader building
-        case ('C:\\jenkins\\workspace\\UCS\\palmera') :
+        case ('palmera') :
             bat "make -f palmerauloade.mak & xcopy PalmeraULoade.exe ${TARGET}"
             bmp.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
         //mmsEOD building
-        case ('C:\\jenkins\\workspace\\UCS\\mms_eod') :
+        case ('mms_eod') :
             bat "make -f mmseod.mak & xcopy mmsEOD.exe ${TARGET}"
             bmp.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
-        case ('C:\\Program Files\\Borland\\CBuilder6\\Bin') :
+        case ('bin') :
             bpl.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
         //TID Manager building
-        case ("CARDLIB") :
+        case ("lib") :
             mod1=operation.toLowerCase()
             bat "make -f ${mod1}.mak"
             bat "xcopy C:\\bpl\\*.bpl ${TARGET}"
         break
-        case ('C:\\jenkins\\workspace\\UCS\\tid_man') :
+        case ('tid_man') :
             bat "make -f CardPro.mak & xcopy Cardpro.exe ${TARGET}"
             bat "xcopy Cardpro.ini ${TARGET}"
         break
-        case ('FORM\\PRINT.CFG') :
+        case ('print') :
             bmp.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}\\${operation}\\"}
         break
-        case ('C:\\Windows\\System32') :
+        case ('32') :
             bpl.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
-        case ("FORM") :
+        case ("form") :
             nomakList=['TEMPLATE', 'PRINT.CFG']
             def dir = listDirWin("${WORKSPACE}/${operation}")
             def makList = dir - nomakList
