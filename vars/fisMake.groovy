@@ -1,6 +1,6 @@
 def call(String operation) {
     dir (operation) {
-    //List after ACTIVE CHOICE properties is string divided ','. Need a split()
+    //List after ACTIVE CHOICE properties is string divided ','. Need a split() to list []
     mod = MODULES.split(',').toList()
     dirList = mod
         for (int i=0; i < dirList.size(); i++) {

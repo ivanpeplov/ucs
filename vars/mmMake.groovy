@@ -12,7 +12,7 @@ def call(String path, String arch) {
                 loadScript(place:'linux', name:'mmArt.sh')
                 sample1=mmm.split(',') 
                 for (int i=0; i < sample1.size(); i++) { sh(script:"./mmCpp.sh ${sample1[i]} ${arch}") }
-                sh "./mmArt.sh"
+                sh "./mmArt.sh" // prepare for upload
             break
         }//switch $path
     }//dir()

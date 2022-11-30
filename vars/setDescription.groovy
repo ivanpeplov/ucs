@@ -1,7 +1,7 @@
 def call() {
 //build description inside web UI
     switch (JOB_BASE_NAME) {
-    case ["fis", "fis_util", "tid_man", "mms_eod", "palmera"]:
+    case ["fis", "fis_util"]:
     currentBuild.description = "node: ${NODE_NAME}\nsvn: ${SVN}; version: ${VERSION}\nbuild_number: ${BUILD_NUMBER}"
     break
     case ["borland"]:

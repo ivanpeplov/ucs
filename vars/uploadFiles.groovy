@@ -15,10 +15,6 @@ def call(String job, String path) {
             wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
                 //creating .zip artifact from bin/$TARGET folder and curl upload to nexus
             switch (job) {
-                case ['tid_man', 'mms_eod', 'palmera',]:
-                    loadScript(place:'win', name:'borlandUpload.bat')
-                    bat "borlandUpload.bat ${JOB_BASE_NAME} ${SVN} ${VERSION}"
-                break
                 case ['borland']:
                     loadScript(place:'win', name:'borlandUpload.bat')
                     bat "borlandUpload.bat ${LABEL} ${SVN} ${VERSION}"
