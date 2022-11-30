@@ -83,10 +83,12 @@ jenkins-fedora:  : 10.255.250.X (fedora34 5.13.19-200.fc34.X64), label MICROMOD
 Virtual terminal MM Jenkins declarative pipeline /Windows
 JIRA: CI-63
 SVN: VT/MicroModules
-
 nodes: borland : ip=10.255.250.10 (win10 32x)
 ##
 Builder: MS Visual Studio 2013
 ##
 shared-library in gitlab: /vars
 NEXUS repo: http://10.255.250.50:8081/service/rest/repository/browse/orpo/
+user=jenkucs_sa
+SVN repo: https://svn/scm/svn/dev
+user=jenkins
