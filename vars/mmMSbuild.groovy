@@ -15,7 +15,7 @@ def call(String path) {
                 sample1.each { y-> bat (script:"mmBuild.bat ${y} ${x}")
                     if ("${y}"=='ucs_ms') {
                     loadScript(place:'win', name:'lib_ucs_ms.bat') //ucs_ms.lib stub for ucs_ms.dll copy to ./microx_t/sample/test/bin
-                    bat(script:"lib_ucs_ms.bat ${y} ${x}" ) } } }
+                    bat(script:"lib_ucs_ms.bat ${y} ${x}" ) } } } //.each .each if end
                 loadScript(place:'win', name:'mmArt.bat')
                 bat (script:"mmArt.bat") //build for setup_p.zip from setup_p.msi
             break
