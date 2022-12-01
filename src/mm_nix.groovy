@@ -32,6 +32,7 @@ properties([
           script: '''
           if (NODE_NAME=='jenkins-ubuntu') {return ["x64:selected:disabled"]}
           if (NODE_NAME=='jenkins-rosa') {return ["x64:selected:disabled"]}
+          if (NODE_NAME=='jenkins-fedora') {return ["x64:selected:disabled"]}
           '''
         ]
       ]
