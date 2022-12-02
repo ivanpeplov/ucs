@@ -117,19 +117,21 @@ pipeline { //CI-56,58,59
         script {
           switch (LABEL) {
             case ('mms_eod') :
-              makeBorland("${WORKSPACE}", 'mms_eod')
-              makeBorland('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin')
+              makeBorland("${WORKSPACE}", "mms_eod")
+              makeBorland("C:\\Program Files\\Borland\\CBuilder6\\Bin", "bin")
             break
             case ('palmera') :
               makeBorland("${WORKSPACE}", 'palmera')
             break
             case ('tid_man') :
-              makeBorland("CARDLIB", 'lib')
-              makeBorland('FORM', 'form')
-              makeBorland("${WORKSPACE}", 'tid_man')
-              makeBorland('C:\\Windows\\System32', '32')
-              makeBorland('FORM\\PRINT.CFG', 'print')
+              makeBorland("CARDLIB", "lib")
+              makeBorland("${WORKSPACE}", "tid_man")
+              makeBorland("C:\\Windows\\System32", "32")
+              makeBorland("FORM\\PRINT.CFG", "print")
+              makeBorland("FORM", "form")
+             
             break
+            default: println "TBD"
           }
         }
       }
