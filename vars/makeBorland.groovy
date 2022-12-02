@@ -1,5 +1,5 @@
-def call(String operation, String label) {
-    dir (operation) {
+def call(String rt, String label) {
+    dir (rt) {
         switch (label) {  //module selection
         case ("palmerauloade") : //PalmeraUloader building
             makeBCB("${label}", "${bmp}")
@@ -8,7 +8,7 @@ def call(String operation, String label) {
             makeBCB("${label}", "${bmp}")
         break
         case ("bin") :
-            bpl.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
+            bpl.split(',').each { f -> bat "xcopy ${f} ${TARGET}" }
         break
         case ("cardlib") : //TID Manager building
             bat "make -f cardlib.mak & xcopy C:\\bpl\\*.bpl ${TARGET}"
@@ -17,20 +17,20 @@ def call(String operation, String label) {
             bat "make -f cardpro.mak & xcopy cardpro.exe ${TARGET} & xcopy cardpro.ini ${TARGET}"
         break
         case ("32") :
-            bpl.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
+            bpl.split(',').each { f -> bat "xcopy ${f} ${TARGET}" }
         break
         case ("form") :
-            dir = listDirWin("${WORKSPACE}\\${operation}") - 'TEMPLATE'
+            dir = listDirWin("${WORKSPACE}\\${rt}") - 'TEMPLATE'
             mak = dir.collect {it.toLowerCase()}
             for (int i = 0; i < dir.size(); i++) {
                 switch (dir[i]) {
                 case ('PRINT.CFG') :
                 bmp.split(',').each 
-                {filename->bat "xcopy .\\${dir[i]}\\${filename} ${TARGET}\\${operation}\\${dir[i]}\\"}
+                {f->bat "xcopy .\\${dir[i]}\\${f} ${TARGET}\\${rt}\\${dir[i]}\\"}
                 break
                 default :
                 bat "cd ${dir[i]} & make -f ${mak[i]}.mak"
-                bat "cd ${dir[i]} & xcopy ${mak[i]}.dll ${TARGET}\\${operation}\\${dir[i]}\\" }      
+                bat "cd ${dir[i]} & xcopy ${mak[i]}.dll ${TARGET}\\${rt}\\${dir[i]}\\" }      
             }
         break
         }
