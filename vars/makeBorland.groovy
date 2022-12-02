@@ -1,25 +1,20 @@
 def call(String operation, String label) {
     dir (operation) {
         switch (label) {  //module selection
-        case ("palmera") : //PalmeraUloader building
-            bat "make -f palmerauloade.mak & xcopy PalmeraULoade.exe ${TARGET}"
-            bmp.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
+        case ("palmerauloade") : //PalmeraUloader building
+            makeBCB("${label}", "${bmp}")
         break
-        case ("mms_eod") : //mmsEOD building
-            bat "make -f mmseod.mak & xcopy mmsEOD.exe ${TARGET}"
-            bmp.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
+        case ("mmseod") : //mmsEOD building
+            makeBCB("${label}", "${bmp}")
         break
         case ("bin") :
             bpl.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
-        case ("lib") : //TID Manager building
-            mod1=operation.toLowerCase()
-            bat "make -f ${mod1}.mak"
-            bat "xcopy C:\\bpl\\*.bpl ${TARGET}"
+        case ("cardlib") : //TID Manager building
+            bat "make -f cardlib.mak & xcopy C:\\bpl\\*.bpl ${TARGET}"
         break
-        case ("tid_man") :
-            bat "make -f CardPro.mak & xcopy Cardpro.exe ${TARGET}"
-            bat "xcopy Cardpro.ini ${TARGET}"
+        case ("cardpro") :
+            bat "make -f cardpro.mak & xcopy cardpro.exe ${TARGET} & xcopy cardpro.ini ${TARGET}"
         break
         case ("32") :
             bpl.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
@@ -37,7 +32,6 @@ def call(String operation, String label) {
                 bat "cd ${dir[i]} & xcopy ${mak[i]}.dll ${TARGET}\\${operation}\\${dir[i]}\\" }      
             }
         break
-        default: println "TBD"    
         }
     }
 }
