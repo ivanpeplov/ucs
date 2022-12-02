@@ -8,8 +8,8 @@ def call(String path) { //v2.0 01.12.2022
         loadScript(place:'linux', name:'pthUpload.sh') //bash script for upload .xml to Nexus
         loadScript(place:'linux', name:'pthConversion.sh') //bash script for PTH conversion
         for (io in lvl1) { lvl2 = listDir("${path}/${io}")
-            exe=lvl2 - 'BIN' //[AMSBatch.PTH, BonusETL_top.PTH, ETL_CDWH.PTH]
-            for (jo in exe) {ext = FilenameUtils.getExtension(jo)
+            lvl2=lvl2 - 'BIN' //[AMSBatch.PTH, BonusETL_top.PTH, ETL_CDWH.PTH]
+            for (jo in lvl2) { ext = FilenameUtils.getExtension(jo)
                 switch (ext) {
                 case ('PTH') :
                     stage=listDir("${path}/${io}/${jo}")
@@ -20,7 +20,7 @@ def call(String path) { //v2.0 01.12.2022
                             for (mo in substage_list) {
                             ext  = FilenameUtils.getExtension(mo) //each .ktr/.kjb filename
                             name = FilenameUtils.removeExtension(mo) //each .ktr/.kjb extension
-                            sh "./pthConversion.sh ${io} ${jo} ${name} ${ext} ${lo}" } //incl. stage (5 parameters)
+                            sh "./pthConversion.sh ${io} ${jo} ${name} ${ext} ${lo}" } //incl. substage (5 parameters)
                         }
                     }
                         stage_list = listFiles("${path}/${io}/${jo}")
