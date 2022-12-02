@@ -1,34 +1,34 @@
 import org.apache.commons.io.FilenameUtils
 def call(String path) { //v2.0 01.12.2022
     dir (path) { //path="TestSQLtoNexus"
-        sh "find . -type d -name .svn -exec rm -rf {} +" //to delete junk /.svn folder recursively from lvl1
-        lvl1 = listDirNix("${WORKSPACE}/${path}") //level 1 - group folder [MNR19]
+        sh "find . -type d -name .svn -exec rm -rf {} +" //to delete junk /.svn folder recursively at lvl1
+        lvl1 = listDir("${path}") //level 1 - group folder [MNR19]
         loadScript(place:'linux', name:'spaceToUnderscore.sh')
         sh "./spaceToUnderscore.sh" //change " " to "_" in filenames recursively
-        loadScript(place:'linux', name:'pthUpload.sh') //load bash script for upload .xml to Nexus
-        loadScript(place:'linux', name:'pthConversion.sh') //load bash script for PTH conversion
-        for (io in lvl1) { lvl2 = listDirNix("${WORKSPACE}/${path}/${io}")
+        loadScript(place:'linux', name:'pthUpload.sh') //bash script for upload .xml to Nexus
+        loadScript(place:'linux', name:'pthConversion.sh') //bash script for PTH conversion
+        for (io in lvl1) { lvl2 = listDir("${path}/${io}")
             exe=lvl2 - 'BIN' //[AMSBatch.PTH, BonusETL_top.PTH, ETL_CDWH.PTH]
             for (jo in exe) {ext = FilenameUtils.getExtension(jo)
                 switch (ext) {
                 case ('PTH') :
-                    stage=listDirNix("${WORKSPACE}/${path}/${io}/${jo}")
+                    stage=listDir("${path}/${io}/${jo}")
                     if (stage != '') {
                         for (lo in stage) {
-                        substage_list = listFilesNix("${WORKSPACE}/${path}/${io}/${jo}/${lo}")
+                        substage_list = listFiles("${path}/${io}/${jo}/${lo}")
                         .findAll{it.toLowerCase().contains('.ktr') || it.toLowerCase().contains('.kjb')}
                             for (mo in substage_list) {
                             ext  = FilenameUtils.getExtension(mo) //each .ktr/.kjb filename
                             name = FilenameUtils.removeExtension(mo) //each .ktr/.kjb extension
-                            sh "./pthConversion.sh ${io} ${jo} ${name} ${ext} ${lo}" }
+                            sh "./pthConversion.sh ${io} ${jo} ${name} ${ext} ${lo}" } //incl. stage (5 parameters)
                         }
                     }
-                        stage_list = listFilesNix("${WORKSPACE}/${path}/${io}/${jo}")
+                        stage_list = listFiles("${path}/${io}/${jo}")
                         .findAll{it.toLowerCase().contains('.ktr') || it.toLowerCase().contains('.kjb')}
                         for (ko in stage_list) {
-                            ext  = FilenameUtils.getExtension(ko) //each .ktr/.kjb filename
-                            name = FilenameUtils.removeExtension(ko) //each .ktr/.kjb extension
-                            sh "./pthConversion.sh ${io} ${jo} ${name} ${ext}" }
+                            ext  = FilenameUtils.getExtension(ko) 
+                            name = FilenameUtils.removeExtension(ko)
+                            sh "./pthConversion.sh ${io} ${jo} ${name} ${ext}" } //not incl. stage (4 parameters)
                     def nexus_creds = [
                     [path: 'secrets/creds/nexus', secretValues: [
                     [envVar: 'nexus_pwd', vaultKey: 'password']]]]
