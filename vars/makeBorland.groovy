@@ -1,22 +1,18 @@
 def call(String operation, String label) {
     dir (operation) {
-        //module selection
-        switch (label) {
-        //PalmeraUloader building
-        case ('palmera') :
+        switch (label) {  //module selection
+        case ('palmera') : //PalmeraUloader building
             bat "make -f palmerauloade.mak & xcopy PalmeraULoade.exe ${TARGET}"
             bmp.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
-        //mmsEOD building
-        case ('mms_eod') :
+        case ('mms_eod') : //mmsEOD building
             bat "make -f mmseod.mak & xcopy mmsEOD.exe ${TARGET}"
             bmp.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
         case ('bin') :
             bpl.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
-        //TID Manager building
-        case ("lib") :
+        case ("lib") : //TID Manager building
             mod1=operation.toLowerCase()
             bat "make -f ${mod1}.mak"
             bat "xcopy C:\\bpl\\*.bpl ${TARGET}"
@@ -33,16 +29,13 @@ def call(String operation, String label) {
         break
         case ("form") :
             nomakList=['TEMPLATE', 'PRINT.CFG']
-            def dir = listDirWin("${WORKSPACE}/${operation}")
-            def makList = dir - nomakList
-            def makList1 = makList.collect{ it.toLowerCase() }
-            for (int i=0; i < makList.size(); i++) {
-                bat "cd ${makList[i]} & make -f ${makList1[i]}.mak"
-                bat "cd ${makList[i]} & xcopy ${makList1[i]}.dll ${TARGET}\\${operation}\\${makList[i]}\\"
-            }  
+            dir = listDirWin("${operation}") - 'TEMPLATE' - 'PRINT.CFG'
+            dir1 = dir.collect{ it.toLowerCase() }
+            for (int i = 0; i < dir.size(); i++) {
+                bat "cd ${dir[i]} & make -f ${dir1[i]}.mak"
+                bat "cd ${dir[i]} & xcopy ${dir1[i]}.dll ${TARGET}\\${operation}\\${dir[i]}\\" } 
         break
-        default:
-            println "TBD"       
+        default: println "TBD"    
         }
     }
 }
