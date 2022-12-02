@@ -3,7 +3,7 @@ properties([
   parameters([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select Borland Build:  MMS_EOD,  PALMERA loader,  TID manager',
+      description: 'Select Borland Build:  MMS_EOD,  PALMERA Uloader,  TID manager',
       name: 'LABEL', 
       script: [
         $class: 'GroovyScript', 
@@ -11,7 +11,7 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: 
-            'return["mms_eod", "palmera", "tid_man"]'
+            'return["mmseod", "palmerauloade", "cardpro"]'
         ]
       ]
     ],
@@ -25,9 +25,9 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: '''
-          if (LABEL=='mms_eod') {return["MMS/mmsEOD"]}
-          if (LABEL=='palmera') {return["Util/PalmeraLoader"]}
-          if (LABEL=='tid_man') {return["CardPro/TidManager/TID_v6"]}
+          if (LABEL=='mmseod') {return["MMS/mmsEOD"]}
+          if (LABEL=='palmerauloade') {return["Util/PalmeraLoader"]}
+          if (LABEL=='cardpro') {return["CardPro/TidManager/TID_v6"]}
           '''
         ]
       ]
@@ -42,9 +42,9 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: '''
-          if (LABEL=='mms_eod') {return["MMS"]}
-          if (LABEL=='palmera') {return["PALMERA"]}
-          if (LABEL=='tid_man') {return["TID"]}
+          if (LABEL=='mmseod') {return["MMS"]}
+          if (LABEL=='palmerauloade') {return["PALMERA"]}
+          if (LABEL=='cardpro') {return["TID"]}
           '''
         ]
       ]
@@ -116,16 +116,16 @@ pipeline { //CI-56,58,59
       steps {
         script {
           switch (LABEL) {
-            case ('mms_eod') :
-              makeBorland("${WORKSPACE}", 'mms_eod')
+            case ('mmseod') :
+              makeBorland("${WORKSPACE}", 'mmseod')
               makeBorland('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin')
             break
-            case ('palmera') :
-              makeBorland("${WORKSPACE}", 'palmera')
+            case ('palmerauloade') :
+              makeBorland("${WORKSPACE}", 'palmerauloade')
             break
-            case ('tid_man') :
-              makeBorland("CARDLIB", "lib")
-              makeBorland("${WORKSPACE}", "tid_man")
+            case ('cardpro') :
+              makeBorland("CARDLIB", "cardlib")
+              makeBorland("${WORKSPACE}", "cardpro")
               makeBorland("C:\\Windows\\System32", "32")
               makeBorland("FORM", "form")
             break

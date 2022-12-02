@@ -24,7 +24,7 @@ pipeline { //CI-57
         stage('GROUP.. UPLOAD') {
             steps {
                 script {
-                    ktrToNexus("NexusShareAsIs")
+                    scriptsNexus("NexusShareAsIs")
                 }
             }
         }
