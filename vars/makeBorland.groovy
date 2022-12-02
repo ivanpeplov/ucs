@@ -25,7 +25,8 @@ def call(String operation, String label) {
             for (int i = 0; i < dir.size(); i++) {
                 switch (dir[i]) {
                 case ('PRINT.CFG') :
-                bmp.split(',').each { filename -> bat "xcopy .\\${dir[i]}\\${filename} ${TARGET}\\${operation}\\${dir[i]}\\"}
+                bmp.split(',').each 
+                {filename->bat "xcopy .\\${dir[i]}\\${filename} ${TARGET}\\${operation}\\${dir[i]}\\"}
                 break
                 default :
                 bat "cd ${dir[i]} & make -f ${mak[i]}.mak"
