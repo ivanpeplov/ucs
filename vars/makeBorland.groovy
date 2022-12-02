@@ -28,12 +28,11 @@ def call(String operation, String label) {
             bpl.split(',').each { filename -> bat "xcopy ${filename} ${TARGET}" }
         break
         case ("form") :
-            nomakList=['TEMPLATE', 'PRINT.CFG']
             dir = listDirWin("${operation}") - 'TEMPLATE' - 'PRINT.CFG'
-            dir1 = dir.collect{ it.toLowerCase() }
+            mak = dir.collect{ it.toLowerCase() }
             for (int i = 0; i < dir.size(); i++) {
-                bat "cd ${dir[i]} & make -f ${dir1[i]}.mak"
-                bat "cd ${dir[i]} & xcopy ${dir1[i]}.dll ${TARGET}\\${operation}\\${dir[i]}\\" } 
+                bat "cd ${dir[i]} & make -f ${mak[i]}.mak"
+                bat "cd ${dir[i]} & xcopy ${mak[i]}.dll ${TARGET}\\${operation}\\${dir[i]}\\" } 
         break
         default: println "TBD"    
         }
