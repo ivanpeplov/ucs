@@ -2,36 +2,34 @@ def call(String rt, String label) {
     dir (rt) {
         switch (label) {  //module selection
         case ("palmerauloade") : //PalmeraUloader building
-            makeBCB("${label}", "${bmp}")
+        makePalmMms("${label}", "${bmp}")
         break
         case ("mmseod") : //mmsEOD building
-            makeBCB("${label}", "${bmp}")
+        makePalmMms("${label}", "${bmp}") 
         break
-        case ("bin") :
-            bpl.split(',').each { f -> bat "xcopy ${f} ${TARGET}" }
+        case ("bin") : 
+        bpl.split(',').each { f -> bat "xcopy ${f} ${TARGET}" }
         break
         case ("cardlib") : //TID Manager building
-            bat "make -f cardlib.mak & xcopy C:\\bpl\\*.bpl ${TARGET}"
+        bat "make -f cardlib.mak & xcopy C:\\bpl\\*.bpl ${TARGET}"
         break
         case ("cardpro") :
-            bat "make -f cardpro.mak & xcopy cardpro.exe ${TARGET} & xcopy cardpro.ini ${TARGET}"
+        bat "make -f cardpro.mak & xcopy cardpro.exe ${TARGET} & xcopy cardpro.ini ${TARGET}"
         break
-        case ("32") :
-            bpl.split(',').each { f -> bat "xcopy ${f} ${TARGET}" }
+        case ("32") : 
+        bpl.split(',').each { f -> bat "xcopy ${f} ${TARGET}" }
         break
         case ("form") :
             dir = listDirWin("${WORKSPACE}\\${rt}") - 'TEMPLATE'
-            mak = dir.collect {it.toLowerCase()}
-            for (int i = 0; i < dir.size(); i++) {
-                switch (dir[i]) {
+            for (io  in dir) {
+                switch (io) {
                 case ('PRINT.CFG') :
                 bmp.split(',').each 
-                {f->bat "xcopy .\\${dir[i]}\\${f} ${TARGET}\\${rt}\\${dir[i]}\\"}
+                {f->bat "xcopy .\\${io}\\${f} ${TARGET}\\${rt}\\${io}\\"}
                 break
                 default :
-                bat "cd ${dir[i]} & make -f ${mak[i]}.mak"
-                bat "cd ${dir[i]} & xcopy ${mak[i]}.dll ${TARGET}\\${rt}\\${dir[i]}\\" }      
-            }
+                bat "cd ${io} & make -f ${io}.mak"
+                bat "cd ${io} & xcopy ${io}.dll ${TARGET}\\${rt}\\${io}\\" } }      
         break
         }
     }
