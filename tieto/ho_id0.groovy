@@ -1,0 +1,1 @@
+if (TXN.ho_id == '00000') TXN.ho_id = '12345'
