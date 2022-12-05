@@ -1,11 +1,11 @@
 def call(String rt, String label) {
     dir (rt) {
         switch (label) {  //module selection
-        //PalmeraUloader building
-        case ("palmerauloade") : makePalmMms("${label}", "${bmp}"); break; 
         //mmsEOD building
         case ("mmseod") : makePalmMms("${label}", "${bmp}"); break;
         case ("bin") : bpl.split(',').each { f -> bat "xcopy ${f} ${TARGET}" }; break;
+        //PalmeraUloader building
+        case ("palmerauloade") : makePalmMms("${label}", "${bmp}"); break; 
         //TID Manager building
         case ("cardlib") : bat "make -f cardlib.mak & xcopy C:\\bpl\\*.bpl ${TARGET}"; break; 
         case ("32") : bpl.split(',').each { f -> bat "xcopy ${f} ${TARGET}" }; break;
