@@ -21,11 +21,10 @@ def call(String rt, String label) {
         break
         case ("form") :
             dir = listDirWin("${WORKSPACE}\\${rt}") - 'TEMPLATE'
-            for (io  in dir) {
+            for (io in dir) {
                 switch (io) {
                 case ('PRINT.CFG') :
-                bmp.split(',').each 
-                {f->bat "xcopy .\\${io}\\${f} ${TARGET}\\${rt}\\${io}\\"}
+                bmp.split(',').each {f->bat "xcopy .\\${io}\\${f} ${TARGET}\\${rt}\\${io}\\"}
                 break
                 default :
                 bat "cd ${io} & make -f ${io}.mak"

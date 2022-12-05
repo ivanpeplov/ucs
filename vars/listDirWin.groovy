@@ -1,7 +1,7 @@
 def call(String dir) {
-    proc = bat (returnStdout: true, script: "dir /A:D /B")
-    def removeList = proc.split().toList()
+    output = bat (returnStdout: true, script: "dir /A:D /B")
+    dirList = output.split().toList()
     //clear junk elements
-    removeList.subList(0, 3).clear()
-    return removeList
+    dirList.subList(0, 3).clear()
+    return dirList
 }
