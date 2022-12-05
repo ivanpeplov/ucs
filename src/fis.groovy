@@ -146,6 +146,7 @@ pipeline { //CI-51
       SVN_PATH = "${ROOT}/${SVN}/${VERSION}/units" //full path for download fron SVN
       //environment for build
       PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
+      PATH="${PATH}:${PROJECTS}/tools:${PROJECTS}/units:${PROJECTS}/bin"
       INFORMIXSERVER="shlag"
       INFORMIXDIR="/opt/informix"
       INFORMIXSQLHOSTS="${INFORMIXDIR}/etc/sqlhosts"
