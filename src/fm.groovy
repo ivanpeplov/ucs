@@ -167,8 +167,11 @@ pipeline { //CI-52
           }
         }
         steps {
-          script {
-            hsmSign("${TARGET}", "${ARCH}")
+          dir (TARGET) {
+            script {
+              if (ARCH=='ppcfm') {sh "mkfm -k ABG/fm -ffmUX.bin -oFmUX.fm 
+              else {bat "echo ${SIGN} | mkfm -k ABG/fm -ffmUX -ofmUX.fm"}
+            }
           }
         }
       }*/
