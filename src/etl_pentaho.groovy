@@ -1,3 +1,4 @@
+import org.apache.commons.io.FilenameUtils
 @Library("shared-library") _
 pipeline { //CI-60
     agent {label 'jenkins-rosa'}
@@ -17,15 +18,43 @@ pipeline { //CI-60
         stage ('PREPARE') {
             steps {
                 script {
-                    println "getSVN"
                     getSVN()
                 }
             }
         }
         stage('Extract Transform Load') {
             steps {
+                dir (ROOT) {
                 script {
-                    pentahoETL("TestSQLtoNexus")
+                    def nexus_creds = [
+                        [ path: 'secrets/creds/nexus', secretValues: [
+                        [ envVar: 'nexus_pwd', vaultKey: 'password']]]]
+                    //to delete junk /.svn folder recursively at lvl1
+                    sh "find . -type d -name .svn -exec rm -rf {} +" 
+                    lvl1 = listDir("${ROOT}") //level 1 - group folder [MNR19]
+                    loadScript(place:'linux', name:'spaceToUnderscore.sh')
+                    sh "./spaceToUnderscore.sh" //change " " to "_" in filenames recursively
+                    loadScript(place:'linux', name:'pthUpload.sh') //bash script for upload .xml to Nexus
+                    loadScript(place:'linux', name:'pthConversion.sh') //bash script for PTH conversion
+                        for (io in lvl1) { lvl2 = listDir("${ROOT}/${io}")
+                            lvl2=lvl2 - 'BIN' //[AMSBatch.PTH, BonusETL_top.PTH] - 'BIN'
+                            for (jo in lvl2) { ext = FilenameUtils.getExtension(jo)
+                              switch (ext) {
+                                case ('PTH') :
+                                stage=listDir("${ROOT}/${io}/${jo}")
+                                if (stage != '') { //substage conversion
+                                for (lo in stage) {
+                                pthConversion (r:"${ROOT}", l1:"${io}", l2:"${jo}", ss:"${lo}") } }
+                                //stage conversion
+                                pthConversion (r:"${ROOT}", l1:"${io}", l2:"${jo}")
+                                wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) //upload to nexus
+                                { sh "./pthUpload.sh ${io} ${jo}" }
+                                break //PTH stage
+                                default: println 'TBD'
+                              } //switch EXT
+                            } //loop lvl2 
+                        } //loop lvl1
+                    }
                 }
             }
         }
