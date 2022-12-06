@@ -30,7 +30,7 @@ stages {
       steps {
         script {
           loadScript(place:'win', name:'mmBuild.bat')
-          mmBuild(arch, mm)
+          mmBuild(mm, arch)
         }
       }
     }
@@ -39,7 +39,7 @@ stages {
         dir ("microx_t/samples") {
           script {
             loadScript(place:'win', name:'mmBuild.bat')
-            mmBuild(arch, mmm)
+            mmBuild(mmm, arch)
             loadScript(place:'win', name:'mmArt.bat')
             bat (script:"mmArt.bat") //build for setup_p.zip from setup_p.msi
           }
@@ -49,7 +49,6 @@ stages {
     stage('UPLOAD') {
       steps {
         script {
-          println 'UPLOAD'
           uploadFiles('mm_win', "${TARGET}")
         }
       }
