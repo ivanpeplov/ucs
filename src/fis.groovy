@@ -179,8 +179,11 @@ pipeline { //CI-51
       }
       stage('BUILD') {
         steps {
-          script {
-            fisMake('units/fis/samples/')
+          dir ('units/fis/samples/') {
+            script {
+            units = MODULES.split(',').toList()
+            units.each {f -> sh "cd ${f} ; echo ${CLEAR} ${RELEASE} | xargs -n 1 Make"}
+            }
           }
         }
       }

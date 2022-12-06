@@ -52,6 +52,7 @@ pipeline { //CI-62
       SVN_PATH = "${ROOT}" //full path for download fron SVN
       //environment for build
       PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
+      PATH="${PATH}:${PROJECTS}/tools:${PROJECTS}/units:${PROJECTS}/bin"
       INCLUDE="-I. -I${PROJECTS}/units -I./include -I../include"
       LIB='-L${PROJECTS}/lib'
     }
@@ -75,15 +76,23 @@ pipeline { //CI-62
       }
       stage(' CYASSL MYIZIP_Z MICROX_T') {
         steps {
-          script {
-            mmMake('units', "${ARCH}")
+          dir ('units') {
+            script {
+              loadScript(place:'linux', name:'mmCpp.sh')
+              mmCpp(mm, ARCH)
+            }
           }
         }
       }
       stage('MICROP UCS_MS UCS_DT UCS_MM') {
         steps {
-          script {
-            mmMake('units/microx_t/samples', "${ARCH}")
+          dir ('units/microx_t/samples') {
+            script {
+              loadScript(place:'linux', name:'mmCpp.sh')
+              mmCpp(mmm, ARCH)
+              loadScript(place:'linux', name:'mmArt.sh')
+              sh "./mmArt.sh" // prepare for upload
+            }
           }
         }
       }
