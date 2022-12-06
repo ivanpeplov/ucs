@@ -12,7 +12,8 @@ def call(String path) { //v3.0 03.12.2022
         lvl1 = listDir("${path}") //level 1 - group folder [MNR19]
         for (io in lvl1) { lvl2 = listDir("${path}/${io}")
             lvl2=lvl2 - 'BIN' //[AMSBatch.PTH, BonusETL_top.PTH] - 'BIN'
-            for (jo in lvl2) { ext = FilenameUtils.getExtension(jo)
+            ext = FilenameUtils.getExtension(lvl2[0])
+            for (jo in lvl2) {
               switch (ext) {
                 case ('PTH') :
                 stage=listDir("${path}/${io}/${jo}")
