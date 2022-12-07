@@ -134,7 +134,6 @@ properties([
             if (SAMPLES == "all" && LABEL == "fis") { return ["all:selected:disabled"] }
             else {
             if (SAMPLES == "by one" && LABEL == "fis") {
-            proj='FIS/new/trunk/units'
             proc1= ["bash", "-c", "svn list --username jenkins --password mRovmZVpt  https://${svn_url}/${proj}/fis/samples"].execute()
             proc2= ["bash", "-c", "rev | cut -c2- | rev"].execute()
             proc3= ["bash", "-c", "tail -n +2"].execute()
@@ -146,9 +145,8 @@ properties([
             proc1= ["bash", "-c", "svn list --username jenkins --password mRovmZVpt  https://${svn_url}/${proj}"].execute()
             proc2= ["bash", "-c", "rev | cut -c2- | rev"].execute()
             all = proc1 | proc2
-            choices = all.text.split().toList()
-            diff = choices - noList
-            return diff }            
+            choices = all.text.split().toList() - noList
+            return choices }            
             }
             '''
         ]
@@ -159,8 +157,8 @@ properties([
 pipeline { //CI-51
     agent {label NODE_NAME}
     environment {
-      ROOT='FIS/new'
-      TOOR='FIS' //project root at SVN
+      ROOT='FIS/new' //project root at SVN
+      TOOR='FIS' //project root at NEXUS
       SVN_PATH = "${ROOT}/${SVN}/${VERSION}/units" //full path for download fron SVN
       //environment for build
       PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
