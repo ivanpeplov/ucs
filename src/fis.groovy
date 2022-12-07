@@ -66,7 +66,7 @@ properties([
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select Trunk, Branches or Tags',
+      description: 'Select Trunk or Tags (opcpposcv only for Trunk)',
       name: 'SVN', 
       script: [
         $class: 'GroovyScript', 
@@ -120,7 +120,7 @@ properties([
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_CHECKBOX', 
-      description: 'Select',
+      description: 'Select: (opcpposcv only for Trunk)',
       referencedParameters: 'SAMPLES, LABEL',
       name: 'MODULES', 
       script: [
