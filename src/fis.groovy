@@ -3,6 +3,20 @@ properties([
   parameters([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
+      description: 'Select:  FIS server,  FIS utility',
+      name: 'LABEL', 
+      script: [
+        $class: 'GroovyScript', 
+        script: [
+          classpath: [], 
+          sandbox: false, 
+          script: 
+            'return["fis", "fis_util"]'
+        ]
+      ]
+    ],
+    [$class: 'CascadeChoiceParameter', 
+      choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select node to run',
       name: 'RELEASE', 
       script: [
@@ -17,22 +31,16 @@ properties([
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select',
-      referencedParameters: 'RELEASE',
-      name: 'CLEAR', 
+      referencedParameters: 'LABEL',
+      name: 'TARGET', 
       script: [
         $class: 'GroovyScript', 
         script: [
           classpath: [], 
           sandbox: false, 
           script: '''
-            switch(RELEASE) {
-            case ('release') :
-            return ["rclear:selected:disabled"]
-            break
-            default :
-            return ["dclear:selected:disabled"]
-            }
+          if (LABEL=='fis') {return["bin/fis.bin"]}
+          if (LABEL=='fis_util') {return["bin"]}
             '''
         ]
       ]
@@ -96,22 +104,24 @@ properties([
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description:'',
+      referencedParameters: 'LABEL',
       name: 'SAMPLES', 
       script: [
         $class: 'GroovyScript', 
         script: [
           classpath: [], 
           sandbox: false, 
-          script: 
-            'return["all","by one"]'
+          script: '''
+          if (LABEL=='fis') {return["all","by one"]}
+          if (LABEL=='fis_util') {return["by one"]}
+          '''
         ]
       ]
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_CHECKBOX', 
       description: 'Select',
-      referencedParameters: 'SAMPLES',
+      referencedParameters: 'SAMPLES, LABEL',
       name: 'MODULES', 
       script: [
         $class: 'GroovyScript', 
@@ -120,15 +130,25 @@ properties([
           sandbox: false, 
           script: '''
             svn_url='172.16.10.230/scm/svn/dev'
-            proj='FIS/new/trunk/units/fis'
-            if (SAMPLES == "all") { return ["all:selected:disabled"] }
+            proj='FIS/new/trunk/units'
+            if (SAMPLES == "all" && LABEL == "fis") { return ["all:selected:disabled"] }
             else {
-            proc1= ["bash", "-c", "svn list --username jenkins --password mRovmZVpt  https://${svn_url}/${proj}/samples"].execute()
+            if (SAMPLES == "by one" && LABEL == "fis") {
+            proj='FIS/new/trunk/units'
+            proc1= ["bash", "-c", "svn list --username jenkins --password mRovmZVpt  https://${svn_url}/${proj}/fis/samples"].execute()
             proc2= ["bash", "-c", "rev | cut -c2- | rev"].execute()
             proc3= ["bash", "-c", "tail -n +2"].execute()
             all = proc1 | proc2 | proc3
-            choices = all.text
-            return choices.split().toList()
+            choices = all.text.split().toList()
+            return choices }
+            if (SAMPLES == "by one" && LABEL == "fis_util") {
+            noList=['baselib', 'fis', 'mqlib']
+            proc1= ["bash", "-c", "svn list --username jenkins --password mRovmZVpt  https://${svn_url}/${proj}"].execute()
+            proc2= ["bash", "-c", "rev | cut -c2- | rev"].execute()
+            all = proc1 | proc2
+            choices = all.text.split().toList()
+            diff = choices - noList
+            return diff }            
             }
             '''
         ]
@@ -138,9 +158,7 @@ properties([
 ])
 pipeline { //CI-51
     agent {label NODE_NAME}
-    options { timeout(time: 10, unit: 'MINUTES') }
     environment {
-      TARGET='bin/fis.bin' //where find files for upload
       ROOT='FIS/new'
       TOOR='FIS' //project root at SVN
       SVN_PATH = "${ROOT}/${SVN}/${VERSION}/units" //full path for download fron SVN
@@ -177,12 +195,24 @@ pipeline { //CI-51
           }
         }
       }
-      stage('BUILD') {
+      stage('FIS') {
+        when { expression  { LABEL == "fis" } }
         steps {
           dir ('units/fis/samples/') {
             script {
             units = MODULES.split(',').toList()
-            units.each {f -> sh "cd ${f} ; echo ${CLEAR} ${RELEASE} | xargs -n 1 Make"}
+            units.each {f -> sh "cd ${f} ; Make ${RELEASE}"}
+            }
+          }
+        }
+      }
+      stage('FIS util') {
+        when { expression  { LABEL == "fis_util" } }
+        steps {
+          dir ('units') {
+            script {
+            units = MODULES.split(',').toList()
+            units.each {f -> sh "cd ${f} ; Make ${RELEASE}"}
             }
           }
         }
