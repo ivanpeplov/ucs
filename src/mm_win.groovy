@@ -30,7 +30,7 @@ stages {
       steps {
         script {
           loadScript(place:'win', name:'mmBuild.bat')
-          mmBuild(mm, arch) // mm, arch - strings from environment.yml file
+          mmWin(mm, arch) // mm, arch - strings from environment.yml file
         }
       }
     }
@@ -39,7 +39,7 @@ stages {
         dir ("microx_t/samples") {
           script {
             loadScript(place:'win', name:'mmBuild.bat')
-            mmBuild(mmm, arch) //strings from environment.yml file
+            mmWin(mmm, arch) //strings from environment.yml file
             loadScript(place:'win', name:'mmArt.bat')
             bat (script:"mmArt.bat") // mmm, arch - build for setup_p.zip from setup_p.msi
           }
