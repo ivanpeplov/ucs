@@ -24,7 +24,7 @@ pipeline { //CI-60
         stage('Extract Transform Load') {
             steps {
                 script {
-                    scriptPTH("TestSQLtoNexus")
+                    pthScript("TestSQLtoNexus")
                 }
             }
         }
