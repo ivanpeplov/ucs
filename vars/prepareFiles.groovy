@@ -1,7 +1,7 @@
 def call(String name) {
     def workspace = WORKSPACE.replaceAll('/','\\\\')
     switch (name) {//local preliminary file operations
-        case ["fis", "fis_util", "mm_nix"] :
+        case ["fis", "mm_nix"] :
             loadScript(place:'linux', name:'prepareFiles.sh')
             sh "./prepareFiles.sh"
             break
