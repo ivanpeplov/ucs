@@ -79,7 +79,7 @@ pipeline { //CI-62
           dir ('units') {
             script {
               loadScript(place:'linux', name:'mmCpp.sh')
-              mmCpp(mm, ARCH)
+              mmCpp(mm, ARCH) // mm - strings from environment.yml file
             }
           }
         }
@@ -89,7 +89,7 @@ pipeline { //CI-62
           dir ('units/microx_t/samples') {
             script {
               loadScript(place:'linux', name:'mmCpp.sh')
-              mmCpp(mmm, ARCH)
+              mmCpp(mmm, ARCH) // mmm - strings from environment.yml file
               loadScript(place:'linux', name:'mmArt.sh')
               sh "./mmArt.sh" // prepare for upload
             }
