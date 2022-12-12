@@ -33,7 +33,7 @@ properties([
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT',
-      description: 'Select mmCore Version',
+      description: 'Select mmCore version from REPO metadata',
       referencedParameters: 'LABEL',
       name: 'VERSION', 
       script: [
