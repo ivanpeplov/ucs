@@ -10,6 +10,9 @@ def call(String name) {
             break
         case ["mm_win"] :
             bat "xcopy ${workspace}\\MicroModule ${workspace} /i /q /d /e"
+        case ["mm_java"] :
+            if (LABEL=='mmcore') { sh "cp -r ~/mm_java/mmcore ${WORKSPACE}" }
+            else { sh "cp -r ~/mm_java/mmlibrary ${WORKSPACE}" }
         default:
             println ("Default: fm, svn_nexus, etl_nexus")
     }

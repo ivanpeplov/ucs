@@ -14,7 +14,7 @@ sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
 group = 'ru.ucs.micromod'
-version = '1.0'
+version = '1.0.0'
 
 java {
     //withJavadocJar()
@@ -25,7 +25,7 @@ tasks.withType(GenerateModuleMetadata) {
 }
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        mmCore(MavenPublication) {
             artifactId = 'mmcore'
             from components.java
             versionMapping {
@@ -65,7 +65,8 @@ publishing {
                 username = "$usr"
                 password = "$pwd"
             }
-            url = "http://10.255.252.161:8081/repository/UCS_lib"
+            url = "http://10.255.252.161:8081/repository/ucs_lib"
+            allowInsecureProtocol = true
         }
     }
 }
