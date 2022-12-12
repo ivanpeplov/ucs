@@ -15,7 +15,7 @@ properties([
         ]
       ]
     ],
-      [$class: 'CascadeChoiceParameter', 
+    [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       referencedParameters: 'LABEL',
       name: 'ROOT', 
@@ -30,6 +30,25 @@ properties([
           '''
         ]
       ]
+    ],
+    [$class: 'CascadeChoiceParameter', 
+      choiceType: 'PT_SINGLE_SELECT',
+      description: 'Select mmCore Version',
+      referencedParameters: 'LABEL',
+      name: 'VERSION', 
+      script: [
+        $class: 'GroovyScript', 
+        script: [
+          classpath: [], 
+          sandbox: false, 
+          script: '''
+          if (LABEL=='mmlibrary') {
+          proc= ["bash", "-c", "/var/lib/jenkins/xidel.sh"].execute()
+          choices = proc.text.split().toList()
+          return choices } 
+          '''
+        ]
+      ]
     ]
   ])
 ])
@@ -37,7 +56,7 @@ pipeline { //CI-69/CI-70
   agent {label 'JAVA'}
   environment {
     SVN_PATH = "${ROOT}" //full path for download fron SVN
-    PATH="${PATH}:/home/jenkins/tools/gradle-6.1.1/bin"
+    PATH="${PATH}:/home/jenkins/tools/gradle-6.1.1/bin:/home/jenkins/tools/apache-maven-3.8.6/bin"
     ANDROID_SDK_ROOT="/home/jenkins/android"
   }
   stages {
@@ -63,7 +82,12 @@ pipeline { //CI-69/CI-70
         dir ('mmcore') {
           script {
             println "mmcore"
-            sh "gradle build --info & gradle  publish --info"
+            loadScript(place:'gradle', name:'build_core.gradle')
+            loadScript(place:'linux', name:'versionFromPom.sh')
+            output = sh returnStdout: true, script: "./versionFromPom.sh"
+            versionFromPom = output.trim()
+            sh "gradle -Pversion=${versionFromPom} build"
+            sh "gradle -Pversion=${versionFromPom} publish"
           }
         }
       }
@@ -73,8 +97,14 @@ pipeline { //CI-69/CI-70
       steps {
         dir ('mmlibrary') {
           script {
-            println "mmlib"
-            sh "gradle downloadFile --info & gradle build --info & gradle  publish --info"
+            loadScript(place:'gradle', name:'build_lib.gradle')
+            println "-------------------DownloadFile----------------------------"
+            sh "wget ${NEXUS_MAVEN}/ru/ucs/mmcore/${VERSION}/mmcore-${VERSION}.jar -O ./libs/mmcore.jar"
+            //sh "gradle downloadFile"
+            println "----------------------BUILD--------------------------------" 
+            sh "gradle build"
+            println "---------------------PUBLISH--------------------------------"
+            sh "gradle publish "
           }
         }
       }
