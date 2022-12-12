@@ -83,8 +83,8 @@ pipeline { //CI-69/CI-70
           script {
             println "mmcore"
             loadScript(place:'gradle', name:'build_core.gradle')
-            loadScript(place:'linux', name:'versionFromPom.sh')
-            output = sh returnStdout: true, script: "./versionFromPom.sh"
+            loadScript(place:'linux', name:'getVersionFromSvnPom.sh')
+            output = sh returnStdout: true, script: "./getVersionFromSvnPom.sh"
             versionFromPom = output.trim()
             sh "gradle -Pversion=${versionFromPom} build"
             sh "gradle -Pversion=${versionFromPom} publish"
