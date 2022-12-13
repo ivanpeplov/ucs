@@ -64,8 +64,8 @@ publishing {
                 username = "$usr"
                 password = "$pwd"
             }
-            //url = "http://172.16.10.230:3389/repository/ucs_repo"
-            url = "http://10.255.252.161:8081/repository/ucs_repo"
+            url = "http://172.16.10.230:3389/nexus/content/repositories/ucs_test"
+            //url = "http://10.255.252.161:8081/repository/ucs_repo"
             allowInsecureProtocol = true
         }
     }

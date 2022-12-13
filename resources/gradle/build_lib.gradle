@@ -77,7 +77,8 @@ ext {
 }
 task downloadFile {
     doLast {
-        def url = "http://10.255.252.161:8081/repository/ucs_repo/ru/ucs/mmcore/${arg}/mmcore-${arg}.jar"
+        //def url = "http://10.255.252.161:8081/repository/ucs_repo/ru/ucs/mmcore/${arg}/mmcore-${arg}.jar"
+        def url = "http://172.16.10.230:3389/nexus/content/repositories/ucs_test/ru/ucs/mmcore/${arg}/mmcore-${arg}.jar"
         download.run {
             src "$url"
             dest new File('/space/home/jenkins/workspace/UCS/mm_java/mmlibrary/libs', "mmcore.jar")
@@ -101,8 +102,8 @@ publishing {
                 username = "$usr"
                 password = "$pwd"
             }
-            url = "http://10.255.252.161:8081/repository/ucs_repo"
-            //url = "http://172.16.10.230:3389/nexus/service/local/repositories/ucs_repo/content"
+            //url = "http://10.255.252.161:8081/repository/ucs_repo"
+            url = "http://172.16.10.230:3389/nexus/service/local/repositories/ucs_test/content"
             allowInsecureProtocol = true
         }
     }
