@@ -72,11 +72,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+ext {
+    arg = System.getProperty ("ARG", "1.0")
+}
 task downloadFile {
     doLast {
+        def url = "http://10.255.252.161:8081/repository/ucs_repo/ru/ucs/mmcore/${arg}/mmcore-${arg}.jar"
         download.run {
-            src 'http://10.255.252.161:8081/repository/ucs_repo/ru/ucs/mmcore/1.0/mmcore-1.0.jar'
-            //src 'http://172.16.10.230:3389/nexus/repository/ucs_repo/ru/ucs/mmcore/1.0/mmcore-1.0.jar'
+            src "$url"
             dest new File('/space/home/jenkins/workspace/UCS/mm_java/mmlibrary/libs', "mmcore.jar")
             overwrite true
             tempAndMove true
@@ -99,7 +102,7 @@ publishing {
                 password = "$pwd"
             }
             url = "http://10.255.252.161:8081/repository/ucs_repo"
-            //url = "http://172.16.10.230:3389/repository/ucs_repo"
+            //url = "http://172.16.10.230:3389/nexus/service/local/repositories/ucs_repo/content"
             allowInsecureProtocol = true
         }
     }
