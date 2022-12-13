@@ -10,11 +10,11 @@ apply plugin: 'maven-publish'
 ///////////////////////////////////////////////////////////////////////////////////
 buildscript {
     repositories {
-      mavenLocal()
-//    maven {  url "http://172.16.10.230:3389/nexus/content/groups/public/"        }
-      mavenCentral()
-      google()
-      jcenter()
+        mavenLocal()
+//      maven {  url "http://172.16.10.230:3389/nexus/content/groups/public/"        }
+        mavenCentral()
+        google()
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
@@ -25,11 +25,11 @@ buildscript {
 }
 allprojects {
     repositories {
-      mavenLocal()
-//    maven {  url "http://172.16.10.230:3389/nexus/content/groups/public/"        }
-      mavenCentral()
-      google()
-      jcenter()
+        mavenLocal()
+//      maven {  url "http://172.16.10.230:3389/nexus/content/groups/public/"        }
+        mavenCentral()
+        google()
+        jcenter()
     }
 }
 ///////////////////////////////////////////////////////////////////////////////////
@@ -51,7 +51,7 @@ android {
     disable 'NewApi'
     }*/
     testOptions { 
-       unitTests.returnDefaultValues = true
+        unitTests.returnDefaultValues = true
     }
     buildTypes {
         release {
