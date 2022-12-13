@@ -22,6 +22,9 @@ mail_recipients_dev: a.kustov@ucscards.ru
 nexus_url:   "http://10.255.250.50:8081/repository/orpo"
 nexus_url_1: "http://10.255.252.161:8081/repository/orpo"
 nexus_url_test: "http://10.255.252.161:8081/repository/test"
+nexus_maven: "http://10.255.252.161:8081/repository/ucs_repo"
+#nexus_maven_orpo: "http://172.16.10.230:3389/nexus/content/repositories/ucs_repo"
+nexus_maven_orpo: "http://172.16.10.230:3389/nexus/content/repositories/ucs_test"
 # dnld url
 svn_url: '172.16.10.230/scm/svn/dev'
        
