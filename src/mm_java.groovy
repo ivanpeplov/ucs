@@ -43,7 +43,7 @@ properties([
           sandbox: false, 
           script: '''
           if (LABEL=='mmlibrary') {
-          proc= ["bash", "-c", "/var/lib/jenkins/xidel.sh"].execute()
+          proc= ["bash", "-c", "/var/lib/jenkins/bin/xidel.sh"].execute()
           choices = proc.text.split().toList()
           return choices } 
           '''
@@ -99,7 +99,7 @@ pipeline { //CI-69/CI-70
           script {
             loadScript(place:'gradle', name:'build_lib.gradle')
             println "-----DownloadFile-----"
-            //sh "wget ${NEXUS_MAVEN}/ru/ucs/mmcore/${VERSION}/mmcore-${VERSION}.jar -O ./libs/mmcore.jar"
+            //sh "wget ${NEXUS_MAVEN_ORPO}/ru/ucs/mmcore/${VERSION}/mmcore-${VERSION}.jar -O ./libs/mmcore.jar"
             sh "gradle -DARG=${VERSION} downloadFile"
             println "-----BUILD-----" 
             sh "gradle build"
