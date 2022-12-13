@@ -99,8 +99,8 @@ pipeline { //CI-69/CI-70
           script {
             loadScript(place:'gradle', name:'build_lib.gradle')
             println "-------------------DownloadFile----------------------------"
-            sh "wget ${NEXUS_MAVEN}/ru/ucs/mmcore/${VERSION}/mmcore-${VERSION}.jar -O ./libs/mmcore.jar"
-            //sh "gradle downloadFile"
+            //sh "wget ${NEXUS_MAVEN}/ru/ucs/mmcore/${VERSION}/mmcore-${VERSION}.jar -O ./libs/mmcore.jar"
+            sh "gradle -DARG=${VERSION} downloadFile"
             println "----------------------BUILD--------------------------------" 
             sh "gradle build"
             println "---------------------PUBLISH--------------------------------"
