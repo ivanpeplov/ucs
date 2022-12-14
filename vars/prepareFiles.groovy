@@ -7,11 +7,6 @@ def call(String name) {
             break
         case ["borland"] :
             bat "xcopy ${workspace}\\${SVN}\\${VERSION} ${workspace} /i /q /d /e & mkdir ${TARGET}"
-            break
-        case ["mmlibrary"] :
-            sh """
-            cp -r -f ~/mm_java/mmlibrary ${WORKSPACE}
-            """
         break
         default:
             println ("Default: fm, svn_nexus, etl_nexus, mm_java:mmcore")
