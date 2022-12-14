@@ -72,7 +72,7 @@ pipeline { //CI-69/CI-70
       steps {
         script {
           getSVN()
-          prepareFiles("${LABEL}")      
+          //prepareFiles("${LABEL}")      
         }
       }
     }
@@ -98,7 +98,8 @@ pipeline { //CI-69/CI-70
             loadScript(place:'gradle', name:'build.gradle')
             //sh "wget ${NEXUS_MAVEN_ORPO}/ru/ucscards/mmcore/${VERSION}/mmcore-${VERSION}.jar -O ./libs/mmcore.jar"
             sh "gradle -DARG=${VERSION} downloadFile -b tools.gradle"
-            sh "gradle build"
+            sh "touch local.properties & echo 'sdk.dir = /home/jenkins/android' >> local.properties"
+            sh "gradle build "
             sh "gradle publish -b tools.gradle"
           }
         }
@@ -109,7 +110,7 @@ pipeline { //CI-69/CI-70
     always {
       script {             
         echo 'Clean Workspace'
-        cleanWs()
+        //cleanWs()
       }//script
     }//always
     failure {
