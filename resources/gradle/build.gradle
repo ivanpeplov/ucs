@@ -1,0 +1,71 @@
+//USAGE for build_lib.gradle. First of all rename to build.gradle
+//gradle build - for build
+//gradle downloadFile - for download mmcore.jar library in mmlib project
+//gradle publish -  upload mmlib.aar to maven repo UCS_lib at nexus
+apply plugin: 'com.android.library'
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////BEGIN A COPY OF THE PARENT GRADLE///////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+buildscript {
+    repositories {
+        mavenLocal()
+//      maven {  url "http://172.16.10.230:3389/nexus/content/groups/public/"        }
+        mavenCentral()
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+allprojects {
+    repositories {
+        mavenLocal()
+//      maven {  url "http://172.16.10.230:3389/nexus/content/groups/public/"        }
+        mavenCentral()
+        google()
+        jcenter()
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////END A COPY OF THE PARENT GRADLE///////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "long", "TIMESTAMP", System.currentTimeMillis() + "L"
+    }
+    /*lintOptions {
+    disable 'NewApi'
+    }*/
+    testOptions { 
+        unitTests.returnDefaultValues = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+        }
+    }
+    productFlavors {
+    }
+}
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
