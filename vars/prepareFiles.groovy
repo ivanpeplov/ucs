@@ -8,8 +8,6 @@ def call(String name) {
         case ["borland"] :
             bat "xcopy ${workspace}\\${SVN}\\${VERSION} ${workspace} /i /q /d /e & mkdir ${TARGET}"
             break
-        case ["mm_win"] :
-            bat "xcopy ${workspace}\\MicroModule ${workspace} /i /q /d /e"
         case ["mmlibrary"] :
             sh """
             cp -r -f ~/mm_java/mmlibrary ${WORKSPACE}
