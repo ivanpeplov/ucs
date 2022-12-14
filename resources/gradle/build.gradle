@@ -35,14 +35,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "long", "TIMESTAMP", System.currentTimeMillis() + "L"
     }
-    /*lintOptions {
+    lintOptions {
     disable 'NewApi'
-    }*/
+    abortOnError false
+    }
     testOptions { 
         unitTests.returnDefaultValues = true
-    }
-    lintOptions {
-          abortOnError false
     }
     buildTypes {
         release {
@@ -57,7 +55,7 @@ android {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
