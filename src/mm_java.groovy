@@ -25,7 +25,7 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: '''
-          if (LABEL=='mmcore') {return["VT/MicroModuleJava/mmcore/trunk"]}
+          if (LABEL=='mmcore') {return["VT/MicroModuleJava/mmcore/trunk/mmcore"]}
           if (LABEL=='mmlibrary') {return["VT/MicroModuleJava/android/trunk/mmlibrary"]}
           '''
         ]
@@ -71,8 +71,8 @@ pipeline { //CI-69/CI-70
     stage ('PREPARE') {
       steps {
         script {
-          //getSVN()
-          prepareFiles("${JOB_BASE_NAME}")      
+          getSVN()
+          prepareFiles("${LABEL}")      
         }
       }
     }
@@ -81,13 +81,10 @@ pipeline { //CI-69/CI-70
       steps {
         dir ('mmcore') {
           script {
-            println "mmcore"
-            loadScript(place:'gradle', name:'build_core.gradle')
-            loadScript(place:'linux', name:'getVersionFromSvnPom.sh')
-            output = sh returnStdout: true, script: "./getVersionFromSvnPom.sh"
-            versionFromPom = output.trim()
-            sh "gradle -Pversion=${versionFromPom} build"
-            sh "gradle -Pversion=${versionFromPom} publish"
+            //mmCoreGradle() //if you like a GRADLE
+            loadScript(place:'win', name:'addToPom.xml')
+            loadScript(place:'linux', name:'addToPom.sh')
+            sh "./addToPom.sh; mvn deploy"
           }
         }
       }
@@ -98,12 +95,9 @@ pipeline { //CI-69/CI-70
         dir ('mmlibrary') {
           script {
             loadScript(place:'gradle', name:'build_lib.gradle')
-            println "-----DownloadFile-----"
-            //sh "wget ${NEXUS_MAVEN_ORPO}/ru/ucs/mmcore/${VERSION}/mmcore-${VERSION}.jar -O ./libs/mmcore.jar"
+            //sh "wget ${NEXUS_MAVEN_ORPO}/ru/ucscards/mmcore/${VERSION}/mmcore-${VERSION}.jar -O ./libs/mmcore.jar"
             sh "gradle -DARG=${VERSION} downloadFile"
-            println "-----BUILD-----" 
             sh "gradle build"
-            println "-----PUBLISH-----"
             sh "gradle publish "
           }
         }
