@@ -94,11 +94,12 @@ pipeline { //CI-69/CI-70
       steps {
         dir ('mmlibrary') {
           script {
-            loadScript(place:'gradle', name:'build_lib.gradle')
+            loadScript(place:'gradle', name:'tools.gradle')
+            loadScript(place:'gradle', name:'build.gradle')
             //sh "wget ${NEXUS_MAVEN_ORPO}/ru/ucscards/mmcore/${VERSION}/mmcore-${VERSION}.jar -O ./libs/mmcore.jar"
-            sh "gradle -DARG=${VERSION} downloadFile"
+            sh "gradle -DARG=${VERSION} downloadFile -b tools.gradle"
             sh "gradle build"
-            sh "gradle publish "
+            sh "gradle publish -b tools.gradle"
           }
         }
       }
