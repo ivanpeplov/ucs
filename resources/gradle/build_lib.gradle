@@ -77,8 +77,7 @@ ext {
 }
 task downloadFile {
     doLast {
-        //def url = "http://10.255.252.161:8081/repository/ucs_repo/ru/ucs/mmcore/${arg}/mmcore-${arg}.jar"
-        def url = "http://172.16.10.230:3389/nexus/content/repositories/ucs_test/ru/ucs/mmcore/${arg}/mmcore-${arg}.jar"
+        def url = "http://172.16.10.230:3389/nexus/content/repositories/ucs_test/ru/ucscards/mmcore/${arg}/mmcore-${arg}.jar"
         download.run {
             src "$url"
             dest new File('/space/home/jenkins/workspace/UCS/mm_java/mmlibrary/libs', "mmcore.jar")
@@ -90,7 +89,7 @@ task downloadFile {
 publishing {
     publications {
         mmlib(MavenPublication) {
-            group = 'ru.ucs'
+            group = 'ru.ucscards'
             version = '1.0'
             artifactId 'mmlibrary'
             artifact("$buildDir/outputs/aar/mmlibrary-release.aar")

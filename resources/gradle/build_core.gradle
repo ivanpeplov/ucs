@@ -3,7 +3,6 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    //id 'signing'
 }
 
 dependencies {
@@ -13,7 +12,7 @@ dependencies {
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
-group = 'ru.ucs'
+group = 'ru.ucscards'
 version project.hasProperty('version') ? version : '1.0'
 java {
     //withJavadocJar()
@@ -42,19 +41,6 @@ publishing {
                     myProp: "value",
                     "prop.with.dots": "anotherValue"
                 ]
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'kustov_av'
-                        name = 'Aleksandr Kustov'
-                        email = 'a.kustov@ucscards.ru'
-                    }
-                }
             }
         }
     }
@@ -65,14 +51,9 @@ publishing {
                 password = "$pwd"
             }
             url = "http://172.16.10.230:3389/nexus/content/repositories/ucs_test"
-            //url = "http://10.255.252.161:8081/repository/ucs_repo"
-            allowInsecureProtocol = true
         }
     }
 }
-//signing {
-//    sign publishing.publications.mavenJava
-//}
 javadoc {
     if(JavaVersion.current().isJava9Compatible()) {
         options.addBooleanOption('html5', true)
