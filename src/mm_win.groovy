@@ -3,7 +3,7 @@ pipeline { //CI-63
   agent {label 'borland'}
   environment {
     APP='MMW' //label for .yaml;
-    TARGET = "${WORKSPACE}\\microx_t\\samples\\rel_p" //where find files for upload
+    TARGET = "${WORKSPACE}\\Micromodule\\microx_t\\samples\\rel_p" //where find files for upload
     ROOT = "VT/MicroModule" //project root at SVN
     TOOR='MicroModule/Windows' // upload trunk at Nexus
     SVN_PATH = "${ROOT}" //full path for download fron SVN
@@ -21,22 +21,23 @@ stages {
     stage ('PREPARE') {
       steps {
         script {
-          getSVN()
-          prepareFiles('mm_win')      
+          getSVN()    
         }
       }
     }
     stage('Build.. cyassl myizip microx') {
       steps {
-        script {
-          loadScript(place:'win', name:'mmBuild.bat')
-          mmWin(mm, arch) // mm, arch - strings from environment.yml file
+        dir ("Micromodule") {
+          script {
+            loadScript(place:'win', name:'mmBuild.bat')
+            mmWin(mm, arch) // mm, arch - strings from environment.yml file
+          }
         }
       }
     }
     stage('Build..  microp  ucs_xx  setup_p') {
       steps {
-        dir ("microx_t/samples") {
+        dir ("Micromodule/microx_t/samples") {
           script {
             loadScript(place:'win', name:'mmBuild.bat')
             mmWin(mmm, arch) //strings from environment.yml file
