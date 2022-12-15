@@ -1,5 +1,6 @@
 #!/bin/bash
-#usage: ConversionPTH.sh ${lvl1} ${exe} ${name} ${ext} ${stage}
+#                       $1      $2      $3     $4      $5
+#usage: checkerSQL.sh ${lvl1} ${exe} ${name} ${ext} ${stage}
 set +e
 pushd ./$1/BIN; echo "---------- $3.xml ----------" >> CheckSql.log;
 if [  "$#" -eq 4 ]; then
