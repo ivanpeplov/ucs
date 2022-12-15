@@ -57,7 +57,7 @@ pipeline { //CI-69/CI-70
   environment {
     SVN_PATH = "${ROOT}" //full path for download fron SVN
     PATH="${PATH}:/home/jenkins/tools/gradle-6.1.1/bin:/home/jenkins/tools/apache-maven-3.8.6/bin"
-    ANDROID_SDK_ROOT="/home/jenkins/android"
+    ANDROID_SDK_ROOT="/home/jenkins/android" //doesnt work. need a local.properties file
   }
   stages {
     stage('SET Env') {
@@ -71,8 +71,7 @@ pipeline { //CI-69/CI-70
     stage ('PREPARE') {
       steps {
         script {
-          getSVN()
-          //prepareFiles("${LABEL}")      
+          getSVN()   
         }
       }
     }
@@ -82,7 +81,7 @@ pipeline { //CI-69/CI-70
         dir ('mmcore') {
           script {
             //mmCoreGradle() //if you like a GRADLE
-            loadScript(place:'win', name:'addToPom.xml')
+            loadScript(place:'gradle', name:'addToPom.xml')
             loadScript(place:'linux', name:'addToPom.sh')
             sh "./addToPom.sh; mvn deploy"
           }
@@ -94,13 +93,13 @@ pipeline { //CI-69/CI-70
       steps {
         dir ('mmlibrary') {
           script {
-            loadScript(place:'gradle', name:'tools.gradle')
-            loadScript(place:'gradle', name:'build.gradle')
+            //loadScript(place:'gradle', name:'tools.gradle')
+            //loadScript(place:'gradle', name:'build.gradle')
             //sh "wget ${NEXUS_MAVEN_ORPO}/ru/ucscards/mmcore/${VERSION}/mmcore-${VERSION}.jar -O ./libs/mmcore.jar"
-            sh "gradle -DARG=${VERSION} downloadFile -b tools.gradle"
+            sh "gradle -DARG=${VERSION} downloadFile -b tools_lib.gradle"
             sh "touch local.properties & echo 'sdk.dir = /home/jenkins/android' >> local.properties"
-            sh "gradle build "
-            sh "gradle publish -b tools.gradle"
+            sh "gradle build -b build_lib"
+            sh "gradle publish -b tools_lib.gradle"
           }
         }
       }
@@ -110,7 +109,7 @@ pipeline { //CI-69/CI-70
     always {
       script {             
         echo 'Clean Workspace'
-        //cleanWs()
+        cleanWs()
       }//script
     }//always
     failure {
