@@ -6,7 +6,8 @@ def call(String name) {
             sh "./prepareFiles.sh"
             break
         case ["borland"] :
-            bat "xcopy ${workspace}\\${SVN}\\${VERSION} ${workspace} /i /q /d /e & mkdir ${TARGET}"
+        if (SVN=='trunk') { bat "xcopy ${workspace}\\${SVN} ${workspace} /i /q /d /e & mkdir ${TARGET}"}
+        else { bat "xcopy ${workspace}\\${VERSION} ${workspace} /i /q /d /e & mkdir ${TARGET}" }
         break
         default:
             println ("Default: fm, svn_nexus, etl_nexus, mm_java:mmcore")
