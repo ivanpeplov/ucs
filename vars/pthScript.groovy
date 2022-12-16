@@ -12,14 +12,14 @@ def call(String path) { //v4.0 15.12.2022
         loadScript(place:'linux', name:'xsltcPTH.sh') // ktr2xml converter
         lvl1 = listDir("${path}") //level 1 - release folder [MNR19]
         for (io in lvl1) { lvl2 = listDir("${path}/${io}")
-            lvl2=lvl2 - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
+            lvl2 = lvl2 - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
             for (jo in lvl2) {
               ext = FilenameUtils.getExtension(jo) // [PTH, PTH, ..., XDB]
-              stage=listDir("${path}/${io}/${jo}") 
+              stage = listDir("${path}/${io}/${jo}") 
               if (stage != '') { for (lo in stage) { //only files or has folders
-              pthConversion(tex:"${ext}", r:"${path}", l1:"${io}", l2:"${jo}", ss:"${lo}") } } /*substage*/
+              pthConversion (todo:"${ext}", r:"${path}", l1:"${io}", l2:"${jo}", ss:"${lo}") } } /*substage*/
               //stage conversion
-              pthConversion(tex:"${ext}", r:"${path}", l1:"${io}", l2:"${jo}") /*stage*/ 
+              pthConversion (todo:"${ext}", r:"${path}", l1:"${io}", l2:"${jo}") /*stage*/ 
               wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) 
               { sh "./pthUpload.sh ${io} ${jo}" } //upload to nexus
             } //loop lvl2 
