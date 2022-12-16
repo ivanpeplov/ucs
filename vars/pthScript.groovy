@@ -11,8 +11,7 @@ def call(String path) { //v4.0 15.12.2022
         loadScript(place:'linux', name:'pthConversion.sh') // ktr2xml + checkerSQL
         loadScript(place:'linux', name:'checkerSQL.sh') // sql checker
         //loadScript(place:'linux', name:'xsltcPTH.sh') // ktr2xml converter
-        lvl2 = listDir("${path}") - 'BIN'
-        lvl2 = lvl2 - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
+        lvl2 = listDir("${path}") - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
         for (jo in lvl2) {
             ext = FilenameUtils.getExtension(jo) // [PTH, PTH, ..., XDB]
             stage = listDir("${path}/${jo}") 
