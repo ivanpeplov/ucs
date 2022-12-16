@@ -8,8 +8,9 @@ def call(String path) { //v4.0 15.12.2022
         loadScript(place:'linux', name:'spaceToUnderscore.sh')
         sh "./spaceToUnderscore.sh" //change " " to "_" in filenames recursively
         loadScript(place:'linux', name:'pthUpload.sh') //bash script for upload .xml to Nexus
+        loadScript(place:'linux', name:'pthConversion.sh') //bash script for upload .xml to Nexus
         loadScript(place:'linux', name:'checkerSQL.sh') //sql checker
-        loadScript(place:'linux', name:'xsltcPTH.sh') // ktr2xml converter
+        //loadScript(place:'linux', name:'xsltcPTH.sh') // ktr2xml converter
         lvl1 = listDir("${path}") //level 1 - release folder [MNR19]
         for (io in lvl1) { lvl2 = listDir("${path}/${io}")
             lvl2 = lvl2 - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
