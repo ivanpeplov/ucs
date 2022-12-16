@@ -17,9 +17,9 @@ def call(String path) { //v4.0 15.12.2022
             ext = FilenameUtils.getExtension(jo) // [PTH, PTH, ..., XDB]
             stage = listDir("${path}/${jo}") 
             if (stage != '') { for (lo in stage) { // if has folders - recursively process them
-            pthConversion_copy (todo:"${ext}", r:"${path}", l2:"${jo}", ss:"${lo}") } } /*substage recursion*/
+            pthConversion (todo:"${ext}", r:"${path}", l2:"${jo}", ss:"${lo}") } } /*substage recursion*/
             //stage conversion
-            pthConversion_copy (todo:"${ext}", r:"${path}", l2:"${jo}") /*stage no recursion*/ 
+            pthConversion (todo:"${ext}", r:"${path}", l2:"${jo}") /*stage no recursion*/ 
             wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) 
             { sh "./pthUpload.sh ${jo}" } // upload to nexus
         } //loop lvl2 
