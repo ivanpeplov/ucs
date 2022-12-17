@@ -1,4 +1,5 @@
 #!/bin/bash
+#used at jenkins-master only
 xquery='''
 for $x in doc("maven-metadata.xml")/metadata/versioning/versions
 return $x/version'''

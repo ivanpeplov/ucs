@@ -1,4 +1,5 @@
 #!/bin/bash
+# mm_nix
 if [ $1 = 'cyassl-3.2.0' ] ; then
 cd $1
 chmod 750 configure
