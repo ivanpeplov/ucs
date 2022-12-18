@@ -43,7 +43,7 @@ properties([
           sandbox: false, 
           script: '''
           if (LABEL=='mmlibrary') {
-          proc= ["bash", "-c", "/var/lib/jenkins/bin/xidel.sh"].execute()
+          proc= ["bash", "-c", "/var/lib/jenkins/bin/getVersionMavenMetadata.sh"].execute()
           choices = proc.text.split().toList()
           return choices } 
           '''
@@ -93,9 +93,8 @@ pipeline { //CI-69/CI-70
       steps {
         dir ('mmlibrary') {
           script {
-            //loadScript(place:'gradle', name:'tools_lib.gradle')
-            //loadScript(place:'gradle', name:'build_lib.gradle')
-            //sh "wget ${NEXUS_MAVEN_ORPO}/ru/ucscards/mmcore/${VERSION}/mmcore-${VERSION}.jar -O ./libs/mmcore.jar"
+            loadScript(place:'gradle', name:'tools_lib.gradle')
+            loadScript(place:'gradle', name:'build_lib.gradle')
             loadScript(place:'linux', name:'deployMMlibrary.sh')
             sh "./deployMMlibrary.sh"
           }
@@ -105,10 +104,8 @@ pipeline { //CI-69/CI-70
   }//stages
   post {
     always {
-      script {             
-        echo 'Clean Workspace'
-        cleanWs()
-      }//script
+      echo 'Clean Workspace'
+      cleanWs()
     }//always
     failure {
       script {

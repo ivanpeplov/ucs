@@ -17,7 +17,7 @@ properties([
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select node to run',
+      description: 'Select:',
       name: 'RELEASE', 
       script: [
         $class: 'GroovyScript', 
@@ -225,10 +225,8 @@ pipeline { //CI-51
     } //stages
     post {
       always {
-        script {             
-            echo "Clean Workspace"
-            cleanWs()
-        }//script
+        echo "Clean Workspace"
+        cleanWs()
       }//always
       failure {
         script {

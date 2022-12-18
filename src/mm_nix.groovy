@@ -46,11 +46,9 @@ pipeline { //CI-62
       APP='MMX' //label for .yaml;
       ARCH='x64' //temp
       TARGET='units/microx_t/samples/Linux_Install'
-      //TARGET='bin' //where find files for upload
       ROOT='VT/MicroModule' //project root at SVN
-      TOOR='MicroModule/Linux' // upload trunk at Nexus
+      TOOR='MicroModule/Linux' // upload point at Nexus
       SVN_PATH = "${ROOT}" //full path for download fron SVN
-      //environment for build
       PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
       PATH="${PATH}:${PROJECTS}/tools:${PROJECTS}/units:${PROJECTS}/bin"
       INCLUDE="-I. -I${PROJECTS}/units -I./include -I../include"
@@ -106,10 +104,8 @@ pipeline { //CI-62
     } //stages
     post {
       always {
-        script {             
-            echo "Clean Workspace"
-            cleanWs()
-        }//script
+        echo "Clean Workspace"
+        cleanWs()
       }//always
       failure {
         script {

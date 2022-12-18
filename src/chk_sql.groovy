@@ -57,10 +57,8 @@ pipeline { //CI-60/CI-67
     } //stages
     post {
         always {
-            script {             
-                echo 'Clean Workspace'
-                cleanWs()
-            }//script
+            echo 'Clean Workspace'
+            cleanWs()
         }//always
         failure {
             script {

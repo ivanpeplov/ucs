@@ -143,16 +143,13 @@ pipeline { //CI-56,58,59
   }//stages
   post {
     always {
-      script {             
-        echo 'Clean Workspace'
-        cleanWs()
-      }//script
+      echo 'Clean Workspace'
+      cleanWs()
     }//always
     failure {
       script {
-        //emailing
         echo 'email'
-        //sendEmail()               
+        sendEmail()               
       }//script
     }//failure
   }//post actions

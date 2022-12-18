@@ -31,7 +31,8 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: '''
-            if (NODE_NAME == "jenkins-gem") { return ["ppcfm:selected:disabled"] }
+            if (NODE_NAME == "jenkins-gem")
+                 { return ["ppcfm:selected:disabled"] }
             else { return ["armfm:selected:disabled"] }
             '''
         ]
@@ -47,7 +48,8 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: '''
-            if (NODE_NAME == "jenkins-gem") { return ["/opt/safenet/protecttoolkit5/ptk:selected:disabled"] }
+            if (NODE_NAME == "jenkins-gem") 
+                 { return ["/opt/safenet/protecttoolkit5/ptk:selected:disabled"] }
             else { return ["C:\\\\PROGRA~1\\\\Eracom\\\\PROTEC~1:selected:disabled"] }
             '''
         ]
@@ -63,7 +65,8 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: '''
-            if (NODE_NAME == "jenkins-gem") { return ["/opt/safenet/protecttoolkit5/fmsdk:selected:disabled"] }
+            if (NODE_NAME == "jenkins-gem")
+                 { return ["/opt/safenet/protecttoolkit5/fmsdk:selected:disabled"] }
             else { return ["C:\\\\PROGRA~1\\\\Eracom\\\\PROTEC~2:selected:disabled"] }
             '''
         ]
@@ -130,7 +133,6 @@ pipeline { //CI-52
         steps {
           script {
             getSVN()
-            prepareFiles('fm')
           }
         }
       }
@@ -185,10 +187,8 @@ pipeline { //CI-52
   } //stages
   post {
     always {
-      script {             
-        echo 'Clean Workspace'
-        cleanWs()
-      }//script
+      echo 'Clean Workspace'
+      cleanWs()
     }//always
     failure {
         script {
