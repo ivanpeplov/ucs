@@ -11,6 +11,7 @@ function traverse() {
             #echo "entering recursion with: ${1}${file}"
             traverse "${1}/${file}"
         fi
+        zip -u ${1}.zip *
     done
 }
 function main() {

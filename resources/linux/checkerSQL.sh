@@ -1,13 +1,13 @@
 #!/bin/bash
-#                       $1      $2      $3     $4      $5
-#usage: checkerSQL.sh ${lvl1} ${exe} ${name} ${ext} ${stage}
+#                       $1      $2      $3     $4   
+#usage: checkerSQL.sh ${exe} ${name} ${ext} ${stage}
 set +e
-pushd ./$1/BIN; echo "---------- $3.xml ----------" >> CheckSql.log;
-if [  "$#" -eq 4 ]; then
-  java -jar checkersql.jar "../$2/$3.xml"
-  cd ..; zip  -u $2.zip ./$2/$3.xml
+cd BIN; echo "---------- $2.xml ----------" >> CheckSql.log;
+if [  "$#" -eq 3 ]; then
+  java -jar checkersql.jar "../$1/$2.xml"
+  cd ..; zip  -u $1.zip ./$1/$2.xml
 else
-  java -jar checkersql.jar "../$2/$5/$3.xml"
-  cd ..; zip  -u $2.zip ./$2/$5/$3.xml
+  java -jar checkersql.jar "../$1/$4/$2.xml"
+  cd ..; zip  -u $1.zip ./$1/$4/$2.xml
 fi
 # true - for testing only. In prod - comment it
