@@ -56,16 +56,7 @@ stages {
     }
   }//stages
   post {
-    always {
-      echo 'Clean Workspace'
-      cleanWs()
-    }//always
-    failure {
-      script {
-          //emailing
-          echo 'email'
-          sendEmail()               
-      }//script
-    }//failure
-  }//post actions
+    always { cleanWs() }
+    failure { script { sendEmail() } }
+  }//post
 }//pipeline

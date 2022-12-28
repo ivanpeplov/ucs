@@ -40,8 +40,7 @@ properties([
   ])
 ])
 pipeline { //CI-62
-    agent {label NODE_NAME}
-    options { timeout(time: 10, unit: 'MINUTES') }
+  agent {label NODE_NAME}
     environment {
       APP='MMX' //label for .yaml;
       ARCH='x64' //temp
@@ -103,15 +102,7 @@ pipeline { //CI-62
       }
     } //stages
     post {
-      always {
-        echo "Clean Workspace"
-        cleanWs()
-      }//always
-      failure {
-        script {
-          //emailing
-          sendEmail()               
-        }//script
-      }//failure
-    } //post actions
+      always { cleanWs() }
+      failure { script { sendEmail() } }
+    } //post
 } //pipeline

@@ -93,8 +93,8 @@ pipeline { //CI-69/CI-70
       steps {
         dir ('mmlibrary') {
           script {
-            loadScript(place:'gradle', name:'tools_lib.gradle')
-            loadScript(place:'gradle', name:'build_lib.gradle')
+            //loadScript(place:'gradle', name:'tools_lib.gradle')
+            //loadScript(place:'gradle', name:'build_lib.gradle')
             loadScript(place:'linux', name:'deployMMlibrary.sh')
             sh "./deployMMlibrary.sh"
           }
@@ -103,16 +103,7 @@ pipeline { //CI-69/CI-70
     }
   }//stages
   post {
-    always {
-      echo 'Clean Workspace'
-      cleanWs()
-    }//always
-    failure {
-      script {
-        //emailing
-        echo 'email'
-        //sendEmail()               
-      }//script
-    }//failure
-  }//post actions
+    always { cleanWs() }
+    failure { script { sendEmail() } }
+  }//post
 }//pipeline

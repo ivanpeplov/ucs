@@ -49,22 +49,13 @@ pipeline { //CI-60/CI-67
         stage('Extract Transform Load') {
             steps {
                 script {
-                    println "ETL cycle"
                     pthScript("${MNR}")
                 }
             }
         }
     } //stages
     post {
-        always {
-            echo 'Clean Workspace'
-            cleanWs()
-        }//always
-        failure {
-            script {
-                echo 'emailing'
-                sendEmail()               
-            }//script
-        }//failure
-    } //post actions
+        always { cleanWs() }
+        failure { script { sendEmail() } }
+    }
 } //pipeline

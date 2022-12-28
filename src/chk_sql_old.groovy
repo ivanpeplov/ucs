@@ -31,17 +31,7 @@ pipeline { //CI-60/CI-67
         }
     } //stages
     post {
-        always {
-            script {             
-                echo 'Clean Workspace'
-                cleanWs()
-            }//script
-        }//always
-        failure {
-            script {
-                echo 'emailing'
-                sendEmail()               
-            }//script
-        }//failure
-    } //post actions
+        always { cleanWs() }
+        failure { script { sendEmail() } }
+    }
 } //pipeline
