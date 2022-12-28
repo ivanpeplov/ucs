@@ -1,5 +1,5 @@
 def call(String path) { //v4.0 15.12.2022
-    dir (path) { //path="TestSQLtoNexus"
+    dir (path) { //path="MNR19"
         def nexus_creds = [ //masking nexus credentials
             [ path: 'secrets/creds/nexus', secretValues: [
             [ envVar: 'nexus_pwd', vaultKey: 'password']]]]
