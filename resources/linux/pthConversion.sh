@@ -1,6 +1,6 @@
 #!/bin/bash
 #                          $1      $2     $3      $4   
-#usage: ConversionPTH.sh ${exe} ${name} ${ext} ${stage}
+#usage: ConversionPTH.sh ${lvl2} ${name} ${ext} ${stage}
 set +e
 if [ "$#" -eq 3 ]; then
 java -jar BIN/xsltc.jar -i "$1/$2.$3" -o "$1/$2.xml" -l stdout.log -x BIN/pth2lst.xslt
