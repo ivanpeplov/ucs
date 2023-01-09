@@ -3,7 +3,7 @@ properties([
   parameters([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select Borland Build:  MMS_EOD,  PALMERA Uloader,  TID manager',
+      description: 'Select Borland Build:  MMS_EOD,  PALMERA Uloader,  PassKey, TID manager',
       name: 'LABEL', 
       script: [
         $class: 'GroovyScript', 
@@ -11,7 +11,7 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: 
-            'return["mmseod", "palmerauloade", "cardpro"]'
+            'return["mmseod", "palmerauloade", "passkey", "cardpro"]'
         ]
       ]
     ],
@@ -27,6 +27,7 @@ properties([
           script: '''
           if (LABEL=='mmseod') {return["MMS/mmsEOD"]}
           if (LABEL=='palmerauloade') {return["Util/PalmeraLoader"]}
+          if (LABEL=='passkey') {return["PassKey/PassKey"]}
           if (LABEL=='cardpro') {return["CardPro/TidManager/TID_v6"]}
           '''
         ]
@@ -44,6 +45,7 @@ properties([
           script: '''
           if (LABEL=='mmseod') {return["MMS"]}
           if (LABEL=='palmerauloade') {return["PALMERA"]}
+          if (LABEL=='passkey') {return["PASSKEY"]}
           if (LABEL=='cardpro') {return["TID"]}
           '''
         ]
@@ -52,6 +54,7 @@ properties([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select Trunk, Branches or Tags',
+      referencedParameters: 'LABEL',
       name: 'SVN', 
       script: [
         $class: 'GroovyScript', 
@@ -59,7 +62,10 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: 
-            'return["trunk", "branches", "tags"]'
+          """
+          if (LABEL=='passkey') { return ["src"] }
+          else { return ["trunk", "branches", "tags"] }
+          """
         ]
       ]
     ],
@@ -88,7 +94,7 @@ properties([
     ]
   ])
 ])
-pipeline { //CI-56,58,59
+pipeline { //CI-56,58,59,72
   agent {label 'borland'}
   environment {
     TARGET = "${WORKSPACE}\\UPLOAD" //target folder for binaries
@@ -122,6 +128,10 @@ pipeline { //CI-56,58,59
             break
             case ('palmerauloade') :
               makeBorland("${WORKSPACE}", "${LABEL}")
+            break
+            case ('passkey') :
+              makeBorland("${WORKSPACE}", "${LABEL}")
+              makeBorland("C:\\PassKey\\", "dll")
             break
             case ('cardpro') :
               makeBorland("CARDLIB", "cardlib")
