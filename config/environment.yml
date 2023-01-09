@@ -1,19 +1,21 @@
 --- 
 PALMERA:
-  bmp: "*.ini,*.bat"
+  bmp: "*.ini, *.bat"
+PASSKEY:
+  bmp: "*.ini, *.dll, *.bat, *.gdb"
 MMS: 
-  bmp: "*.ini,*.dbf,*.tsk"
-  bpl: "borlndmm.dll,cc3260mt.dll"
+  bmp: "*.ini, *.dbf, *.tsk"
+  bpl: "borlndmm.dll, cc3260mt.dll"
 TID: 
-  bmp: "*.bmp,*.ini"
-  bpl: "bdertl60.bpl,dbrtl60.bpl,rtl60.bpl,vcl60.bpl,vcldb60.bpl"
+  bmp: "*.bmp, *.ini"
+  bpl: "bdertl60.bpl, dbrtl60.bpl, rtl60.bpl, vcl60.bpl, vcldb60.bpl"
 MMW:
-  mm: "cyassl-3.2.0,myizip_z,myizip_u,microx_t"
-  mmm: "microp,ucs_ms,ucs_dt,ucs_mu,ucs_mm"
-  arch: "Win32,x64"
+  mm: "cyassl-3.2.0, myizip_z, myizip_u, microx_t"
+  mmm: "microp, ucs_ms, ucs_dt, ucs_mu, ucs_mm"
+  arch: "Win32, x64"
 MMX:
-  mm: "cyassl-3.2.0,myizip_z,microx_t"
-  mmm: "microp,ucs_ms,ucs_dt,ucs_mm"
+  mm: "cyassl-3.2.0, myizip_z, microx_t"
+  mmm: "microp, ucs_ms, ucs_dt, ucs_mm"
   arch: 
 
 #mail_recipients_dev: 'gerasimov.vyacheslav@ucscards.ru, titaev.leonid@ucscards.ru, shitikov.sergei@ucscards.ru, petelin.konstantin@ucscards.ru, konovalov.sergei@ucscards.ru, a.kustov@ucscards.ru'
@@ -23,8 +25,6 @@ nexus_url:   "http://10.255.250.50:8081/repository/orpo"
 nexus_url_1: "http://10.255.252.161:8081/repository/orpo"
 nexus_url_test: "http://10.255.252.161:8081/repository/test"
 nexus_maven: "http://10.255.252.161:8081/repository/ucs_repo"
-#nexus_maven_orpo: "http://172.16.10.230:3389/nexus/content/repositories/ucs_repo"
-nexus_maven_orpo: "http://172.16.10.230:3389/nexus/content/repositories/ucs_test"
 # dnld url
 svn_url: '172.16.10.230/scm/svn/dev'
        
