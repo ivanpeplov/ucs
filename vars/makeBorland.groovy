@@ -12,6 +12,9 @@ def call(String rt, String label) {
         bat "make -f ${label}.mak & xcopy ${label}.exe ${TARGET}"
         bmp.split(',').each { f -> bat "xcopy ${f} ${TARGET}"}
         break
+        //PassKey building
+        case ("passkey") : bat "make -f ${label}.mak & xcopy ${label}.exe ${TARGET}"; break;
+        case ("dll") : bmp.split(',').each { f -> bat "xcopy ${f} ${TARGET}"}; break;
         //TID Manager building
         case ("cardlib") : bat "make -f cardlib.mak & xcopy C:\\bpl\\*.bpl ${TARGET}"; break; 
         case ("32") : bpl.split(',').each { f -> bat "xcopy ${f} ${TARGET}" }; break;
