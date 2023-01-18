@@ -3,7 +3,7 @@ properties([
   parameters([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select Borland Build:  MMS_EOD,  PALMERA Uloader,  PassKey, TID manager',
+      description: 'Select Borland Project:  MMS_EOD,  PALMERA Uloader,  PassKey, TID manager',
       name: 'LABEL', 
       script: [
         $class: 'GroovyScript', 

@@ -3,7 +3,7 @@ properties([
   parameters([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select:  MM_CORE,  MM_LIB',
+      description: 'Select:  SAMPLE,  EVOTOR',
       name: 'LABEL', 
       script: [
         $class: 'GroovyScript', 
@@ -11,7 +11,7 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: 
-            'return["mmcore", "mmlibrary"]'
+            'return["sample", "evotor"]'
         ]
       ]
     ],
@@ -25,50 +25,31 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: '''
-          if (LABEL=='mmcore') {return["VT/MicroModuleJava/mmcore/trunk/mmcore"]}
-          if (LABEL=='mmlibrary') {return["VT/MicroModuleJava/android/trunk/mmlibrary"]}
+          if (LABEL=='sample') {return["VT/MicroModuleJava/android/trunk/app"]}
+          if (LABEL=='evotor') {return["VT/MicroModuleJava/evotor"]}
           '''
         ]
       ]
     ],
     [$class: 'CascadeChoiceParameter', 
-      choiceType: 'PT_SINGLE_SELECT',
-      description: "Select minimal SDK version for MMlibrary build", 
+      choiceType: 'PT_SINGLE_SELECT', 
       referencedParameters: 'LABEL',
-      name: 'MINSDK', 
+      name: 'TARGET', 
       script: [
         $class: 'GroovyScript', 
         script: [
           classpath: [], 
           sandbox: false, 
           script: '''
-          if (LABEL=='mmlibrary') {return["19", "23"]}
-          '''
-        ]
-      ]
-    ],
-    [$class: 'CascadeChoiceParameter', 
-      choiceType: 'PT_SINGLE_SELECT',
-      description: 'Select mmCore version from REPO metadata',
-      referencedParameters: 'LABEL',
-      name: 'VERSION', 
-      script: [
-        $class: 'GroovyScript', 
-        script: [
-          classpath: [], 
-          sandbox: false, 
-          script: '''
-          if (LABEL=='mmlibrary') {
-          proc= ["bash", "-c", "/var/lib/jenkins/bin/getVersionMavenMetadata.sh"].execute()
-          choices = proc.text.split().toList()
-          return choices } 
+          if (LABEL=='sample') {return["app/build/outputs/apk/debug"]}
+          if (LABEL=='evotor') {return["evotor/app/build/outputs/apk/debug"]}
           '''
         ]
       ]
     ]
   ])
 ])
-pipeline { //CI-69/CI-70
+pipeline { //CI-73/CI-74
   agent {label 'JAVA'}   
   environment {
     SVN_PATH = "${ROOT}" //full path for download fron SVN
@@ -86,33 +67,40 @@ pipeline { //CI-69/CI-70
     stage ('PREPARE') {
       steps {
         script {
-          getSVN()   
+          //getSVN()
+          prepareFiles("${LABEL}")
         }
       }
     }
-    stage('MMCORE') {
-      when { expression  { LABEL == "mmcore" } }
+    stage('SAMPLE') {
+      when { expression  { LABEL == "sample" } }
       steps {
-        dir ('mmcore') {
+        dir ('app') {
           script {
-            //mmCoreGradle() //if you like a GRADLE
-            loadScript(place:'gradle', name:'addToPom.xml')
-            loadScript(place:'linux', name:'addToPom.sh')
-            sh "./addToPom.sh; mvn deploy"
-          }
-        }
-      }
-    }
-    stage('MMLIBRARY') {
-      when { expression  { LABEL == "mmlibrary" } }
-      steps {
-        dir ('mmlibrary') {
-          script {
-            loadScript(place:'gradle', name:'tools_lib.gradle')
-            loadScript(place:'gradle', name:'build_lib.gradle')
             loadScript(place:'linux', name:'deployMMlibrary.sh')
+            loadScript(place:'gradle', name:'sample.gradle')
             sh "./deployMMlibrary.sh"
           }
+        }
+      }
+    }
+    stage('EVOTOR') {
+      when { expression  { LABEL == "evotor" } }
+      steps {
+        dir ('evotor') {
+          script {
+            loadScript(place:'linux', name:'deployMMlibrary.sh')
+            loadScript(place:'gradle', name:'evotor.gradle')
+            loadScript(place:'gradle', name:'evotor_app.gradle')
+            sh "./deployMMlibrary.sh"
+          }
+        }
+      }
+    }
+    stage('UPLOAD') {
+      steps {
+        script {
+          uploadFiles('mm_android', "${TARGET}")
         }
       }
     }
