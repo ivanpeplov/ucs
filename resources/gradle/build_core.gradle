@@ -50,7 +50,7 @@ publishing {
                 username = "$usr"
                 password = "$pwd"
             }
-            url = "http://172.16.10.230:3389/nexus/content/repositories/ucs_test"
+            url = "http://172.16.10.230:3389/nexus/service/local/repositories/ucs_repo/content"
         }
     }
 }

@@ -1,0 +1,39 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'de.undercouch.download'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath "de.undercouch:gradle-download-task:5.3.0"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+}
+
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+task downloadFile {
+    doLast {
+        def url = "http://172.16.10.230:3389/nexus/content/repositories/ucs_repo/ru/ucscards/mmlibrary/1.0.23/mmlibrary-1.0.23.aar"
+        download.run {
+            src "$url"
+            dest new File('/space/home/jenkins/workspace/UCS/mm_android/evotor/mmlibrary-debug/', "mmlibrary-release.aar")
+            overwrite true
+            tempAndMove true
+        }
+    }
+}

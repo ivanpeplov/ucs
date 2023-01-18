@@ -24,10 +24,13 @@ allprojects {
         jcenter()
     }
 }
+ext {
+    minsdk = System.getProperty ("MINSDK", "23")
+}
 android {
     compileSdkVersion 29
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion "${minsdk}"
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

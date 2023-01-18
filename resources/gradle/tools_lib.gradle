@@ -4,9 +4,6 @@
 //gradle publish -  upload mmlib.aar to maven repo UCS_lib at nexus
 apply plugin: 'de.undercouch.download'
 apply plugin: 'maven-publish'
-///////////////////////////////////////////////////////////////////////////////////
-///////////////////////BEGIN A COPY OF THE PARENT GRADLE///////////////////////////
-///////////////////////////////////////////////////////////////////////////////////
 buildscript {
     repositories {
         mavenLocal()
@@ -30,10 +27,11 @@ allprojects {
 }
 ext {
     arg = System.getProperty ("ARG", "1.0")
+    minsdk = System.getProperty ("MINSDK", "23")
 }
 task downloadFile {
     doLast {
-        def url = "http://172.16.10.230:3389/nexus/content/repositories/ucs_test/ru/ucscards/mmcore/${arg}/mmcore-${arg}.jar"
+        def url = "http://172.16.10.230:3389/nexus/content/repositories/ucs_repo/ru/ucscards/mmcore/${arg}/mmcore-${arg}.jar"
         download.run {
             src "$url"
             dest new File('/space/home/jenkins/workspace/UCS/mm_java/mmlibrary/libs', "mmcore.jar")
@@ -46,7 +44,7 @@ publishing {
     publications {
         mmlib(MavenPublication) {
             group = 'ru.ucscards'
-            version = '1.0'
+            version = "1.0.${minsdk}"
             artifactId 'mmlibrary'
             artifact("$buildDir/outputs/aar/mmlibrary-release.aar")
         }
@@ -57,8 +55,7 @@ publishing {
                 username = "$usr"
                 password = "$pwd"
             }
-            //url = "http://10.255.252.161:8081/repository/ucs_repo"
-            url = "http://172.16.10.230:3389/nexus/service/local/repositories/ucs_test/content"
+            url = "http://172.16.10.230:3389/nexus/service/local/repositories/ucs_repo/content"
             allowInsecureProtocol = true
         }
     }

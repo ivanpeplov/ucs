@@ -1,7 +1,7 @@
 <distributionManagement>
    <repository>
-      <id>ucs_test</id>
-      <url>http://172.16.10.230:3389/nexus/content/repositories/ucs_test</url>
+      <id>ucs_repo</id>
+      <url>http://172.16.10.230:3389/nexus/content/repositories/ucs_repo</url>
    </repository>
 </distributionManagement>
   <build>
