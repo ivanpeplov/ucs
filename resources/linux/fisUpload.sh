@@ -1,6 +1,7 @@
 #!/bin/bash
 #                             $1          $2        $3          $4   
 #usage: ./uploadFIS.sh ${JOB_BASE_NAME} ${SVN} ${NODE_NAME} ${VERSION}
+#                             $1           $2        $3
 #usage: ./uploadFIS.sh ${JOB_BASE_NAME} ${ARCH} ${NODE_NAME}
 #check pos. parameters number "$#"
 if [ "$#" -eq 3 ]; then

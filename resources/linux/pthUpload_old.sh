@@ -1,4 +1,5 @@
 #!/bin/bash
+#                      $1      $2   
 #usage: pthUpload.sh ${lvl1} ${exe}
 pushd $1
 #check "exit codes 0" in CheckSql.log | alarm file ${exe}_has_no_err
