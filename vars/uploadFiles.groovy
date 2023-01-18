@@ -28,6 +28,10 @@ def call(String job, String path) {
                     loadScript(place:'linux', name:'fisUpload.sh')
                     sh "./fisUpload.sh ${LABEL} ${SVN} ${NODE_NAME} ${VERSION}"
                 break
+                case ['mm_android']:
+                loadScript(place:'linux', name:'evotorUpload.sh')
+                sh "./evotorUpload.sh ${LABEL}"
+                break
                 case ['mm_nix']:
                     loadScript(place:'linux', name:'fisUpload.sh')
                     sh "./fisUpload.sh ucs_mm ${ARCH} ${NODE_NAME}"

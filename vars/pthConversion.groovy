@@ -1,5 +1,5 @@
 import org.apache.commons.io.FilenameUtils
-def call (Map pth=[:]) { //pth conversion - .ktr/.kjb Pentaho files
+def call (Map pth=[:]) { //PTH, XDB conversion
     pth.get('ss', '') // default value for map. change 'null' to ''
     if (pth.todo=='PTH') //filter .ktr/.kjb or .xml files
     {list = listFiles ("${pth.l1}/${pth.l2}/${pth.ss}").findAll { it=~ /(?i)\.(?:ktr|kjb)$/ } } //get all .ktr/.kjb
