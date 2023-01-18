@@ -53,6 +53,12 @@ Node: borland : 10.255.250.10 (win10 32x)
 BINARIES: .exe, .ini, .bat
 Builder: Borland C Builder 6.0
 ##
+**Cборка Passkey.exe (Borland C++ Builder 6.0)**
+JIRA CI-72
+SVN: Passkey/Passkey
+Node: borland : 10.255.250.10 (win10 32x)
+BINARIES: .exe, .ini, .bat
+##
 **В интересах тестирования ТИЕТО**
 ##
 **Перекладка скриптов из svn в nexus**
@@ -93,12 +99,23 @@ Nodes: borland : 10.255.250.10 (win10 32x)
 Builder: MS Visual Studio 2013
 ##
 
-**Cборка модулей для VT MicroModule (java)**
+**Cборка java библиотек для VT MicroModule (java)**
 Virtual terminal MM Jenkins declarative pipeline /Java
 JIRA: CI-69/CI-70
 SVN:
 VT/MicroModuleJava/android/trunk/mmlibrary,
 VT/MicroModuleJava/mmcore/trunk/mmcore
+
+Nodes: jenkins-fedora : 10.255.250.62 (fedora28  X64), label JAVA - production
+
+JDK build 11.0.14+9-LTS, GRADLE 6.1.1, Maven 3.8.6, Latest Android SDK cmdline-tools for Linux
+##
+**Cборка приложений VT MicroModule (android)**
+Virtual terminal MM Jenkins declarative pipeline /Java
+JIRA: CI-73/CI-74
+SVN:
+VT/MicroModuleJava/android/trunk/app
+VT/MicroModuleJava/evotor
 
 Nodes: jenkins-fedora : 10.255.250.62 (fedora28  X64), label JAVA - production
 
