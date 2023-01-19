@@ -17,24 +17,24 @@ def call(String job, String path) {
                     bat "borlandUpload.bat ${LABEL} ${SVN} ${VERSION}"
                 break
                 case ['armfm']:
-                    loadScript(place:'win', name:'armfmUpload.bat')
-                    bat "armfmUpload.bat"
+                    loadScript(place:'win', name:'fmUpload.bat')
+                    bat "fmUpload.bat"
                 break
                 case ['ppcfm']:
-                    loadScript(place:'linux', name:'ppcfmUpload.sh')
-                    sh "./ppcfmUpload.sh"
+                    loadScript(place:'linux', name:'fmUpload.sh')
+                    sh "./fmUpload.sh"
                 break
                 case ['fis']:
-                    loadScript(place:'linux', name:'fisUpload.sh')
-                    sh "./fisUpload.sh ${LABEL} ${SVN} ${NODE_NAME} ${VERSION}"
+                    loadScript(place:'linux', name:'mmUpload.sh')
+                    sh "./mmUpload.sh ${LABEL} ${SVN} ${NODE_NAME} ${VERSION}"
                 break
                 case ['mm_android']:
                 loadScript(place:'linux', name:'androidUpload.sh')
                 sh "./androidUpload.sh ${LABEL}"
                 break
                 case ['mm_nix']:
-                    loadScript(place:'linux', name:'fisUpload.sh')
-                    sh "./fisUpload.sh ucs_mm ${ARCH} ${NODE_NAME}"
+                    loadScript(place:'linux', name:'mmUpload.sh')
+                    sh "./mmUpload.sh ucs_mm ${ARCH} ${NODE_NAME}"
                 break
                 case ['mm_win']:
                     loadScript(place:'win', name:'mmUpload.bat')
