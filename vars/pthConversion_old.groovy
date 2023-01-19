@@ -8,6 +8,6 @@ def call (Map pth=[:]) { //pth conversion - .ktr/.kjb Pentaho files
         ext  = FilenameUtils.getExtension(i) //each filename
         name = FilenameUtils.removeExtension(i) //each extension
         if ( pth.todo=='PTH' ) { sh "./pthConversion_old.sh ${pth.l1} ${pth.l2} ${name} ${ext} ${pth.ss}" }
-        else { sh "./checkerSQL_old.sh ${pth.l1} ${pth.l2} ${name} ${ext} ${pth.ss}" }
+        else { sh "./xdbChecker_old.sh ${pth.l1} ${pth.l2} ${name} ${ext} ${pth.ss}" }
     }
 }

@@ -4,16 +4,14 @@ def call(String path) { //v4.0 15.12.2022
         def nexus_creds = [ //masking nexus credentials
             [ path: 'secrets/creds/nexus', secretValues: [
             [ envVar: 'nexus_pwd', vaultKey: 'password']]]]
-        sh "find . -type d -name .svn -exec rm -rf {} +" //to delete junk /.svn folder recursively at lvl1
         loadScript(place:'linux', name:'spaceToUnderscore.sh')
-        sh "./spaceToUnderscore.sh" //change " " to "_" in filenames recursively
+        sh "./spaceToUnderscore.sh; find . -type d -name .svn -exec rm -rf {} +" //change " " to "_" in filenames recursively
         loadScript(place:'linux', name:'pthUpload_old.sh') // bash
         loadScript(place:'linux', name:'pthConversion_old.sh') // ktr2xml + checkerSQL
-        loadScript(place:'linux', name:'checkerSQL_old.sh') // sql checker
+        loadScript(place:'linux', name:'xdbChecker_old.sh') // sql checker
         //loadScript(place:'linux', name:'xsltcPTH.sh') // ktr2xml converter
         lvl1 = listDir("${path}") //level 1 - release folder [MNR19]
-        for (io in lvl1) { lvl2 = listDir("${path}/${io}")
-            lvl2 = lvl2 - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
+        for (io in lvl1) { lvl2 = listDir("${path}/${io}") - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB]
             for (jo in lvl2) {
               ext = FilenameUtils.getExtension(jo) // [PTH, PTH, ..., XDB]
               stage = listDir("${path}/${io}/${jo}") 

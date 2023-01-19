@@ -8,6 +8,6 @@ def call (Map pth=[:]) { //PTH, XDB conversion
         ext  = FilenameUtils.getExtension(i) //each filename
         name = FilenameUtils.removeExtension(i) //each extension
         if (pth.todo=='PTH') {sh "./pthConversion.sh ${pth.l2} ${name} ${ext} ${pth.ss}"}
-        else {sh "./checkerSQL.sh ${pth.l2} ${name} ${ext} ${pth.ss}"}
+        else {sh "./xdbChecker.sh ${pth.l2} ${name} ${ext} ${pth.ss}"}
     }
 }
