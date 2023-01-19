@@ -11,7 +11,7 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: 
-            'return["mmcore", "mmlibrary", "sample", "evotor"]'
+            'return["mmcore", "mmlibrary", "app", "evotor"]'
         ]
       ]
     ],
@@ -27,7 +27,7 @@ properties([
           script: '''
           if (LABEL=='mmcore') {return["VT/MicroModuleJava/mmcore/trunk/mmcore"]}
           if (LABEL=='mmlibrary') {return["VT/MicroModuleJava/android/trunk/mmlibrary"]}
-          if (LABEL=='sample') {return["VT/MicroModuleJava/android/trunk/app"]}
+          if (LABEL=='app') {return["VT/MicroModuleJava/android/trunk/app"]}
           if (LABEL=='evotor') {return["VT/MicroModuleJava/evotor"]}
           '''
         ]
@@ -43,7 +43,7 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: '''
-          if (LABEL=='sample') {return["app/build/outputs/apk/debug"]}
+          if (LABEL=='app') {return["app/build/outputs/apk/debug"]}
           if (LABEL=='evotor') {return["evotor/app/build/outputs/apk/debug"]}
           '''
         ]
@@ -109,59 +109,35 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
         }
       }
     }
-    stage('MMCORE') {
-      when { expression  { LABEL == "mmcore" } }
+    stage('BUILD') {
       steps {
-        dir ('mmcore') {
-          script {
-            //mmCoreGradle() //if you like a GRADLE
-            loadScript(place:'linux', name:'androidBuild.sh')
-            loadScript(place:'gradle', name:'addToPom.xml')
-            sh "./androidBuild.sh"
-          }
-        }
-      }
-    }
-    stage('MMLIBRARY') {
-      when { expression  { LABEL == "mmlibrary" } }
-      steps {
-        dir ('mmlibrary') {
+        dir ("${LABEL}") {
           script {
             loadScript(place:'linux', name:'androidBuild.sh')
-            loadScript(place:'gradle', name:'tools_lib.gradle')
-            loadScript(place:'gradle', name:'build_lib.gradle')
-            sh "./androidBuild.sh"
-          }
-        }
-      }
-    }
-    stage('SAMPLE') {
-      when { expression  { LABEL == "sample" } }
-      steps {
-        dir ('app') {
-          script {
-            loadScript(place:'linux', name:'androidBuild.sh')
-            loadScript(place:'gradle', name:'sample.gradle')
-            sh "./androidBuild.sh"
-          }
-        }
-      }
-    }
-    stage('EVOTOR') {
-      when { expression  { LABEL == "evotor" } }
-      steps {
-        dir ('evotor') {
-          script {
-            loadScript(place:'linux', name:'androidBuild.sh')
-            loadScript(place:'gradle', name:'evotor.gradle')
-            loadScript(place:'gradle', name:'evotor_app.gradle')
+            switch(LABEL) {
+              case ["mmcore"] :
+                //mmCoreGradle() //if you like a GRADLE
+                loadScript(place:'gradle', name:'addToPom.xml')
+              break
+              case ["mmlibrary"] :
+                loadScript(place:'gradle', name:'tools_lib.gradle')
+                loadScript(place:'gradle', name:'build_lib.gradle')
+              break
+              case ["app"] :
+                loadScript(place:'gradle', name:'sample.gradle')
+              break
+              case ["evotor"] :
+                loadScript(place:'gradle', name:'evotor.gradle')
+                loadScript(place:'gradle', name:'evotor_app.gradle')
+              break
+            }
             sh "./androidBuild.sh"
           }
         }
       }
     }
     stage('UPLOAD') {
-      when { expression  { LABEL == "sample" || LABEL == "evotor"} }
+      when { expression  { LABEL == "app" || LABEL == "evotor"} }
       steps {
         script {
           uploadFiles('mm_android', "${TARGET}")
