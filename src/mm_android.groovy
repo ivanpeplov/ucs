@@ -3,7 +3,7 @@ properties([
   parameters([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select:  SAMPLE,  EVOTOR',
+      description: 'Select:',
       name: 'LABEL', 
       script: [
         $class: 'GroovyScript', 
@@ -11,7 +11,7 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: 
-            'return["sample", "evotor"]'
+            'return["mmcore", "mmlibrary", "sample", "evotor"]'
         ]
       ]
     ],
@@ -25,6 +25,8 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: '''
+          if (LABEL=='mmcore') {return["VT/MicroModuleJava/mmcore/trunk/mmcore"]}
+          if (LABEL=='mmlibrary') {return["VT/MicroModuleJava/android/trunk/mmlibrary"]}
           if (LABEL=='sample') {return["VT/MicroModuleJava/android/trunk/app"]}
           if (LABEL=='evotor') {return["VT/MicroModuleJava/evotor"]}
           '''
@@ -46,10 +48,45 @@ properties([
           '''
         ]
       ]
+    ],
+    [$class: 'CascadeChoiceParameter', 
+      choiceType: 'PT_SINGLE_SELECT',
+      description: "Select minimal SDK version for MMlibrary build", 
+      referencedParameters: 'LABEL',
+      name: 'MINSDK', 
+      script: [
+        $class: 'GroovyScript', 
+        script: [
+          classpath: [], 
+          sandbox: false, 
+          script: '''
+          if (LABEL=='mmlibrary') {return["19", "23"]}
+          '''
+        ]
+      ]
+    ],
+    [$class: 'CascadeChoiceParameter', 
+      choiceType: 'PT_SINGLE_SELECT',
+      description: 'Select mmCore version from REPO metadata',
+      referencedParameters: 'LABEL',
+      name: 'VERSION', 
+      script: [
+        $class: 'GroovyScript', 
+        script: [
+          classpath: [], 
+          sandbox: false, 
+          script: '''
+          if (LABEL=='mmlibrary') {
+          proc= ["bash", "-c", "/var/lib/jenkins/bin/getVersionMavenMetadata.sh"].execute()
+          choices = proc.text.split().toList()
+          return choices } 
+          '''
+        ]
+      ]
     ]
   ])
 ])
-pipeline { //CI-73/CI-74
+pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
   agent {label 'JAVA'}   
   environment {
     SVN_PATH = "${ROOT}" //full path for download fron SVN
@@ -67,8 +104,34 @@ pipeline { //CI-73/CI-74
     stage ('PREPARE') {
       steps {
         script {
-          //getSVN()
+          getSVN()
           prepareFiles("${LABEL}")
+        }
+      }
+    }
+    stage('MMCORE') {
+      when { expression  { LABEL == "mmcore" } }
+      steps {
+        dir ('mmcore') {
+          script {
+            //mmCoreGradle() //if you like a GRADLE
+            loadScript(place:'gradle', name:'addToPom.xml')
+            loadScript(place:'linux', name:'addToPom.sh')
+            sh "./addToPom.sh; mvn deploy"
+          }
+        }
+      }
+    }
+    stage('MMLIBRARY') {
+      when { expression  { LABEL == "mmlibrary" } }
+      steps {
+        dir ('mmlibrary') {
+          script {
+            loadScript(place:'gradle', name:'tools_lib.gradle')
+            loadScript(place:'gradle', name:'build_lib.gradle')
+            loadScript(place:'linux', name:'deployMMlibrary.sh')
+            sh "./deployMMlibrary.sh"
+          }
         }
       }
     }
@@ -98,6 +161,7 @@ pipeline { //CI-73/CI-74
       }
     }
     stage('UPLOAD') {
+      when { expression  { LABEL == "sample" || LABEL == "evotor"} }
       steps {
         script {
           uploadFiles('mm_android', "${TARGET}")
