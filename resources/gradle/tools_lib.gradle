@@ -34,7 +34,7 @@ task downloadFile {
         def url = "http://172.16.10.230:3389/nexus/content/repositories/ucs_repo/ru/ucscards/mmcore/${arg}/mmcore-${arg}.jar"
         download.run {
             src "$url"
-            dest new File('/space/home/jenkins/workspace/UCS/mm_java/mmlibrary/libs', "mmcore.jar")
+            dest new File('/space/home/jenkins/workspace/UCS/mm_android/mmlibrary/libs', "mmcore.jar")
             overwrite true
             tempAndMove true
         }
