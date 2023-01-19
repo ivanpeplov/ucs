@@ -115,8 +115,8 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
         dir ('mmcore') {
           script {
             //mmCoreGradle() //if you like a GRADLE
+            loadScript(place:'linux', name:'androidBuild.sh')
             loadScript(place:'gradle', name:'addToPom.xml')
-            loadScript(place:'linux', name:'deployMMlibrary.sh')
             sh "./androidBuild.sh"
           }
         }
@@ -127,9 +127,9 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
       steps {
         dir ('mmlibrary') {
           script {
+            loadScript(place:'linux', name:'androidBuild.sh')
             loadScript(place:'gradle', name:'tools_lib.gradle')
             loadScript(place:'gradle', name:'build_lib.gradle')
-            loadScript(place:'linux', name:'deployMMlibrary.sh')
             sh "./androidBuild.sh"
           }
         }
@@ -140,7 +140,7 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
       steps {
         dir ('app') {
           script {
-            loadScript(place:'linux', name:'deployMMlibrary.sh')
+            loadScript(place:'linux', name:'androidBuild.sh')
             loadScript(place:'gradle', name:'sample.gradle')
             sh "./androidBuild.sh"
           }
@@ -152,7 +152,7 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
       steps {
         dir ('evotor') {
           script {
-            loadScript(place:'linux', name:'deployMMlibrary.sh')
+            loadScript(place:'linux', name:'androidBuild.sh')
             loadScript(place:'gradle', name:'evotor.gradle')
             loadScript(place:'gradle', name:'evotor_app.gradle')
             sh "./androidBuild.sh"
