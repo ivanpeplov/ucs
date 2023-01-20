@@ -3,17 +3,18 @@
 #usage: ConversionPTH.sh ${lvl2} ${name} ${ext} ${stage}
 set +e
 if [ "$#" -eq 3 ]; then
-java -jar BIN/xsltc.jar -i "$1/$2.$3" -o "$1/$2.xml" -l stdout.log -x BIN/pth2lst.xslt
+java -jar BIN/xsltc.jar -i "$1/$2.$3" -o "$1/$2.$3.xml" -l stdout.log -x BIN/pth2lst.xslt
 else
-java -jar BIN/xsltc.jar -i "$1/$4/$2.$3" -o "$1/$4/$2.xml" -l stdout.log -x BIN/pth2lst.xslt
+java -jar BIN/xsltc.jar -i "$1/$4/$2.$3" -o "$1/$4/$2.$3.xml" -l stdout.log -x BIN/pth2lst.xslt
 fi
 cat stdout.log >> ktr_xml.log
-pushd BIN; echo "---------- $2.xml ----------" >> CheckSql.log;
+#mv $1/$2.xml $1/$2.$3.xml
+pushd BIN; echo "---------- $2.$3.xml ----------" >> CheckSql.log;
 if [  "$#" -eq 3 ]; then
-  java -jar checkersql.jar "../$1/$2.xml"
-  popd +0; zip  -u $1.zip ./$1/$2.xml
+  java -jar checkersql.jar "../$1/$2.$3.xml"
+  popd +0; zip  -u $1.zip ./$1/$2.$3.xml
 else
-  java -jar checkersql.jar "../$1/$4/$2.xml"
-  popd +0; zip  -u $1.zip ./$1/$4/$2.xml
+  java -jar checkersql.jar "../$1/$4/$2.$3.xml"
+  popd +0; zip  -u $1.zip ./$1/$4/$2.$3.xml
 fi
 # true - for testing only. In prod - comment it
