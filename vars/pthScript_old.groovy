@@ -7,7 +7,7 @@ def call(String path) { //v4.0 15.12.2022
         loadScript(place:'linux', name:'spaceToUnderscore.sh')
         sh "./spaceToUnderscore.sh; find . -type d -name .svn -exec rm -rf {} +" //change " " to "_" in filenames recursively
         loadScript(place:'linux', name:'pthUpload_old.sh') // bash
-        loadScript(place:'linux', name:'pthConversion_old.sh') // ktr2xml + checkerSQL
+        loadScript(place:'linux', name:'pthChecker_old.sh') // ktr2xml + checkerSQL
         loadScript(place:'linux', name:'xdbChecker_old.sh') // sql checker
         //loadScript(place:'linux', name:'xsltcPTH.sh') // ktr2xml converter
         lvl1 = listDir("${path}") //level 1 - release folder [MNR19]

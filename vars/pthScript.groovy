@@ -6,7 +6,7 @@ def call(String path) { //v5.0 27.12.2022
         loadScript(place:'linux', name:'spaceToUnderscore.sh')
         sh "./spaceToUnderscore.sh; find . -type d -name .svn -exec rm -rf {} + "
         loadScript(place:'linux', name:'pthUpload.sh') // bash
-        loadScript(place:'linux', name:'pthConversion.sh') // ktr2xml + checkerSQL
+        loadScript(place:'linux', name:'pthChecker.sh') // ktr2xml + checkerSQL
         loadScript(place:'linux', name:'xdbChecker.sh') // sql checker
         lvl2 = listDir("${path}") - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
         for (jo in lvl2) {
