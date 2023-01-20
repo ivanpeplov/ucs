@@ -1,4 +1,5 @@
 @echo off
-7z a %ARCH%.zip fmUX*, FmUX* -x!armfmUpload.bat
+rem fm
+7z a %ARCH%.zip fmUX*, FmUX* -x!fmUpload.bat
 curl  -u jenkucs_sa:%nexus_pwd% --upload-file %ARCH%.zip  %NEXUS_URL_1%/FM/
                 
