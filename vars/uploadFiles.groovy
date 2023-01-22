@@ -14,6 +14,7 @@ def call(String job, String path) {
             switch (job) {
                 case ['borland']:
                     loadScript(place:'win', name:'borlandUpload.bat')
+                    if (LABEL=='passkey') {SVN='trunk'}
                     bat "borlandUpload.bat ${LABEL} ${SVN} ${VERSION}"
                 break
                 case ['armfm']:
