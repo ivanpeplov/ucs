@@ -119,15 +119,8 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
                 //mmCoreGradle() //if you like a GRADLE
                 loadScript(place:'gradle', name:'addToPom.xml')
               break
-              /*case ["mmlibrary"] :
-                loadScript(place:'gradle', name:'tools_lib.gradle')
-                loadScript(place:'gradle', name:'build_lib.gradle')
-              break*/
-              case ["app"] :
-                //loadScript(place:'gradle', name:'sample.gradle')
-              break
               case ["evotor"] :
-                loadScript(place:'gradle', name:'evotor.gradle')
+                //loadScript(place:'gradle', name:'evotor.gradle')
                 loadScript(place:'gradle', name:'evotor_app.gradle')
               break
             }

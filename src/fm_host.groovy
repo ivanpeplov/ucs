@@ -11,7 +11,7 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: 
-            'return["armfm", "ppcfm", "pseutils"]'
+            'return["armfm", "ppcfm", "fmman", "pseutils"]'
         ]
       ]
     ],
@@ -28,7 +28,7 @@ properties([
           script: '''
           if (LABEL=='armfm') {return ["eracom"]}
           if (LABEL=='ppcfm') {return ["jenkins-gem"]}
-          if (LABEL=='pseutils') {return ["borland"]}
+          if (LABEL == "pseutils" || LABEL == "fmman") {return ["borland"]}
           '''
         ]
       ]
@@ -44,7 +44,7 @@ properties([
           sandbox: false, 
           script: '''
             if (LABEL == "ppcfm") { return ["/opt/safenet/protecttoolkit5/ptk:selected:disabled"] }
-            if (LABEL == "pseutils") { return ["C:\\\\Progra~1\\\\SafeNet\\\\Protec~1\\\\Protec~1\\\\:selected:disabled"] }
+            if (LABEL == "pseutils" || LABEL == "fmman") { return ["C:\\\\Progra~1\\\\SafeNet\\\\Protec~1\\\\Protec~1\\\\:selected:disabled"] }
             if (LABEL == "armfm") { return ["C:\\\\PROGRA~1\\\\Eracom\\\\PROTEC~1:selected:disabled"] }
             '''
         ]
@@ -61,7 +61,7 @@ properties([
           sandbox: false, 
           script: '''
             if (LABEL == "ppcfm") { return ["/opt/safenet/protecttoolkit5/fmsdk:selected:disabled"] }
-            if (LABEL == "pseutils") { return ["C:\\\\Progra~1\\\\SafeNet\\\\Protec~1\\\\FMSDK~1\\\\:selected:disabled"] }
+            if (LABEL == "pseutils" || LABEL == "fmman") { return ["C:\\\\Progra~1\\\\SafeNet\\\\Protec~1\\\\Protec~1\\\\:selected:disabled"] }
             if (LABEL == "armfm") { return ["C:\\\\PROGRA~1\\\\Eracom\\\\PROTEC~2:selected:disabled"] }
             '''
         ]
@@ -76,10 +76,8 @@ properties([
         script: [
           classpath: [], 
           sandbox: false, 
-          script: '''
-            if (LABEL == "pseutils") { return ["PassKey/FM/FmUX/host"] }
-            else { return ["PassKey/FM/FmUX"] }
-            '''
+          script:
+            'return ["PassKey/FM/FmUX"]'
         ]
       ]
     ],
@@ -123,10 +121,8 @@ properties([
         script: [
           classpath: [], 
           sandbox: false, 
-          script: '''
-            if (LABEL == "pseutils") { return ["output"] }
-            else { return ["FmUX/fm/obj-"] }
-            '''
+          script:
+            'if (LABEL == "pseutils" || LABEL == "fmman") { return ["FMuX/output"] }'
         ]
       ]
     ]
@@ -145,10 +141,10 @@ pipeline { //CI-52
       PTKBIN="${CPROVDIR}/bin"
       PTKLIB="${CPROVDIR}/lib"
       PATH_GEM="/usr/local/bin:/usr/bin:/bin:"
-      INCLUDE="C:\\Program Files\\SafeNet\\Protect Toolkit 5\\Protect Toolkit C SDK\\include;C:\\Program Files\\SafeNet\\Protect Toolkit 5\\Protect Toolkit C SDK\\samples\\include;C:\\Program Files\\Windows Kits\\10\\Include\\10.0.19041.0\\um;C:\\Program Files\\Windows Kits\\10\\Include\\10.0.19041.0\\shared;C:\\Program Files\\Microsoft Visual Studio 12.0\\VC\\include"
+      INCLUDE="C:\\Program Files\\SafeNet\\Protect Toolkit 5\\FM SDK\\include;C:\\Program Files\\SafeNet\\Protect Toolkit 5\\Protect Toolkit C SDK\\include;C:\\Program Files\\SafeNet\\Protect Toolkit 5\\Protect Toolkit C SDK\\samples\\include;C:\\Program Files\\Windows Kits\\10\\Include\\10.0.19041.0\\um;C:\\Program Files\\Windows Kits\\10\\Include\\10.0.19041.0\\shared;C:\\Program Files\\Microsoft Visual Studio 12.0\\VC\\include"
       LIB="C:\\Program Files\\Windows Kits\\10\\Lib\\10.0.19041.0\\um\\x86;C:\\Program Files\\Microsoft Visual Studio 12.0\\VC\\lib"
       PATH = "C:\\Program Files\\Eracom\\ProtectToolkit C SDK\\bin;C:\\Program Files\\Eracom\\ProtectToolkit C SDK\\bin\\sw;C:\\Program Files\\Eracom\\ProtectProcessing Orange SDK\\bin;C:\\gcc-fm\\bin;C:\\Program Files\\SafeNet\\Protect Toolkit 5\\FM SDK\\bin;C:\\Program Files\\SafeNet\\Protect Toolkit 5\\Protect Toolkit C SDK\\bin;C:\\Program Files\\Microsoft Visual Studio 12.0\\VC\\bin;C:\\Program Files\\TortoiseSVN\\bin;c:\\jenkins\\bin;C:\\Windows\\system32;C:\\Program Files\\Eclipse Adoptium\\jre-11.0.16.101-hotspot\\bin;C:\\Program Files\\Java\\jre1.8.0_341\\bin;C:\\Program Files\\Git\\bin,C:\\Program Files\\Git\\cmd,${PATH_GEM}"
-  }
+  } 
   stages {
       stage('SET Env') {
         steps {
@@ -173,8 +169,6 @@ pipeline { //CI-52
             script {
               switch (LABEL) {
               case "ppcfm": //gemalto
-              //obligatory for single makefile support
-              //sh "sed -i 's;\\\\samples\\\\;/samples/;' Makefile"
               loadScript(place:'fmux', name:'Makefile')
               loadScript(place:'fmux', name:'cfgbuild.mak')
               sh "cp ./cfgbuild.mak ${WORKSPACE}/FmUX/"
@@ -188,11 +182,18 @@ pipeline { //CI-52
         }
       }
       stage('HOST') {
-        when { expression  { LABEL == "pseutils" } }
+        when { expression  { LABEL == "pseutils" || LABEL == "fmman" } }
         steps {
-          dir ('host') {
+          dir ('FMuX/host') {
             script {
-              bat(script:"nmake -f PSEutils-nt-dll.mak")
+              switch (LABEL) {
+                case ("fmman") :
+                  bat(script:"nmake -f nt-dll.mak")
+                break
+                case ("pseutils") :
+                  bat(script:"nmake -f PSEutils-nt-dll.mak")
+                break
+              }
             }
           }
         }
@@ -229,7 +230,7 @@ pipeline { //CI-52
       }
   } //stages
   post {
-    always { cleanWs() }
+    //always { cleanWs() }
     failure { script { sendEmail() } }
   } //post
 } //pipeline
