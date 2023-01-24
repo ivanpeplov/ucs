@@ -1,5 +1,5 @@
 #!/bin/bash
-#mm_android
+# mm_android.groovy
 touch local.properties & echo 'sdk.dir = /home/jenkins/tools/android' >> local.properties
 case "${LABEL}" in
 mmcore) 
@@ -12,9 +12,11 @@ mmlibrary)
     gradle -DMINSDK=${MINSDK} build -b build_lib.gradle
     gradle -DMINSDK=${MINSDK} publish -b tools_lib.gradle ;;
 app)
-    gradle build -b sample.gradle ;;
+    #gradle build -b sample.gradle ;;
+    gradle build -b build.gradle ;;
 evotor)
     gradle downloadFile -b evotor.gradle
+    #gradle downloadFile -b build.gradle
     cp evotor_app.gradle ./app/build.gradle 
     cd app; gradle build -b build.gradle ;;
 esac
