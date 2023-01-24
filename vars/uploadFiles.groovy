@@ -17,7 +17,8 @@ def call(String job, String path) {
                     if (LABEL=='passkey') {SVN='trunk'}
                     bat "borlandUpload.bat ${LABEL} ${SVN} ${VERSION}"
                 break
-                case ['armfm']:
+                case ['armfm', 'pseutils']:
+                println path
                     loadScript(place:'win', name:'fmUpload.bat')
                     bat "fmUpload.bat"
                 break
