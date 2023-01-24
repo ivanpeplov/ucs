@@ -68,16 +68,16 @@ properties([
       ]
     ],
     [$class: 'CascadeChoiceParameter', 
-      choiceType: 'PT_SINGLE_SELECT', 
-      referencedParameters: 'LABEL',
-      name: 'ROOT', 
+      choiceType: 'PT_SINGLE_SELECT',
+      referencedParameters: 'LABEL', 
+      name: 'TARGET', 
       script: [
         $class: 'GroovyScript', 
         script: [
           classpath: [], 
           sandbox: false, 
           script:
-            'return ["PassKey/FM/FmUX"]'
+            'if (LABEL == "pseutils" || LABEL == "fmman") { return ["FMuX/output"] }'
         ]
       ]
     ],
@@ -111,31 +111,17 @@ properties([
             '''
         ]
       ]
-    ],
-    [$class: 'CascadeChoiceParameter', 
-      choiceType: 'PT_SINGLE_SELECT',
-      referencedParameters: 'LABEL', 
-      name: 'TARGET', 
-      script: [
-        $class: 'GroovyScript', 
-        script: [
-          classpath: [], 
-          sandbox: false, 
-          script:
-            'if (LABEL == "pseutils" || LABEL == "fmman") { return ["FMuX/output"] }'
-        ]
-      ]
     ]
   ])
 ])
-pipeline { //CI-52
+pipeline { //CI-52: armfm, ppcfm; CI-72: pseutils, fm_manager
   agent {label NODE_NAME}
-  options { timeout(time: 10, unit: 'MINUTES') }
     //parameters {
     //booleanParam(name: "SIGN", defaultValue: false, description: 'Only for testing')
     //} //parameters end
   environment {
       //TARGET="FmUX/fm/obj-${ARCH}${TAIL}" //where find files for upload
+      ROOT="PassKey/FM/FmUX"
       SVN_PATH = "${ROOT}" //full path for download fron SVN
       LD_LIBRARY_PATH="${CPROVDIR}/lib:"
       PTKBIN="${CPROVDIR}/bin"
@@ -230,7 +216,7 @@ pipeline { //CI-52
       }
   } //stages
   post {
-    //always { cleanWs() }
+    always { cleanWs() }
     failure { script { sendEmail() } }
   } //post
 } //pipeline
