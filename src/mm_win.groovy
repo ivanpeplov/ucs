@@ -25,21 +25,19 @@ stages {
         }
       }
     }
-    stage('Build.. cyassl myizip microx') {
+    stage('CYASSL  MYIZIP_Z  MICROX_T') {
       steps {
         dir ("Micromodule") {
           script {
-            loadScript(place:'win', name:'mmBuild.bat')
             mmWin(mm, arch) // mm, arch - strings from environment.yml file
           }
         }
       }
     }
-    stage('Build..  microp  ucs_xx  setup_p') {
+    stage('MICROP  UCS_XX  SETUP_P') {
       steps {
         dir ("Micromodule/microx_t/samples") {
           script {
-            loadScript(place:'win', name:'mmBuild.bat')
             mmWin(mmm, arch) //strings from environment.yml file
             loadScript(place:'win', name:'mmArt.bat')
             bat (script:"mmArt.bat") // mmm, arch - build for setup_p.zip from setup_p.msi

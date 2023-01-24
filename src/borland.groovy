@@ -3,7 +3,7 @@ properties([
   parameters([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select Borland Project:  MMS_EOD,  PALMERA Uloader,  PassKey, TID manager',
+      description: 'Select Build:',
       name: 'LABEL', 
       script: [
         $class: 'GroovyScript', 
@@ -61,11 +61,9 @@ properties([
         script: [
           classpath: [], 
           sandbox: false, 
-          script: 
-          """
+          script: '''
           if (LABEL=='passkey') { return ["src"] }
-          else { return ["trunk", "branches", "tags"] }
-          """
+          else { return ["trunk", "branches", "tags"] } '''
         ]
       ]
     ],

@@ -3,7 +3,7 @@ properties([
   parameters([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select:',
+      description: 'Select Build:',
       name: 'LABEL', 
       script: [
         $class: 'GroovyScript', 
@@ -51,7 +51,7 @@ properties([
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT',
-      description: "Select minimal SDK version for MMlibrary build", 
+      description: "Select android minSDK parameter ", 
       referencedParameters: 'LABEL',
       name: 'MINSDK', 
       script: [
@@ -119,12 +119,12 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
                 //mmCoreGradle() //if you like a GRADLE
                 loadScript(place:'gradle', name:'addToPom.xml')
               break
-              case ["mmlibrary"] :
+              /*case ["mmlibrary"] :
                 loadScript(place:'gradle', name:'tools_lib.gradle')
                 loadScript(place:'gradle', name:'build_lib.gradle')
-              break
+              break*/
               case ["app"] :
-                loadScript(place:'gradle', name:'sample.gradle')
+                //loadScript(place:'gradle', name:'sample.gradle')
               break
               case ["evotor"] :
                 loadScript(place:'gradle', name:'evotor.gradle')
