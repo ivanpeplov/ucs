@@ -1,4 +1,5 @@
 @echo off
+rem borland
 if not "%~3"=="" goto svn
 :svn
 7z a %1_%2.zip * -x!borlandUpload.bat -x!getWinSVN.bat
