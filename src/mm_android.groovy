@@ -121,7 +121,7 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
               break
               case ["evotor"] :
                 //loadScript(place:'gradle', name:'evotor.gradle')
-                loadScript(place:'gradle', name:'evotor_app.gradle')
+                //loadScript(place:'gradle', name:'evotor_app.gradle')
               break
             }
             sh "./androidBuild.sh"

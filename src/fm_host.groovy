@@ -155,9 +155,6 @@ pipeline { //CI-52: armfm, ppcfm; CI-72: pseutils, fm_manager
             script {
               switch (LABEL) {
               case "ppcfm": //gemalto
-              loadScript(place:'fmux', name:'Makefile')
-              loadScript(place:'fmux', name:'cfgbuild.mak')
-              sh "cp ./cfgbuild.mak ${WORKSPACE}/FmUX/"
               TAIL=="" ? sh(script:"unset ${DEBUG} ; make") : sh(script:"make debug=1") //elvis operator   
               break
               default: //eracom
