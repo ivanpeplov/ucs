@@ -114,7 +114,7 @@ properties([
     ]
   ])
 ])
-pipeline { //CI-52: armfm, ppcfm; CI-72: pseutils, fm_manager
+pipeline { //CI-52: armfm, ppcfm; CI-72: PSEutils.dll, fm_manager.dll
   agent {label NODE_NAME}
     //parameters {
     //booleanParam(name: "SIGN", defaultValue: false, description: 'Only for testing')
