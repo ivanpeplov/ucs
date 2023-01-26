@@ -31,8 +31,8 @@ def call(String job, String path) {
                     sh "./mmUpload.sh ${LABEL} ${SVN} ${NODE_NAME} ${VERSION}"
                 break
                 case ['mm_android']:
-                loadScript(place:'linux', name:'androidUpload.sh')
-                sh "./androidUpload.sh ${LABEL}"
+                    loadScript(place:'linux', name:'androidUpload.sh')
+                    sh "./androidUpload.sh ${LABEL}"
                 break
                 case ['mm_nix']:
                     loadScript(place:'linux', name:'mmUpload.sh')

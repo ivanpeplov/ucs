@@ -1,13 +1,8 @@
 def call(String name) {
     def workspace = WORKSPACE.replaceAll('/','\\\\')
     switch (name) {//local preliminary file operations
-        case ["fis", "mm_nix"] : //fis, mm_nix operations
-            loadScript(place:'linux', name:'prepareFiles.sh')
-            sh "./prepareFiles.sh"
-        break
         case ["ppcfm"] : //fm_host operations
-            sh """
-            cp ./git/config/fmux/cfgbuild.mak ./FmUX
+            sh """ cp ./git/config/fmux/cfgbuild.mak ./FmUX
             cp ./git/config/fmux/Makefile ./FmUX/fm """
         break
         case ["borland"] : //borland operations
