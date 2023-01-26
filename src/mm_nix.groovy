@@ -67,7 +67,8 @@ pipeline { //CI-62
         steps {
           script {
             getSVN()
-            prepareFiles('mm_nix')
+            loadScript(place:'linux', name:'prepareFiles.sh')
+            sh "./prepareFiles.sh"
           }
         }
       }
@@ -104,5 +105,5 @@ pipeline { //CI-62
     post {
       always { cleanWs() }
       failure { script { sendEmail() } }
-    } //post
+    }
 } //pipeline

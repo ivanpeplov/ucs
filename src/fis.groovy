@@ -179,7 +179,6 @@ pipeline { //CI-51
       stage('SET Env') {
         steps {
           script {
-            catchErrors()
             setDescription()
             setEnv()
           }
@@ -189,7 +188,8 @@ pipeline { //CI-51
         steps {
           script {
             getSVN()
-            prepareFiles('fis')
+            loadScript(place:'linux', name:'prepareFiles.sh')
+            sh "./prepareFiles.sh"
           }
         }
       }
@@ -226,5 +226,5 @@ pipeline { //CI-51
     post {
       always { cleanWs() }
       failure { script { sendEmail() } }
-    } //post
+    }
 } //pipeline
