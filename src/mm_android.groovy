@@ -105,7 +105,6 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
       steps {
         script {
           getSVN()
-          prepareFiles("${LABEL}")
         }
       }
     }
