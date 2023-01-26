@@ -11,11 +11,6 @@ mmlibrary)
     gradle -DARG=${VERSION} downloadFile -b tools_lib.gradle
     gradle -DMINSDK=${MINSDK} build -b build_lib.gradle
     gradle -DMINSDK=${MINSDK} publish -b tools_lib.gradle ;;
-app)
-    gradle build -b build.gradle ;;
-evotor)
-    gradle downloadFile -b build.gradle
-    cp evotor_app.gradle ./app/build.gradle 
-    gradle build ;;
+*)  gradle build ;;
 esac
 
