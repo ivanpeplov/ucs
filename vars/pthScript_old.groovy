@@ -10,11 +10,11 @@ def call(String path) { //v4.0 15.12.2022
         loadScript(place:'linux', name:'pthChecker_old.sh') // ktr2xml + checkerSQL
         loadScript(place:'linux', name:'xdbChecker_old.sh') // sql checker
         //loadScript(place:'linux', name:'xsltcPTH.sh') // ktr2xml converter
-        lvl1 = listDir("${path}") //level 1 - release folder [MNR19]
-        for (io in lvl1) { lvl2 = listDir("${path}/${io}") - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB]
+        lvl1 = listDir.Nix("${path}") //level 1 - release folder [MNR19]
+        for (io in lvl1) { lvl2 = listDir.Nix("${path}/${io}") - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB]
             for (jo in lvl2) {
               ext = FilenameUtils.getExtension(jo) // [PTH, PTH, ..., XDB]
-              stage = listDir("${path}/${io}/${jo}") 
+              stage = listDir.Nix("${path}/${io}/${jo}") 
               if (stage != '') { for (lo in stage) { // if has folders - recursively process them
               pthConversion_old (todo:"${ext}", r:"${path}", l1:"${io}", l2:"${jo}", ss:"${lo}") } } /*substage recursion*/
               //stage conversion
