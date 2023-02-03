@@ -8,10 +8,10 @@ def call(String path) { //v5.0 27.12.2022
         loadScript(place:'linux', name:'pthUpload.sh') // bash
         loadScript(place:'linux', name:'pthChecker.sh') // ktr2xml + checkerSQL
         loadScript(place:'linux', name:'xdbChecker.sh') // sql checker
-        lvl2 = listDir("${path}") - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
+        lvl2 = listDir.Nix("${path}") - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
         for (jo in lvl2) {
             ext = jo.substring(jo.indexOf(".")+1); // [PTH, PTH, ..., XDB]
-            stage = listDir("${path}/${jo}") 
+            stage = listDir.Nix("${path}/${jo}") 
             if (stage != '') { for (lo in stage) // if has folders - recursively process them
             { pthConversion (todo:"${ext}", l1:"${path}", l2:"${jo}", ss:"${lo}") } /*substage recursion*/
             } //stage conversion
