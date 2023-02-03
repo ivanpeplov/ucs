@@ -4,10 +4,10 @@ PALMERA:
 PASSKEY:
   bmp: "*.dll"
 MMS: 
-  bmp: "*.ini, *.dbf, *.tsk"
+  bmp: "*.ini,*.dbf,*.tsk"
   bpl: "borlndmm.dll, cc3260mt.dll"
 TID: 
-  bmp: "*.bmp, *.ini"
+  bmp: "*.bmp,*.ini"
   bpl: "bdertl60.bpl, dbrtl60.bpl, rtl60.bpl, vcl60.bpl, vcldb60.bpl"
 MMW:
   mm: "cyassl-3.2.0,myizip_z,myizip_u,microx_t"
