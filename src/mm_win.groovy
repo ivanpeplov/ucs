@@ -29,7 +29,7 @@ stages {
       steps {
         dir ("Micromodule") {
           script {
-            mmWin(mm, arch) // mm, arch - strings from environment.yml file
+            mmBuild.Win(mm, arch) // mm, arch - strings from environment.yml file
           }
         }
       }
@@ -38,7 +38,7 @@ stages {
       steps {
         dir ("Micromodule/microx_t/samples") {
           script {
-            mmWin(mmm, arch) //strings from environment.yml file
+            mmBuild.Win(mmm, arch) //strings from environment.yml file
             loadScript(place:'win', name:'mmArt.bat')
             bat (script:"mmArt.bat") // mmm, arch - build for setup_p.zip from setup_p.msi
           }
@@ -56,5 +56,5 @@ stages {
   post {
     always { cleanWs() }
     failure { script { sendEmail() } }
-  }//post
+  }
 }//pipeline

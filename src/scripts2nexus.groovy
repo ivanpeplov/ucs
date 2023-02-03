@@ -30,16 +30,16 @@ pipeline { //CI-57
                     [envVar: 'nexus_pwd', vaultKey: 'password']]]]
                     sh "find . -type d -name .svn -exec rm -rf {} +" //to delete ./svn folder recursively
                     loadScript(place:'linux', name:'scripts2nexusUpload.sh') //bash for curl to Nexus
-                    lvl1 = listDir("${ROOT}")
-                        for (xo in lvl1) { lvl2=listDir("${ROOT}/${xo}")
-                            for (yo in lvl2) { lvl3=listDir("${ROOT}/${xo}/${yo}")
+                    lvl1 = listDir.Nix("${ROOT}")
+                        for (xo in lvl1) { lvl2=listDir.Nix("${ROOT}/${xo}")
+                            for (yo in lvl2) { lvl3=listDir.Nix("${ROOT}/${xo}/${yo}")
                                 for (zo in lvl3) {
                                 wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
                                 sh "./scripts2nexusUpload.sh ${xo} ${yo} ${zo}" } } } }
-                    }
-                }
-            }
-        }
+                    } //script
+                } // dir()
+            } //steps
+        } //stage
     } //stages
     post {
         always { cleanWs() }
