@@ -57,7 +57,6 @@ pipeline { //CI-62
       stage('SET Env') {
         steps {
           script {
-            //catchErrors()
             setDescription()
             setEnv()
           }
@@ -76,17 +75,15 @@ pipeline { //CI-62
         steps {
           dir ('units') {
             script {
-              loadScript(place:'linux', name:'mmBuild.sh')
               mmBuild.Nix(mm, ARCH) // mm - strings from environment.yml file
             }
           }
         }
       }
-      stage('MICROP UCS_MS UCS_DT UCS_MM') {
+      stage('MICROP UCS_XX') {
         steps {
           dir ('units/microx_t/samples') {
             script {
-              loadScript(place:'linux', name:'mmBuild.sh')
               mmBuild.Nix(mmm, ARCH) // mmm - strings from environment.yml file
               loadScript(place:'linux', name:'mmArt.sh')
               sh "./mmArt.sh" // prepare for upload
