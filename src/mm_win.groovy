@@ -12,17 +12,13 @@ pipeline { //CI-63
 stages {
     stage('SET Env') {
       steps {
-        script {
-          setDescription()
-          setEnv()
-        }
+        setDescription()
+        setEnv()
       }
     }
     stage ('PREPARE') {
       steps {
-        script {
-          getSVN()    
-        }
+        getSVN()    
       }
     }
     stage('CYASSL  MYIZIP_Z  MICROX_T') {
@@ -47,9 +43,7 @@ stages {
     }
     stage('UPLOAD') {
       steps {
-        script {
-          uploadFiles('mm_win', "${TARGET}")
-        }
+        uploadFiles('mm_win', "${TARGET}")
       }
     }
   }//stages

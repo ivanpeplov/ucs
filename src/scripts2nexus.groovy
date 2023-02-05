@@ -8,17 +8,13 @@ pipeline { //CI-57
     stages {
         stage('SET Env') {
             steps {
-                script {
-                    setDescription()
-                    setEnv()
-                }
+                setDescription()
+                setEnv()
             }
         }
         stage ('PREPARE') {
             steps {
-                script {
-                    getSVN()
-                }
+                getSVN()
             }
         }
         stage('GROUP.. UPLOAD') {

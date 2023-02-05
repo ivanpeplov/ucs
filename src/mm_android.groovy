@@ -95,17 +95,13 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
   stages {
     stage('SET Env') {
       steps {
-        script {
-          setDescription()
-          setEnv()
-        }
+        setDescription()
+        setEnv()
       }
     }
     stage ('PREPARE') {
       steps {
-        script {
-          getSVN()
-        }
+        getSVN()
       }
     }
     stage('BUILD') {
@@ -122,14 +118,12 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
     stage('UPLOAD') {
       when { expression  { LABEL == "app" || LABEL == "evotor"} }
       steps {
-        script {
-          uploadFiles('mm_android', "${TARGET}")
-        }
+        uploadFiles('mm_android', "${TARGET}")
       }
     }
   }//stages
   post {
     always { cleanWs() }
     failure { script { sendEmail() } }
-  }//post
+  }
 }//pipeline

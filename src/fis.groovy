@@ -178,19 +178,15 @@ pipeline { //CI-51
     stages {
       stage('SET Env') {
         steps {
-          script {
-            setDescription()
-            setEnv()
-          }
+          setDescription()
+          setEnv()
         }
       }
       stage ('PREPARE') {
         steps {
-          script {
-            getSVN()
-            loadScript(place:'linux', name:'prepareFiles.sh')
-            sh "./prepareFiles.sh"
-          }
+          getSVN()
+          loadScript(place:'linux', name:'prepareFiles.sh')
+          sh "./prepareFiles.sh"
         }
       }
       stage('FIS') {
@@ -217,9 +213,7 @@ pipeline { //CI-51
       }
       stage('UPLOAD') {
         steps {
-          script {
-            uploadFiles('fis', "${TARGET}")
-          }
+          uploadFiles('fis', "${TARGET}")
         }
       }
     } //stages

@@ -11,7 +11,7 @@ properties([
           classpath: [], 
           sandbox: false, 
           script: 
-            'return["mmseod", "palmerauloade", "passkey", "cardpro"]'
+            'return["cardpro", "mmseod", "palmerauloade", "passkey"]'
         ]
       ]
     ],
@@ -102,24 +102,26 @@ pipeline { //CI-56,58,59,72
   stages {
     stage('SET Env') {
       steps {
-        script {
           setDescription()
           setEnv()
-        }
       }
     }
     stage ('PREPARE') {
       steps {
-        script {
           getSVN()
-          prepareFiles("${JOB_BASE_NAME}")      
-        }
+          prepareFiles("borland")      
       }
     }
     stage('BUILD') {
       steps {
         script {
           switch (LABEL) {
+            case ('cardpro') :
+              makeBorland("CARDLIB", "cardlib")
+              makeBorland("C:\\Windows\\System32", "32")
+              makeBorland("${WORKSPACE}", "${LABEL}")
+              makeBorland("FORM", "form")
+            break
             case ('mmseod') :
               makeBorland("${WORKSPACE}", "${LABEL}")
               makeBorland('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin')
@@ -131,26 +133,18 @@ pipeline { //CI-56,58,59,72
               makeBorland("${WORKSPACE}", "${LABEL}")
               makeBorland("C:\\PassKey\\", "dll")
             break
-            case ('cardpro') :
-              makeBorland("CARDLIB", "cardlib")
-              makeBorland("C:\\Windows\\System32", "32")
-              makeBorland("${WORKSPACE}", "${LABEL}")
-              makeBorland("FORM", "form")
-            break
           }
         }
       }
     }
     stage('UPLOAD') {
       steps {
-        script {
           uploadFiles("${JOB_BASE_NAME}", "${TARGET}")
-        }
       }
     }
   }//stages
   post {
     always { cleanWs() }
     failure { script { sendEmail() } }
-  }//post
+  }
 }//pipeline

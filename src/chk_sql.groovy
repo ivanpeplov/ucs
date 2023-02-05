@@ -24,7 +24,7 @@ properties([
     ],
   ])
 ])
-pipeline { //CI-60/CI-67
+pipeline { //CI-60/CI-67/CI-75
     agent {label 'jenkins-rosa'}
     environment {
         ROOT="TestSQLtoNexus/${MNR}" //project root at SVN 
@@ -33,24 +33,18 @@ pipeline { //CI-60/CI-67
     stages {
         stage('SET Env') {
             steps {
-                script {
-                    setDescription()
-                    setEnv()
-                }
+                setDescription()
+                setEnv()
             }
         }
         stage ('PREPARE') {
             steps {
-                script {
-                    getSVN()
-                }
+                getSVN()
             }
         }
         stage('Extract Transform Load') {
             steps {
-                script {
-                    pthScript("${MNR}")
-                }
+                pthScript("${MNR}")
             }
         }
     } //stages
