@@ -17,9 +17,7 @@ stages {
       }
     }
     stage ('PREPARE') {
-      steps {
-        getSVN()    
-      }
+      steps { getSVN() }
     }
     stage('CYASSL  MYIZIP_Z  MICROX_T') {
       steps {
@@ -42,9 +40,7 @@ stages {
       }
     }
     stage('UPLOAD') {
-      steps {
-        uploadFiles('mm_win', "${TARGET}")
-      }
+      steps { uploadFiles('mm_win', "${TARGET}") }
     }
   }//stages
   post {

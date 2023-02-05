@@ -13,9 +13,7 @@ pipeline { //CI-57
             }
         }
         stage ('PREPARE') {
-            steps {
-                getSVN()
-            }
+            steps { getSVN() }
         }
         stage('GROUP.. UPLOAD') {
             steps {

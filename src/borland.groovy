@@ -102,14 +102,14 @@ pipeline { //CI-56,58,59,72
   stages {
     stage('SET Env') {
       steps {
-          setDescription()
-          setEnv()
+        setDescription()
+        setEnv()
       }
     }
     stage ('PREPARE') {
       steps {
-          getSVN()
-          prepareFiles("borland")      
+        getSVN()
+        prepareFiles("borland")      
       }
     }
     stage('BUILD') {
@@ -138,9 +138,7 @@ pipeline { //CI-56,58,59,72
       }
     }
     stage('UPLOAD') {
-      steps {
-          uploadFiles("${JOB_BASE_NAME}", "${TARGET}")
-      }
+      steps { uploadFiles("${JOB_BASE_NAME}", "${TARGET}") }
     }
   }//stages
   post {

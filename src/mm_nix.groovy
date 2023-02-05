@@ -88,11 +88,7 @@ pipeline { //CI-62
         }
       }
       stage('UPLOAD') {
-        steps {
-          script {
-            uploadFiles('mm_nix', "${TARGET}")
-          }
-        }
+        steps { uploadFiles('mm_nix', "${TARGET}") }
       }
     } //stages
     post {

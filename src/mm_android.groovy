@@ -100,9 +100,7 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
       }
     }
     stage ('PREPARE') {
-      steps {
-        getSVN()
-      }
+      steps { getSVN() }
     }
     stage('BUILD') {
       steps {
@@ -117,9 +115,7 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
     }
     stage('UPLOAD') {
       when { expression  { LABEL == "app" || LABEL == "evotor"} }
-      steps {
-        uploadFiles('mm_android', "${TARGET}")
-      }
+      steps { uploadFiles('mm_android', "${TARGET}") }
     }
   }//stages
   post {
