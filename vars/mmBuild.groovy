@@ -1,6 +1,7 @@
 def Nix (String yml, String arch) {
-smpl=yml.split(',')
-smpl.each { x-> sh(script:"./mmBuild.sh ${x} ${arch}") }
+    loadScript(place:'linux', name:'mmBuild.sh')
+    smpl=yml.split(',')
+    smpl.each { x-> sh(script:"./mmBuild.sh ${x} ${arch}") }
 }
 def Win (String yml, String arch) {
     smpl=yml.split(',')
