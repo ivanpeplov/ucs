@@ -134,14 +134,14 @@ pipeline { //CI-52: armfm, ppcfm; CI-72: PSEutils.dll, fm_manager.dll
   stages {
       stage('SET Env') {
         steps {
-            setDescription()
-            setEnv()
+          setDescription()
+          setEnv()
         }
       }
       stage ('PREPARE') {
         steps {
-            getSVN()
-            prepareFiles("${LABEL}")
+          getSVN()
+          prepareFiles("${LABEL}")
         }
       }
       stage('FM') {
