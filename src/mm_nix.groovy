@@ -56,15 +56,15 @@ pipeline { //CI-62
     stages {
       stage('SET Env') {
         steps {
-            setDescription()
-            setEnv()
+          setDescription()
+          setEnv()
         }
       }
       stage ('PREPARE') {
         steps {
-            getSVN()
-            loadScript(place:'linux', name:'prepareFiles.sh')
-            sh "./prepareFiles.sh"
+          getSVN()
+          loadScript(place:'linux', name:'prepareFiles.sh')
+          sh "./prepareFiles.sh"
         }
       }
       stage(' CYASSL MYIZIP_Z MICROX_T') {
