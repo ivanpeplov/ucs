@@ -81,13 +81,12 @@ Virtual terminal MM Jenkins declarative pipeline /Linux
 JIRA: CI-62
 SVN: VT/MicroModules
 
-Nodes:
-jenkins-ubuntu : 172.16.10.234 (ubuntu 18.04 X64), label MICROMOD - production
-jenkins-fedora : 10.255.250.62 (fedora28  X64), label MICROMOD - production
-jenkins-rosa : 172.16.10.236 (rosa-linux, X64), label MICROMOD - testing
+Nodes: label MICROMOD
+jenkins-ubuntu-64 : 172.16.10.234 (ubuntu 18.04, 64)
+jenkins-ubuntu-32 : 172.16.10.233 (ubuntu 16.04, 32)
+jenkins-fedora : 10.255.250.62 (fedora28, 64)
+jenkins-rosa : 172.16.10.236 (rosa-linux, 64), test
 
-TBD nodes:
-jenkins-atol : 172.16.10.X (ubuntu 16.04  X86), label MICROMOD
 ##
 ##
 **Сборка микромодулей VT Win**
@@ -95,12 +94,10 @@ Virtual terminal MM Jenkins declarative pipeline /Windows
 JIRA: CI-63
 SVN: VT/MicroModules
 Nodes: borland : 10.255.250.10 (win10 32x)
-##
 Builder: MS Visual Studio 2013
 ##
 
 **Cборка java-библиотек/приложений для VT MicroModule (java)**
-Virtual terminal MM Jenkins declarative pipeline /Java
 JIRA: CI-69/CI-70; CI-73/CI-743
 SVN:
 VT/MicroModuleJava/android/trunk/mmlibrary,
@@ -109,11 +106,11 @@ VT/MicroModuleJava/android/trunk/app
 VT/MicroModuleJava/evotor
 
 Nodes: jenkins-fedora : 10.255.250.62 (fedora28  X64), label JAVA - production
-
 JDK build 11.0.14+9-LTS, GRADLE 6.1.1, Maven 3.8.6, Latest Android SDK cmdline-tools for Linux
 ##
 shared-library in gitlab: /vars
-NEXUS repo: http://10.255.250.50:8081/service/rest/repository/browse/orpo/
+NEXUS orpo: http://10.255.250.50:8081/service/rest/repository/browse/orpo/
+NEXUS java: http://172.16.10.230:3389/nexus/service/local/repositories/ucs_repo/content
 user=jenkucs_sa
 SVN repo: https://svn/scm/svn/dev
 user=jenkins
