@@ -21,18 +21,18 @@ properties([
       ]
     ],
     [$class: 'CascadeChoiceParameter', 
-      choiceType: 'PT_CHECKBOX', 
+      choiceType: 'PT_SINGLE_SELECT',
+      description: 'Selected 32/64 bit', 
       referencedParameters: 'NODE_NAME',
-      name: 'ARCH', 
+      name: 'OS_ARCH', 
       script: [
         $class: 'GroovyScript', 
         script: [
           classpath: [], 
           sandbox: false, 
           script: '''
-          if (NODE_NAME=='jenkins-ubuntu') {return ["x64:selected:disabled"]}
-          if (NODE_NAME=='jenkins-rosa') {return ["x64:selected:disabled"]}
-          if (NODE_NAME=='jenkins-fedora') {return ["x64:selected:disabled"]}
+          if (NODE_NAME=='jenkins-ubuntu-32') {return ["32"]}
+          else {return ["64"]}
           '''
         ]
       ]
@@ -43,7 +43,6 @@ pipeline { //CI-62
   agent {label NODE_NAME}
     environment {
       APP='MMX' //label for .yaml;
-      ARCH='x64' //temp
       TARGET='units/microx_t/samples/Linux_Install'
       ROOT='VT/MicroModule' //project root at SVN
       TOOR='MicroModule/Linux' // upload point at Nexus
@@ -71,7 +70,7 @@ pipeline { //CI-62
         steps {
           dir ('units') {
             script {
-              mmBuild.Nix(mm, ARCH) // mm - strings from environment.yml file
+              mmBuild.Nix(mm, OS_ARCH) // mm - strings from environment.yml file
             }
           }
         }
@@ -80,7 +79,7 @@ pipeline { //CI-62
         steps {
           dir ('units/microx_t/samples') {
             script {
-              mmBuild.Nix(mmm, ARCH) // mmm - strings from environment.yml file
+              mmBuild.Nix(mmm, OS_ARCH) // mmm - strings from environment.yml file
               loadScript(place:'linux', name:'mmArt.sh')
               sh "./mmArt.sh" // prepare for upload
             }
