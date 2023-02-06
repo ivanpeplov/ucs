@@ -185,8 +185,7 @@ pipeline { //CI-51
       stage ('PREPARE') {
         steps {
           getSVN()
-          loadScript(place:'linux', name:'prepareFiles.sh')
-          sh "./prepareFiles.sh"
+          prepareFiles("fis")
         }
       }
       stage('FIS') {
@@ -194,7 +193,7 @@ pipeline { //CI-51
         steps {
           dir ('units/fis/samples/') {
             script {
-            mmBuild.Fis(MODULES, RELEASE)
+            mmBuild.Fis(MODULES)
             }
           }
         }
@@ -204,7 +203,7 @@ pipeline { //CI-51
         steps {
           dir ('units') {
             script {
-            mmBuild.Fis(MODULES, RELEASE)
+            mmBuild.Fis(MODULES)
             }
           }
         }

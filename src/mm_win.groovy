@@ -23,7 +23,7 @@ stages {
       steps {
         dir ("Micromodule") {
           script {
-            mmBuild.Win(mm, arch) // mm, arch - strings from environment.yml file
+            mmBuild.Win(mm) // mm - strings from environment.yml file
           }
         }
       }
@@ -32,9 +32,9 @@ stages {
       steps {
         dir ("Micromodule/microx_t/samples") {
           script {
-            mmBuild.Win(mmm, arch) //strings from environment.yml file
+            mmBuild.Win(mmm) //mmm - strings from environment.yml file
             loadScript(place:'win', name:'mmArt.bat')
-            bat "mmArt.bat" // mmm, arch - build for setup_p.zip from setup_p.msi
+            bat "mmArt.bat" //build for setup_p.zip from setup_p.msi
           }
         }
       }

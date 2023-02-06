@@ -62,15 +62,14 @@ pipeline { //CI-62
       stage ('PREPARE') {
         steps {
           getSVN()
-          loadScript(place:'linux', name:'prepareFiles.sh')
-          sh "./prepareFiles.sh"
+          prepareFiles("mm_nix")
         }
       }
       stage(' CYASSL MYIZIP_Z MICROX_T') {
         steps {
           dir ('units') {
             script {
-              mmBuild.Nix(mm, OS_ARCH) // mm - strings from environment.yml file
+              mmBuild.Nix(mm) // mm - strings from environment.yml file
             }
           }
         }
@@ -79,7 +78,7 @@ pipeline { //CI-62
         steps {
           dir ('units/microx_t/samples') {
             script {
-              mmBuild.Nix(mmm, OS_ARCH) // mmm - strings from environment.yml file
+              mmBuild.Nix(mmm) // mmm - strings from environment.yml file
               loadScript(place:'linux', name:'mmArt.sh')
               sh "./mmArt.sh" // prepare for upload
             }

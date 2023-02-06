@@ -149,13 +149,9 @@ pipeline { //CI-52: armfm, ppcfm; CI-72: PSEutils.dll, fm_manager.dll
         steps {
           dir ('FmUX/fm') {
             script {
-              switch (LABEL) {
-              case "ppcfm": //gemalto
-              TAIL=="" ? sh(script:"unset ${DEBUG} ; make") : sh(script:"make debug=1") //elvis operator   
-              break
-              default: //eracom
-              TAIL=="" ? bat(script:"gnumake") : bat(script:"gnumake debug=1") //elvis operator          
-              }
+              if (LABEL=="ppcfm")
+              { TAIL=="" ? sh(script:"unset ${DEBUG} ; make") : sh(script:"make debug=1") }
+              else { TAIL=="" ? bat(script:"gnumake") : bat(script:"gnumake debug=1") }
             }
           }
         }
@@ -165,14 +161,8 @@ pipeline { //CI-52: armfm, ppcfm; CI-72: PSEutils.dll, fm_manager.dll
         steps {
           dir ('FMuX/host') {
             script {
-              switch (LABEL) {
-                case ("fmman") :
-                  bat "nmake -f nt-dll.mak"
-                break
-                case ("pseutils") :
-                  bat "nmake -f PSEutils-nt-dll.mak"
-                break
-              }
+              if (LABEL=="fmman") { bat "nmake -f nt-dll.mak" }
+              else { bat "nmake -f PSEutils-nt-dll.mak" }
             }
           }
         }
