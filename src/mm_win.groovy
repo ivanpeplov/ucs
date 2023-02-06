@@ -34,7 +34,7 @@ stages {
           script {
             mmBuild.Win(mmm, arch) //strings from environment.yml file
             loadScript(place:'win', name:'mmArt.bat')
-            bat (script:"mmArt.bat") // mmm, arch - build for setup_p.zip from setup_p.msi
+            bat "mmArt.bat" // mmm, arch - build for setup_p.zip from setup_p.msi
           }
         }
       }

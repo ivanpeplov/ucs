@@ -167,10 +167,10 @@ pipeline { //CI-52: armfm, ppcfm; CI-72: PSEutils.dll, fm_manager.dll
             script {
               switch (LABEL) {
                 case ("fmman") :
-                  bat(script:"nmake -f nt-dll.mak")
+                  bat "nmake -f nt-dll.mak"
                 break
                 case ("pseutils") :
-                  bat(script:"nmake -f PSEutils-nt-dll.mak")
+                  bat "nmake -f PSEutils-nt-dll.mak"
                 break
               }
             }
