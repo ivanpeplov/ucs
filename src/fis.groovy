@@ -3,7 +3,7 @@ properties([
   parameters([
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select:  FIS server,  FIS utility',
+      description: 'Select:  FIS host,  FIS utility',
       name: 'LABEL', 
       script: [
         $class: 'GroovyScript', 
@@ -45,7 +45,23 @@ properties([
         ]
       ]
     ],
-      [$class: 'CascadeChoiceParameter', 
+    [$class: 'CascadeChoiceParameter', 
+      choiceType: 'PT_SINGLE_SELECT', 
+      referencedParameters: 'LABEL',
+      name: 'WORKDIR', 
+      script: [
+        $class: 'GroovyScript', 
+        script: [
+          classpath: [], 
+          sandbox: false, 
+          script: '''
+          if (LABEL=='fis') {return["units/fis/samples/"]}
+          if (LABEL=='fis_util') {return["units"]}
+          '''
+        ]
+      ]
+    ],
+    [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select node to run',
       name: 'NODE_NAME', 
@@ -188,23 +204,10 @@ pipeline { //CI-51
           prepareFiles("fis")
         }
       }
-      stage('FIS') {
-        when { expression  { LABEL == "fis" } }
+      stage('BUILD') {
         steps {
-          dir ('units/fis/samples/') {
-            script {
-            mmBuild.Fis(MODULES)
-            }
-          }
-        }
-      }
-      stage('FIS util') {
-        when { expression  { LABEL == "fis_util" } }
-        steps {
-          dir ('units') {
-            script {
-            mmBuild.Fis(MODULES)
-            }
+          dir ("${WORKDIR}") {
+            script { mmBuild.Fis(MODULES) }
           }
         }
       }
