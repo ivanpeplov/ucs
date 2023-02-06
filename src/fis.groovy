@@ -212,7 +212,9 @@ pipeline { //CI-51
         }
       }
       stage('UPLOAD') {
-        steps { uploadFiles('fis', "${TARGET}") }
+        steps {
+          uploadFiles('fis', "${TARGET}")
+        }
       }
     } //stages
     post {

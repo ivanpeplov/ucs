@@ -40,7 +40,9 @@ stages {
       }
     }
     stage('UPLOAD') {
-      steps { uploadFiles('mm_win', "${TARGET}") }
+      steps {
+        uploadFiles('mm_win', "${TARGET}")
+      }
     }
   }//stages
   post {

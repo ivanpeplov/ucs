@@ -138,7 +138,9 @@ pipeline { //CI-56,58,59,72
       }
     }
     stage('UPLOAD') {
-      steps { uploadFiles("${JOB_BASE_NAME}", "${TARGET}") }
+      steps {
+        uploadFiles("${JOB_BASE_NAME}", "${TARGET}")
+      }
     }
   }//stages
   post {
