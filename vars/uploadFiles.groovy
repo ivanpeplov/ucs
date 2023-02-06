@@ -36,7 +36,7 @@ def call(String job, String path) {
                 break
                 case ['mm_nix']:
                     loadScript(place:'linux', name:'mmUpload.sh')
-                    sh "./mmUpload.sh ucs_mm ${ARCH} ${NODE_NAME}"
+                    sh "./mmUpload.sh ucs_mm ${OS_ARCH} ${NODE_NAME}"
                 break
                 case ['mm_win']:
                     loadScript(place:'win', name:'mmUpload.bat')
