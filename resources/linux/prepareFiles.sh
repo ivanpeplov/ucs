@@ -1,5 +1,5 @@
 #!/bin/bash
-#prepare folders for fis/fis_util/micro_mod.groovy
+#prepare folders for fis/fis_util/mm_nix.groovy
 mkdir {lib,bin}
 cp -r ${WORKSPACE}/git/config/${JOB_BASE_NAME}/tools ${WORKSPACE}/
 chmod a+x ${WORKSPACE}/tools/Make
