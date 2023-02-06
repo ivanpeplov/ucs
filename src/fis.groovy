@@ -194,8 +194,7 @@ pipeline { //CI-51
         steps {
           dir ('units/fis/samples/') {
             script {
-            units = MODULES.split(',').toList()
-            units.each {f -> sh "cd ${f} ; Make ${RELEASE}"}
+            mmBuild.Fis(MODULES, RELEASE)
             }
           }
         }
@@ -205,8 +204,7 @@ pipeline { //CI-51
         steps {
           dir ('units') {
             script {
-            units = MODULES.split(',').toList()
-            units.each {f -> sh "cd ${f} ; Make ${RELEASE}"}
+            mmBuild.Fis(MODULES, RELEASE)
             }
           }
         }
