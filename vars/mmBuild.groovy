@@ -1,18 +1,19 @@
-def Nix (String units, String arch) {
+// for mm_nix, mm_win, fis
+def Nix (String units) {
     loadScript(place:'linux', name:'mmBuild.sh')
     modules=units.split(',')
-    modules.each { f-> sh "./mmBuild.sh ${f} ${arch}" }
+    modules.each { m-> sh "./mmBuild.sh ${m} ${OS_ARCH}" }
 }
-def Win (String units, String arch) {
+def Win (String units) {
     modules=units.split(',')
     id=arch.split(',')
-    id.each { x-> modules.each { f-> 
-        bat "cd ${f} & msbuild ${f}.sln /t:build /p:configuration=Release /p:Platform=${x}"
-        if (y=='ucs_ms') {
+    id.each { x-> modules.each { m-> 
+        bat "cd ${m} & msbuild ${m}.sln /t:build /p:configuration=Release /p:Platform=${x}"
+        if (m=='ucs_ms') {
             loadScript(place:'win', name:'mmLib.bat') 
-            bat "mmLib.bat ${y} ${x}" } } }
+            bat "mmLib.bat ${m} ${x}" } } }
 }
-def Fis (String units, String release) {
+def Fis (String units) {
     modules = units.split(',')
-    modules.each {f -> sh "cd ${f} ; Make ${release}"}
+    modules.each {m -> sh "cd ${m} ; Make ${RELEASE}"}
 }
