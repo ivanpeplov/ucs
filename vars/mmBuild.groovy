@@ -12,3 +12,7 @@ def Win (String yml, String arch) {
             loadScript(place:'win', name:'mmLib.bat') 
             bat(script:"mmLib.bat ${y} ${x}" ) } } }
 }
+def Fis (String modules, String release) {
+    units = modules.split(',').toList()
+    units.each {f -> sh "cd ${f} ; Make ${release}"}
+}
