@@ -1,5 +1,5 @@
 #!/bin/bash
-# mm_nix
+# mm_nix.groovy
 if [ $1 = 'cyassl-3.2.0' ] ; then
 cd $1
 chmod 750 configure
@@ -9,7 +9,7 @@ make 2>errs
 cp ./src/.libs/libcyassl.a ${PROJECTS}/lib
 else
 cd $1
-if [ $2 = 'x64' ] ; then
+if [ $2 = '64' ] ; then
 awk '/^CCFLAGS /{$0=$0 " -DPROCMACH64"}1' filedefs.inc > tmp && mv tmp filedefs.inc
 Make release 2>errs
 else

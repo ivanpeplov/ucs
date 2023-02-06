@@ -1,8 +1,8 @@
 #!/bin/bash
-#                             $1          $2        $3          $4   
-#usage: ./uploadFIS.sh ${JOB_BASE_NAME} ${SVN} ${NODE_NAME} ${VERSION}
-#                             $1           $2        $3
-#usage: ./uploadFIS.sh ${JOB_BASE_NAME} ${ARCH} ${NODE_NAME}
+# fis.groovy                 $1          $2        $3          $4   
+#usage: ./mmUpload.sh ${JOB_BASE_NAME} ${SVN} ${NODE_NAME} ${VERSION}
+# mm_nix.groovy              $1            $2          $3
+#usage: ./mmUpload.sh ${JOB_BASE_NAME} ${OS_ARCH} ${NODE_NAME}
 #check pos. parameters number "$#"
 if [ "$#" -eq 3 ]; then
 zip -r -q $1_$2.zip * -x mmUpload.sh
