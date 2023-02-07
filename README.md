@@ -1,4 +1,4 @@
-#### FIS server: fis.groovy
+#### FIS server: **fis.groovy**
 ##### Хост и утилиты, относящиеся к проекту FIS
 ```
 JIRA: CI-51
@@ -9,7 +9,7 @@ jenkins-legacy : 172.16.10.235
 jenkins-rosa : 172.16.10.236
 Builder: GCC
 ```
-#### Сборка функциональных модулей для HSM : fm_host.groovy
+#### Сборка функциональных модулей для HSM : **fm_host.groovy**
 ##### сборка функц. модулей для HSM Eracom
 ```
 JIRA: CI-52
@@ -26,7 +26,7 @@ NEXUS: FM/
 Node: jenkins-gem : 172.16.64.70 (SUSE 12.5)
 Builder: GCC-FM
 ```
-#### Сборка утилит (Borland C Builder 6.0) : borland.groovy
+#### Сборка утилит (Borland C Builder 6.0) : **borland.groovy**
 ##### Cборка TID Manager
 ```
 JIRA CI-56
@@ -68,18 +68,15 @@ Node: borland : 10.255.250.10 (win10 32x)
 Builder: MS Visual Studio 2013
 ```
 #### Тестирование релиза ТИЕТО MNR19
-##### Перекладка скриптов из svn в nexus: scripts2nexus.groovy
+##### Перекладка скриптов из svn в nexus: **scripts2nexus.groovy**
 ```
-Полное название проекта: UCS/scripts2nexus
-Скрипты Пентахо для конвертирования в тестовые скрипты
 JIRA: CI-57
 SVN: NexusShareAsIs
 NEXUS: NexusShareAsIs/
 Node: jenkins-rosa : 172.16.10.236
 ```
-##### Преобразование скриптов .ktr/.kjb из svn в .xml для nexus: chk_sql.groovy
+##### Автотестирование sql запросов : **chk_sql.groovy**
 ```
-Автотестирование sql запросов для релиза ТИЕТО MNR19
 Полное название проекта: UCS/etl_nexus
 JIRA: CI-60
 SVN: TestSQLtoNexus
@@ -87,7 +84,7 @@ NEXUS: TestSQLtoNexus/
 node: jenkins-rosa : 172.16.10.236
 ```
 #### MicroModules: 
-##### Linux: mm_nix.groovy
+##### Linux: **mm_nix.groovy**
 ```
 JIRA: CI-62
 SVN: VT/MicroModules
@@ -99,7 +96,7 @@ jenkins-fedora : 10.255.250.62 (fedora28, 64)
 jenkins-rosa : 172.16.10.236 (rosa-linux, 64), test
 Builder: GCC
 ```
-##### Win: mm_win.groovy
+##### Win: **mm_win.groovy**
 ```
 JIRA: CI-63
 SVN: VT/MicroModules
@@ -107,7 +104,7 @@ NEXUS: MicroModule/Windows/
 Nodes: borland : 10.255.250.10 (win10 32x)
 Builder: MS Visual Studio 2013
 ```
-##### Java/Android: mm_android.groovy
+##### Java/Android: **mm_android.groovy**
 ```
 JIRA: CI-69/CI-70; CI-73/CI-743
 SVN:
