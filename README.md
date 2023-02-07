@@ -64,7 +64,7 @@ SVN: Passkey/Passkey
 Node: borland : 10.255.250.10 (win10 32x)
 BINARIES: .exe, .ini, .bat
 ```
-#### В интересах тестирования ТИЕТО
+#### Тестирование релиза ТИЕТО MNR19
 ##### Перекладка скриптов из svn в nexus
 ```
 Полное название проекта: UCS/scripts2nexus
@@ -82,7 +82,7 @@ SVN: TestSQLtoNexus
 node: jenkins-rosa : 172.16.10.236
 ```
 #### MicroModules
-##### Сборка микромодулей VT Linux
+##### Linux
 ```
 Virtual terminal MM Jenkins declarative pipeline /Linux
 JIRA: CI-62
@@ -93,7 +93,7 @@ jenkins-ubuntu-32 : 172.16.10.233 (ubuntu 16.04, 32)
 jenkins-fedora : 10.255.250.62 (fedora28, 64)
 jenkins-rosa : 172.16.10.236 (rosa-linux, 64), test
 ```
-##### Сборка микромодулей VT Win
+##### Win
 ```
 Virtual terminal MM Jenkins declarative pipeline /Windows
 JIRA: CI-63
@@ -101,7 +101,7 @@ SVN: VT/MicroModules
 Nodes: borland : 10.255.250.10 (win10 32x)
 Builder: MS Visual Studio 2013
 ```
-##### Cборка java-библиотек/приложений для VT MicroModule (java)
+##### Java/Android
 ```
 JIRA: CI-69/CI-70; CI-73/CI-743
 SVN:
