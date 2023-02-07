@@ -1,15 +1,5 @@
 #### FIS server: fis.groovy
-##### FIS host
-```
-JIRA: CI-51
-SVN: FIS/new/
-NEXUS: FIS/
-Nodes:
-jenkins-legacy : 172.16.10.235
-jenkins-rosa : 172.16.10.236
-Builder: GCC
-```
-##### Утилиты, относящиеся к проекту FIS
+##### FIS host, Утилиты, относящиеся к проекту FIS
 ```
 JIRA: CI-51
 SVN: FIS/new/
@@ -36,7 +26,7 @@ NEXUS: FM/
 Node: jenkins-gem : 172.16.64.70 (SUSE 12.5)
 Builder: GCC-FM
 ```
-#### Сборка функциональных модулей (Borland C Builder 6.0) : borland.groovy
+#### Сборка утилит (Borland C Builder 6.0) : borland.groovy
 ##### Cборка TID Manager
 ```
 JIRA CI-56
