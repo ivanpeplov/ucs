@@ -5,6 +5,9 @@ def call(String name) {
             loadScript(place:'linux', name:'prepareFiles.sh')
             sh "./prepareFiles.sh"
         break
+        case ["mm_win"] :
+            bat "xcopy ${workspace}\\MicroModule ${workspace}\\units /i /q /d /e"
+        break
         case ["ppcfm"] : //fm_host operations
             sh """ 
             cp ./git/config/fmux/cfgbuild.mak ./FmUX
