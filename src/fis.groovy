@@ -171,54 +171,55 @@ properties([
   ])
 ])
 pipeline { //CI-51
-    agent {label NODE_NAME}
-    environment {
-      ROOT='FIS/new' //project root at SVN
-      TOOR='FIS' //project root at NEXUS
-      SVN_PATH = "${ROOT}/${SVN}/${VERSION}/units" //full path for download fron SVN
-      //environment for build
-      PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
-      PATH="${PATH}:${PROJECTS}/tools:${PROJECTS}/units:${PROJECTS}/bin"
-      INFORMIXSERVER="shlag"
-      INFORMIXDIR="/opt/informix"
-      INFORMIXSQLHOSTS="${INFORMIXDIR}/etc/sqlhosts"
-      LD_LIBRARY_PATH="${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql"
-      DB_LOCALE="ru_ru.1251"
-      CLIENT_LOCALE="ru_ru.1251"
-      DBMONEY="."
-      INCLUDE="-I. -I${PROJECTS}/units -I./include -I../include"
-      LIB='-L${PROJECTS}/lib'
-      MQCCSID=1251
-      MQM="/opt/mqm"
+  agent {label NODE_NAME}
+  environment {
+    ROOT='FIS/new' //project root at SVN
+    TOOR='FIS' //project root at NEXUS
+    SVN_PATH = "${ROOT}/${SVN}/${VERSION}/units" //full path for download fron SVN
+    OS_ARCH='64' //to use mmBuild.Nix call
+    //environment for build
+    PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
+    PATH="${PATH}:${PROJECTS}/tools:${PROJECTS}/units:${PROJECTS}/bin"
+    INFORMIXSERVER="shlag"
+    INFORMIXDIR="/opt/informix"
+    INFORMIXSQLHOSTS="${INFORMIXDIR}/etc/sqlhosts"
+    LD_LIBRARY_PATH="${INFORMIXDIR}/lib:${INFORMIXDIR}/lib/esql"
+    DB_LOCALE="ru_ru.1251"
+    CLIENT_LOCALE="ru_ru.1251"
+    DBMONEY="."
+    INCLUDE="-I. -I${PROJECTS}/units -I./include -I../include"
+    LIB='-L${PROJECTS}/lib'
+    MQCCSID=1251
+    MQM="/opt/mqm"
+  }
+  stages {
+    stage('SET Env') {
+      steps {
+        setDescription()
+        setEnv()
+      }
     }
-    stages {
-      stage('SET Env') {
-        steps {
-          setDescription()
-          setEnv()
-        }
+    stage ('PREPARE') {
+      steps {
+        getSVN()
+        prepareFiles("fis")
       }
-      stage ('PREPARE') {
-        steps {
-          getSVN()
-          prepareFiles("fis")
-        }
-      }
-      stage('BUILD') {
-        steps {
-          dir ("${WORKDIR}") {
-            script { mmBuild.Fis(MODULES) }
-          }
-        }
-      }
-      stage('UPLOAD') {
-        steps {
-          uploadFiles('fis', "${TARGET}")
-        }
-      }
-    } //stages
-    post {
-      always { cleanWs() }
-      failure { script { sendEmail() } }
     }
+    stage('BUILD') {
+      steps {
+        dir ("${WORKDIR}") {
+          script { mmBuild.Nix(MODULES) }
+        }
+      }
+    }
+    stage('UPLOAD') {
+      steps {
+        uploadFiles('fis', "${TARGET}")
+      }
+    }
+  } //stages
+  post {
+    always { cleanWs() }
+    failure { sendEmail() }
+  }
 } //pipeline
