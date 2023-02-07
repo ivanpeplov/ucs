@@ -1,4 +1,4 @@
-#### FIS server
+#### FIS server: fis.groovy
 ##### FIS host
 ```
 JIRA: CI-51
@@ -19,7 +19,7 @@ jenkins-legacy : 172.16.10.235
 jenkins-rosa : 172.16.10.236
 Builder: GCC
 ```
-#### Сборка функциональных модулей для HSM
+#### Сборка функциональных модулей для HSM : fm_host.groovy
 ##### сборка функц. модулей для HSM Eracom
 ```
 JIRA: CI-52
@@ -36,7 +36,7 @@ NEXUS: FM/
 Node: jenkins-gem : 172.16.64.70 (SUSE 12.5)
 Builder: GCC-FM
 ```
-#### Сборка функциональных модулей (Borland C++ Builder 6.0)
+#### Сборка функциональных модулей (Borland C Builder 6.0) : borland.groovy
 ##### Cборка TID Manager
 ```
 JIRA CI-56
@@ -78,7 +78,7 @@ Node: borland : 10.255.250.10 (win10 32x)
 Builder: MS Visual Studio 2013
 ```
 #### Тестирование релиза ТИЕТО MNR19
-##### Перекладка скриптов из svn в nexus
+##### Перекладка скриптов из svn в nexus: scripts2nexus.groovy
 ```
 Полное название проекта: UCS/scripts2nexus
 Скрипты Пентахо для конвертирования в тестовые скрипты
@@ -87,7 +87,7 @@ SVN: NexusShareAsIs
 NEXUS: NexusShareAsIs/
 Node: jenkins-rosa : 172.16.10.236
 ```
-##### Преобразование скриптов .ktr/.kjb из svn в .xml для nexus
+##### Преобразование скриптов .ktr/.kjb из svn в .xml для nexus: chk_sql.groovy
 ```
 Автотестирование sql запросов для релиза ТИЕТО MNR19
 Полное название проекта: UCS/etl_nexus
@@ -96,8 +96,8 @@ SVN: TestSQLtoNexus
 NEXUS: TestSQLtoNexus/
 node: jenkins-rosa : 172.16.10.236
 ```
-#### MicroModules
-##### Linux
+#### MicroModules: 
+##### Linux: mm_nix.groovy
 ```
 JIRA: CI-62
 SVN: VT/MicroModules
@@ -109,7 +109,7 @@ jenkins-fedora : 10.255.250.62 (fedora28, 64)
 jenkins-rosa : 172.16.10.236 (rosa-linux, 64), test
 Builder: GCC
 ```
-##### Win
+##### Win: mm_win.groovy
 ```
 JIRA: CI-63
 SVN: VT/MicroModules
@@ -117,7 +117,7 @@ NEXUS: MicroModule/Windows/
 Nodes: borland : 10.255.250.10 (win10 32x)
 Builder: MS Visual Studio 2013
 ```
-##### Java/Android
+##### Java/Android: mm_android.groovy
 ```
 JIRA: CI-69/CI-70; CI-73/CI-743
 SVN:
