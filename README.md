@@ -1,5 +1,5 @@
 #### FIS server: fis.groovy
-##### FIS host, Утилиты, относящиеся к проекту FIS
+##### Хост и утилиты, относящиеся к проекту FIS
 ```
 JIRA: CI-51
 SVN: FIS/new/
