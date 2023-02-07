@@ -1,13 +1,13 @@
 #### FIS server
 ##### FIS host
 ```
-FIS server C++ Jenkins declarative pipeline
 JIRA: CI-51
 SVN: FIS/new/
 NEXUS: FIS/
 Nodes:
 jenkins-legacy : 172.16.10.235
 jenkins-rosa : 172.16.10.236
+Builder: GCC
 ```
 ##### Утилиты, относящиеся к проекту FIS
 ```
@@ -17,6 +17,7 @@ NEXUS: FIS/
 Nodes:
 jenkins-legacy : 172.16.10.235
 jenkins-rosa : 172.16.10.236
+Builder: GCC
 ```
 #### Сборка функциональных модулей для HSM
 ##### сборка функц. модулей для HSM Eracom
@@ -25,6 +26,7 @@ JIRA: CI-52
 SVN: PassKey/FM/FmUX
 NEXUS: FM/
 Node: eracom : 172.24.31.199 (Win7, 32x)
+Builder: GCC-FM
 ```
 ##### сборка функц. модулей для HSM Gemalto
 ```
@@ -32,9 +34,10 @@ JIRA: CI-52
 SVN: PassKey/FM/FmUX
 NEXUS: FM/
 Node: jenkins-gem : 172.16.64.70 (SUSE 12.5)
+Builder: GCC-FM
 ```
 #### Сборка функциональных модулей (Borland C++ Builder 6.0)
-##### Cборка TID Manager (Borland C++ Builder 6.0)
+##### Cборка TID Manager
 ```
 JIRA CI-56
 SVN: CardPro/TidManager/TID_v6
@@ -42,7 +45,7 @@ NEXUS: BORLAND/
 Node: borland : 10.255.250.10 (win10 32x)
 Builder: Borland C Builder 6.0
 ```
-##### Cборка mmsEOD (Borland C++ Builder 6.0)
+##### Cборка mmsEOD
 ```
 JIRA CI-58
 SVN: MMS/mmsEOD
@@ -50,7 +53,7 @@ NEXUS: BORLAND/
 Node: borland : 10.255.250.10 (win10 32x)
 Builder: Borland C Builder 6.0
 ```
-##### Cборка PalmeraLoader (Borland C++ Builder 6.0)
+##### Cборка PalmeraLoader
 ```
 JIRA CI-59
 SVN: Util/PalmeraLoader
@@ -58,19 +61,21 @@ NEXUS: BORLAND/
 Node: borland : 10.255.250.10 (win10 32x)
 Builder: Borland C Builder 6.0
 ```
-##### Cборка Passkey.exe (Borland C++ Builder 6.0)
+##### Cборка Passkey.exe
 ```
 JIRA CI-72
 SVN: Passkey/Passkey
 NEXUS: BORLAND/
 Node: borland : 10.255.250.10 (win10 32x)
+Builder: Borland C Builder 6.0
 ```
-##### Cборка PSEutils.dll; fm_manager.dll (VC2013)
+##### Cборка PSEutils.dll; fm_manager.dll
 ```
 JIRA CI-72
 SVN: Passkey/Passkey
 NEXUS: FM/
 Node: borland : 10.255.250.10 (win10 32x)
+Builder: MS Visual Studio 2013
 ```
 #### Тестирование релиза ТИЕТО MNR19
 ##### Перекладка скриптов из svn в nexus
@@ -102,6 +107,7 @@ jenkins-ubuntu-64 : 172.16.10.234 (ubuntu 18.04, 64)
 jenkins-ubuntu-32 : 172.16.10.233 (ubuntu 16.04, 32)
 jenkins-fedora : 10.255.250.62 (fedora28, 64)
 jenkins-rosa : 172.16.10.236 (rosa-linux, 64), test
+Builder: GCC
 ```
 ##### Win
 ```
