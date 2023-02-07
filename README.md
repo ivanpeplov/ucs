@@ -84,7 +84,6 @@ node: jenkins-rosa : 172.16.10.236
 #### MicroModules
 ##### Linux
 ```
-Virtual terminal MM Jenkins declarative pipeline /Linux
 JIRA: CI-62
 SVN: VT/MicroModules
 Nodes: label MICROMOD
@@ -95,7 +94,6 @@ jenkins-rosa : 172.16.10.236 (rosa-linux, 64), test
 ```
 ##### Win
 ```
-Virtual terminal MM Jenkins declarative pipeline /Windows
 JIRA: CI-63
 SVN: VT/MicroModules
 Nodes: borland : 10.255.250.10 (win10 32x)
@@ -114,7 +112,6 @@ JDK build 11.0.14+9-LTS, GRADLE 6.1.1, Maven 3.8.6, Latest Android SDK cmdline-t
 ```
 ##### General URL
 ```
-shared-library in gitlab: /vars
 NEXUS orpo: http://10.255.250.50:8081/service/rest/repository/browse/orpo/
 NEXUS java: http://172.16.10.230:3389/nexus/service/local/repositories/ucs_repo/content
 user=jenkucs_sa
