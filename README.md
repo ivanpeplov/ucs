@@ -115,10 +115,10 @@ Builder: MS Visual Studio 2013
 ```
 JIRA: CI-69/CI-70; CI-73/CI-743
 SVN:
-VT/MicroModuleJava/android/trunk/mmlibrary,
-VT/MicroModuleJava/mmcore/trunk/mmcore
-VT/MicroModuleJava/android/trunk/app
-VT/MicroModuleJava/evotor
+VT/MicroModuleJava/mmcore/trunk/mmcore (Maven)
+VT/MicroModuleJava/android/trunk/mmlibrary (Gradle)
+VT/MicroModuleJava/android/trunk/app (Gradle)
+VT/MicroModuleJava/evotor (Gradle)
 NEXUS: ${NEXUS_URL}/MicroModule/ANDROID/
 Nodes: jenkins-fedora : 10.255.250.62 (fedora28  X64), label JAVA - production
 JDK build 11.0.14+9-LTS, GRADLE 6.1.1, Maven 3.8.6, Latest Android SDK cmdline-tools for Linux
