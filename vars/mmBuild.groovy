@@ -13,7 +13,3 @@ def Win (String units) {
             loadScript(place:'win', name:'mmLib.bat') 
             bat "mmLib.bat ${m} ${x}" } } }
 }
-def Fis (String units) {
-    modules = units.split(',')
-    modules.each {m -> sh "cd ${m} ; Make ${RELEASE}"}
-}
