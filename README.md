@@ -119,11 +119,11 @@ Builder: MS Visual Studio 2013
 ##### Java/Android:
 ```
 JIRA: CI-69/CI-70; CI-73/CI-743
-SVN:
-VT/MicroModuleJava/mmcore/trunk/mmcore (Maven)
-VT/MicroModuleJava/android/trunk/mmlibrary (Gradle)
-VT/MicroModuleJava/android/trunk/app (Gradle)
-VT/MicroModuleJava/evotor (Gradle)
+SVN: VT/MicroModuleJava/
+mmcore/trunk/mmcore (Maven)
+android/trunk/mmlibrary (Gradle)
+android/trunk/app (Gradle)
+evotor (Gradle)
 Pipeline: mm_android.groovy
 NEXUS: MicroModule/ANDROID/
 Nodes: jenkins-fedora : 10.255.250.62 (fedora28  X64), label JAVA - production
