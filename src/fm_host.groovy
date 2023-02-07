@@ -61,7 +61,7 @@ properties([
           sandbox: false, 
           script: '''
             if (LABEL == "ppcfm") { return ["/opt/safenet/protecttoolkit5/fmsdk:selected:disabled"] }
-            if (LABEL == "pseutils" || LABEL == "fmman") { return ["C:\\\\Progra~1\\\\SafeNet\\\\Protec~1\\\\Protec~1\\\\:selected:disabled"] }
+            if (LABEL == "pseutils" || LABEL == "fmman") { return ["C:\\\\Progra~1\\\\SafeNet\\\\Protec~1\\\\FMSDK~1:selected:disabled"] }
             if (LABEL == "armfm") { return ["C:\\\\PROGRA~1\\\\Eracom\\\\PROTEC~2:selected:disabled"] }
             '''
         ]
@@ -200,6 +200,6 @@ pipeline { //CI-52: armfm, ppcfm; CI-72: PSEutils.dll, fm_manager.dll
   } //stages
   post {
     always { cleanWs() }
-    failure { script { sendEmail() } }
+    failure { sendEmail() }
   }
 } //pipeline
