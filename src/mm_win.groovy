@@ -3,7 +3,7 @@ pipeline { //CI-63
   agent {label 'borland'}
   environment {
     APP='MMW' //label for .yaml;
-    TARGET = "${WORKSPACE}\\Micromodule\\microx_t\\samples\\rel_p" //where find files for upload
+    TARGET = "units\\microx_t\\samples\\rel_p" //where find files for upload
     ROOT = "VT/MicroModule" //project root at SVN
     TOOR='MicroModule/Windows' // upload point at Nexus
     SVN_PATH = "${ROOT}" //full path for download fron SVN
