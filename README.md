@@ -1,4 +1,5 @@
-##**FIS server**
+##
+**FIS server**
 ```
 FIS server C++ Jenkins declarative pipeline
 JIRA: CI-51
@@ -7,7 +8,8 @@ Nodes:
 jenkins-legacy : 172.16.10.235
 jenkins-rosa : 172.16.10.236
 ```
-##**Утилиты, относящиеся к проекту FIS**
+##
+**Утилиты, относящиеся к проекту FIS**
 ```
 JIRA: CI-51
 SVN: FIS/new/
@@ -16,23 +18,28 @@ jenkins-legacy : 172.16.10.235
 jenkins-rosa : 172.16.10.236
 BINARIES: opcpposcv, GetFileFromQueue, PutFileToQueue
 ```
-###**Сборка функциональных модулей для HSM**
-##**сборка функц. модулей для HSM Eracom**
+###
+**Сборка функциональных модулей для HSM**
+##
+**сборка функц. модулей для HSM Eracom**
 ```
 JIRA: CI-52
 SVN: PassKey/FM/FmUX
 Node: eracom : 172.24.31.199 (Win7, 32x)
 BINARIES: obj-armfm/FmUX.bin
 ```
-##**сборка функц. модулей для HSM Gemalto**
+##
+**сборка функц. модулей для HSM Gemalto**
 ```
 JIRA: CI-52
 SVN: PassKey/FM/FmUX
 Node: jenkins-gem : 172.16.64.70 (SUSE 12.5)
 BINARIES: obj-ppcfm/FmUX.bin
 ```
-###***Сборка функциональных модулей (Borland C++ Builder 6.0)**
-##**Cборка TID Manager (Borland C++ Builder 6.0)**
+###
+***Сборка функциональных модулей (Borland C++ Builder 6.0)**
+##
+**Cборка TID Manager (Borland C++ Builder 6.0)**
 ```
 JIRA CI-56
 SVN: CardPro/TidManager/TID_v6
@@ -40,7 +47,8 @@ Node: borland : 10.255.250.10 (win10 32x)
 BINARIES: .dll, .exe, .bpl, .bmp
 Builder: Borland C Builder 6.0
 ```
-##**Cборка mmsEOD (Borland C++ Builder 6.0)**
+##
+**Cборка mmsEOD (Borland C++ Builder 6.0)**
 ```
 JIRA CI-58
 SVN: MMS/mmsEOD
