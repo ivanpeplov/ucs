@@ -5,7 +5,7 @@ JIRA: CI-51
 SVN: FIS/new/
 Pipeline: fis.groovy
 NEXUS: FIS/
-Nodes:
+Nodes: label FIS
 jenkins-legacy : 172.16.10.235
 jenkins-rosa : 172.16.10.236
 Builder: GCC
