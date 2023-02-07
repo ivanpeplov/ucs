@@ -65,6 +65,13 @@ SVN: Passkey/Passkey
 NEXUS: ${NEXUS_URL}/BORLAND/
 Node: borland : 10.255.250.10 (win10 32x)
 ```
+##### Cборка PSEutils.dll; fm_manager.dll (VC2013)
+```
+JIRA CI-72
+SVN: Passkey/Passkey
+NEXUS: ${NEXUS_URL}/FM/
+Node: borland : 10.255.250.10 (win10 32x)
+```
 #### Тестирование релиза ТИЕТО MNR19
 ##### Перекладка скриптов из svn в nexus
 ```
