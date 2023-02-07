@@ -1,7 +1,7 @@
 @Library("shared-library") _
 properties([
   parameters([
-      [$class: 'CascadeChoiceParameter', 
+    [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
       description: 'Select node to run',
       name: 'NODE_NAME', 
@@ -93,6 +93,6 @@ pipeline { //CI-62
     } //stages
     post {
       always { cleanWs() }
-      failure { script { sendEmail() } }
+      failure { sendEmail() }
     }
 } //pipeline

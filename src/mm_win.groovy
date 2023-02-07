@@ -17,11 +17,14 @@ stages {
       }
     }
     stage ('PREPARE') {
-      steps { getSVN() }
+      steps { 
+        getSVN() 
+        prepareFiles("mm_win")
+      }
     }
     stage('CYASSL  MYIZIP_Z  MICROX_T') {
       steps {
-        dir ("Micromodule") {
+        dir ("units") {
           script {
             mmBuild.Win(mm) // mm - strings from environment.yml file
           }
@@ -30,7 +33,7 @@ stages {
     }
     stage('MICROP  UCS_XX  SETUP_P') {
       steps {
-        dir ("Micromodule/microx_t/samples") {
+        dir ("units/microx_t/samples") {
           script {
             mmBuild.Win(mmm) //mmm - strings from environment.yml file
             loadScript(place:'win', name:'mmArt.bat')
@@ -47,6 +50,6 @@ stages {
   }//stages
   post {
     always { cleanWs() }
-    failure { script { sendEmail() } }
+    failure { sendEmail() }
   }
 }//pipeline
