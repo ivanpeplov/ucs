@@ -1,5 +1,5 @@
 @echo off
-rem fm
+rem fm_host.groovy
 if %LABEL%==armfm goto arm_fm
 if %LABEL%==pseutils goto pseutils
 if %LABEL%==fmman goto fmman
