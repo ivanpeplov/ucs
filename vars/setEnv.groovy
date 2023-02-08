@@ -4,7 +4,7 @@ def call() { //for all jenkinsfile
         env.NEXUS_URL = yaml_cfg.get('nexus_url')
         env.NEXUS_URL_1 = yaml_cfg.get('nexus_url_1')
         env.NEXUS_URL_TEST = yaml_cfg.get('nexus_url_test')
-        env.NEXUS_MAVEN = yaml_cfg.get('nexus_maven')
+        //env.NEXUS_MAVEN = yaml_cfg.get('nexus_maven')
         env.SVN_URL = yaml_cfg.get('svn_url')
         env.MAIL_RECIPIENTS_DEV = yaml_cfg.get('mail_recipients_dev')
         switch (JOB_BASE_NAME) {
