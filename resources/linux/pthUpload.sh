@@ -1,4 +1,5 @@
 #!/bin/bash
+#chk_sql.groovy
 #usage: pthUpload.sh ${exe}
 var=$(grep -c 'End check with code:' ./BIN/CheckSql.log)
 var1=$(grep -c 'End check with code: 0' ./BIN/CheckSql.log)

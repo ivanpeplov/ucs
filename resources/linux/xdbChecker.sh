@@ -1,6 +1,7 @@
 #!/bin/bash
+#chk_sql.groovy
 #                       $1      $2      $3     $4   
-#usage: checkerSQL.sh ${exe} ${name} ${ext} ${stage}
+#usage: xdbChecker.sh ${exe} ${name} ${ext} ${stage}
 set +e
 cd BIN; echo "---------- $2.xml ----------" >> CheckSql.log;
 if [  "$#" -eq 3 ]; then

@@ -1,5 +1,5 @@
 #!/bin/bash
-#prepare folders for fis.groovy, mm_nix.groovy
+#fis.groovy, mm_nix.groovy : prepare folders
 mkdir {lib,bin}
 cp -r ./git/config/${JOB_BASE_NAME}/tools .
 chmod a+x ./tools/Make

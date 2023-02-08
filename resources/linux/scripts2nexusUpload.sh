@@ -1,4 +1,5 @@
 #!/bin/bash
+#scripts2nexus.groovy
 #                                 $1      $2     $3
 #usage: scriptsUpload2Nexus.sh ${lvl1} ${lvl2} ${lvl3}
 pushd $1/$2/$3

@@ -1,4 +1,5 @@
 #!/bin/bash
+#chk_sql.groovy
 #                          $1      $2     $3      $4   
 #usage: pthChecker.sh   ${lvl2} ${name} ${ext} ${stage}
 set +e
