@@ -8,9 +8,9 @@ def call(String job, String path) { //for all jenkinsfile
             mm = currentDate.substring(4,6)
             yy = currentDate.substring(0,4)
         def nexus_creds = [
-            [path: 'secrets/creds/nexus', secretValues: [
-                [envVar: 'nexus_pwd', vaultKey: 'password']]]]
-            wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
+        [path: 'secrets/creds/nexus', secretValues: [
+        [envVar: 'nexus_pwd', vaultKey: 'password']]]]
+        wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
             switch (job) {
                 case ['borland']:
                     loadScript(place:'win', name:'borlandUpload.bat')
@@ -42,7 +42,7 @@ def call(String job, String path) { //for all jenkinsfile
                     loadScript(place:'win', name:'mmUpload.bat')
                     bat "mmUpload.bat"
                 break                  
-            }   
-        }
+            }   //switch end
+        }//vault wrapper
     }
 }
