@@ -46,6 +46,6 @@ pipeline { //CI-60/CI-67/CI-75
     } //stages
     post {
         always { cleanWs() }
-        failure { script { sendEmail() } }
+        failure { sendEmail() }
     }
 } //pipeline
