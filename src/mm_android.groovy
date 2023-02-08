@@ -122,6 +122,6 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
   }//stages
   post {
     always { cleanWs() }
-    failure { script { sendEmail() } }
+    failure { sendEmail() }
   }
 }//pipeline
