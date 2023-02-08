@@ -4,8 +4,7 @@ mkdir {lib,bin}
 cp -r ./git/config/${JOB_BASE_NAME}/tools .
 chmod a+x ./tools/Make
 if [ "${LABEL}" = "fis" ]; then
-cd ./bin
-mkdir fis.bin
+mkdir ./bin/fis.bin
 fi
 if [ "${JOB_BASE_NAME}" = "mm_nix" ]; then
 mkdir units
