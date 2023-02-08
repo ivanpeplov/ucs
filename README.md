@@ -1,5 +1,5 @@
 #### FIS server:
-##### Хост и утилиты, относящиеся к проекту FIS
+##### Хост и утилиты FIS
 ```
 JIRA: CI-51
 SVN: FIS/new/
@@ -10,7 +10,7 @@ jenkins-legacy : 172.16.10.235
 jenkins-rosa : 172.16.10.236
 Builder: GCC
 ```
-#### Сборка функциональных модулей для HSM :
+#### Функциональные модули HSM :
 ##### HSM Eracom
 ```
 JIRA: CI-52
@@ -29,7 +29,7 @@ NEXUS: FM
 Node: jenkins-gem : 172.16.64.70 (SUSE 12.5)
 Builder: GCC-FM
 ```
-#### Сборка утилит (Borland C Builder 6.0) : 
+#### Утилиты (Borland C Builder 6.0) : 
 ##### TID Manager
 ```
 JIRA CI-56
