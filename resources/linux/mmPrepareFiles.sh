@@ -1,16 +1,16 @@
 #!/bin/bash
-#prepare folders for fis//mm_nix.groovy
+#prepare folders for fis.groovy, mm_nix.groovy
 mkdir {lib,bin}
-cp -r ${WORKSPACE}/git/config/${JOB_BASE_NAME}/tools ${WORKSPACE}/
-chmod a+x ${WORKSPACE}/tools/Make
+cp -r ./git/config/${JOB_BASE_NAME}/tools .
+chmod a+x ./tools/Make
 if [ "${JOB_BASE_NAME}" = "fis" ]; then
 cd ./bin
 mkdir fis.bin
 fi
 if [ "${JOB_BASE_NAME}" = "mm_nix" ]; then
 mkdir units
-cp -R ${WORKSPACE}/MicroModule/{axcoder,cyassl-3.2.0,microx_t,myizip_z}/ ${PROJECTS}/units
-cp ${PROJECTS}/units/axcoder/axorlib.* ${PROJECTS}/units/microx_t/samples/ucs_mm/sources/
-cp ${PROJECTS}/units/microx_t/sources/SLogger.cpp ${PROJECTS}/units/microx_t/samples/ucs_mm/sources/
-cp ${PROJECTS}/units/microx_t/sources/SLogger.cpp ${PROJECTS}/units/microx_t/samples/ucs_ms/sources/
+cp -R ./MicroModule/{axcoder,cyassl-3.2.0,microx_t,myizip_z}/ ./units
+cp ./units/axcoder/axorlib.* ./units/microx_t/samples/ucs_mm/sources/
+cp ./units/microx_t/sources/SLogger.cpp ./units/microx_t/samples/ucs_mm/sources/
+cp ./units/microx_t/sources/SLogger.cpp ./units/microx_t/samples/ucs_ms/sources/
 fi
