@@ -37,6 +37,6 @@ pipeline { //CI-57
     } //stages
     post {
         always { cleanWs() }
-        failure { script { sendEmail() } }
+        failure { sendEmail() }
     }
 } //pipeline
