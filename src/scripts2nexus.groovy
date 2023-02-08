@@ -33,7 +33,7 @@ pipeline { //CI-57
                     } //script
                 } // dir()
             } //steps
-        } //stage
+        }
     } //stages
     post {
         always { cleanWs() }

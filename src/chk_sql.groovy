@@ -27,25 +27,25 @@ properties([
 pipeline { //CI-60/CI-67/CI-75
     agent {label 'jenkins-rosa'}
     environment {
-        ROOT="TestSQLtoNexus/${MNR}" //project root at SVN 
-        SVN_PATH ="${ROOT}" //full path for download fron SVN
+      ROOT="TestSQLtoNexus/${MNR}" //project root at SVN 
+      SVN_PATH ="${ROOT}" //full path for download fron SVN
     }
     stages {
-        stage('SET Env') {
-            steps {
-                setDescription()
-                setEnv()
-            }
+      stage('SET Env') {
+        steps {
+          setDescription()
+          setEnv()
         }
-        stage ('PREPARE') {
-            steps { getSVN() }
-        }
-        stage('Extract Transform Load') {
-            steps { pthScript("${MNR}") }
-        }
+      }
+      stage ('PREPARE') {
+        steps { getSVN() }
+      }
+      stage('Extract Transform Load') {
+        steps { pthScript("${MNR}") }
+      }
     } //stages
     post {
-        always { cleanWs() }
-        failure { sendEmail() }
+      always { cleanWs() }
+      failure { sendEmail() }
     }
 } //pipeline

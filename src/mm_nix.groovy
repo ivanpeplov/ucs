@@ -41,58 +41,58 @@ properties([
 ])
 pipeline { //CI-62
   agent {label NODE_NAME}
-    environment {
-      APP='MMX' //label for .yaml;
-      TARGET='units/microx_t/samples/Linux_Install'
-      ROOT='VT/MicroModule' //project root at SVN
-      TOOR='MicroModule/Linux' // upload point at Nexus
-      SVN_PATH = "${ROOT}" //full path for download fron SVN
-      PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
-      PATH="${PATH}:${PROJECTS}/tools:${PROJECTS}/units:${PROJECTS}/bin"
-      INCLUDE="-I. -I${PROJECTS}/units -I./include -I../include"
-      LIB='-L${PROJECTS}/lib'
+  environment {
+    APP='MMX' //label for .yaml;
+    TARGET='units/microx_t/samples/Linux_Install'
+    ROOT='VT/MicroModule' //project root at SVN
+    TOOR='MicroModule/Linux' // upload point at Nexus
+    SVN_PATH = "${ROOT}" //full path for download fron SVN
+    PROJECTS="/home/jenkins/workspace/${JOB_NAME}" //Not use ${WORKSPACE} here
+    PATH="${PATH}:${PROJECTS}/tools:${PROJECTS}/units:${PROJECTS}/bin"
+    INCLUDE="-I. -I${PROJECTS}/units -I./include -I../include"
+    LIB='-L${PROJECTS}/lib'
+  }
+  stages {
+    stage('SET Env') {
+      steps {
+        setDescription()
+        setEnv()
+      }
     }
-    stages {
-      stage('SET Env') {
-        steps {
-          setDescription()
-          setEnv()
-        }
+    stage ('PREPARE') {
+      steps {
+        getSVN()
+        prepareFiles("mm_nix")
       }
-      stage ('PREPARE') {
-        steps {
-          getSVN()
-          prepareFiles("mm_nix")
-        }
-      }
-      stage(' CYASSL MYIZIP_Z MICROX_T') {
-        steps {
-          dir ('units') {
-            script {
-              mmBuild.Nix(mm) // mm - strings from environment.yml file
-            }
+    }
+    stage(' CYASSL MYIZIP_Z MICROX_T') {
+      steps {
+        dir ('units') {
+          script {
+            mmBuild.Nix(mm) // mm - strings from environment.yml file
           }
         }
       }
-      stage('MICROP UCS_XX') {
-        steps {
-          dir ('units/microx_t/samples') {
-            script {
-              mmBuild.Nix(mmm) // mmm - strings from environment.yml file
-              loadScript(place:'linux', name:'mmArt.sh')
-              sh "./mmArt.sh" // prepare for upload
-            }
+    }
+    stage('MICROP UCS_XX') {
+      steps {
+        dir ('units/microx_t/samples') {
+          script {
+            mmBuild.Nix(mmm) // mmm - strings from environment.yml file
+            loadScript(place:'linux', name:'mmArt.sh')
+            sh "./mmArt.sh" // prepare for upload
           }
         }
       }
-      stage('UPLOAD') {
-        steps { 
-          uploadFiles('mm_nix', "${TARGET}")
-        }
-      }
-    } //stages
-    post {
-      always { cleanWs() }
-      failure { sendEmail() }
     }
+    stage('UPLOAD') {
+      steps { 
+        uploadFiles('mm_nix', "${TARGET}")
+      }
+    }
+  } //stages
+  post {
+    always { cleanWs() }
+    failure { sendEmail() }
+  }
 } //pipeline
