@@ -35,7 +35,7 @@ Builder: GCC-FM
 JIRA CI-56
 SVN: CardPro/TidManager/TID_v6
 Jenkinsfile: borland.groovy
-NEXUS: BORLAND
+NEXUS: Borland
 Node: borland : 10.255.250.10 (win10 32x)
 Builder: Borland C Builder 6.0
 ```
@@ -44,7 +44,7 @@ Builder: Borland C Builder 6.0
 JIRA CI-58
 SVN: MMS/mmsEOD
 Jenkinsfile: borland.groovy
-NEXUS: BORLAND
+NEXUS: Borland
 Node: borland : 10.255.250.10 (win10 32x)
 Builder: Borland C Builder 6.0
 ```
@@ -53,7 +53,7 @@ Builder: Borland C Builder 6.0
 JIRA CI-59
 SVN: Util/PalmeraLoader
 Jenkinsfile: borland.groovy
-NEXUS: BORLAND
+NEXUS: Borland
 Node: borland : 10.255.250.10 (win10 32x)
 Builder: Borland C Builder 6.0
 ```
@@ -62,7 +62,7 @@ Builder: Borland C Builder 6.0
 JIRA CI-72
 SVN: Passkey/Passkey
 Jenkinsfile: borland.groovy
-NEXUS: BORLAND
+NEXUS: Borland
 Node: borland : 10.255.250.10 (win10 32x)
 Builder: Borland C Builder 6.0
 ```
@@ -124,7 +124,7 @@ android/trunk/mmlibrary (Gradle)
 android/trunk/app (Gradle)
 evotor (Gradle)
 Jenkinsfile: mm_android.groovy
-NEXUS: MicroModule/ANDROID
+NEXUS: MicroModule/Android
 Nodes: jenkins-fedora : 10.255.250.62 (fedora28  X64), label JAVA - production
 JDK build 11.0.14+9-LTS, GRADLE 6.1.1, Maven 3.8.6, Latest Android SDK cmdline-tools for Linux
 ```
