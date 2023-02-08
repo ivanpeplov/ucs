@@ -117,7 +117,7 @@ Builder: MS Visual Studio 2013
 ```
 ##### Java/Android:
 ```
-JIRA: CI-69/CI-70; CI-73/CI-743
+JIRA: CI-69/CI-70; CI-73/CI-74
 SVN: VT/MicroModuleJava/
 mmcore/trunk/mmcore (Maven)
 android/trunk/mmlibrary (Gradle)
