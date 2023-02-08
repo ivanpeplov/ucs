@@ -1,4 +1,4 @@
-def call(String name) {
+def call(String name) { //for all jenkinsfile
     def workspace = WORKSPACE.replaceAll('/','\\\\')
     switch (name) {//local preliminary file operations
         case ["fis", "mm_nix"] : //fis; mm_nix operations

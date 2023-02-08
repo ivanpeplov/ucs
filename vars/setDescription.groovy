@@ -1,5 +1,4 @@
-def call() {
-//build description inside web UI
+def call() { //for all jenkinsfile
     switch (JOB_BASE_NAME) {
     case ["fis", "borland"]:
     currentBuild.description = "node: ${NODE_NAME}\n label: ${LABEL}; svn: ${SVN}; version: ${VERSION}\nbuild_number: ${BUILD_NUMBER}"

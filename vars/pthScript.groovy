@@ -1,4 +1,4 @@
-def call(String path) { //v5.0 27.12.2022
+def call(String path) { //chk_sql.groovy
     dir (path) { //path="MNR19"
         def nexus_creds = [ //masking nexus credentials
             [ path: 'secrets/creds/nexus', secretValues: [

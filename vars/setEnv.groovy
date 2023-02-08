@@ -1,4 +1,4 @@
-def call() {
+def call() { //for all jenkinsfile
     //${WORKSPACE}/git/ - each pipeline in WEB UI has option - checkout git to subfolder.
     def yaml_cfg = readYaml file: "${WORKSPACE}/git/config/environment.yml"
         env.NEXUS_URL = yaml_cfg.get('nexus_url')

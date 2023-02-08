@@ -1,4 +1,4 @@
-def call(String rt, String label) {
+def call(String rt, String label) { //borland groovy
     dir (rt) {
         switch (label) {  //module selection
         //mmsEOD building

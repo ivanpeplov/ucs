@@ -1,5 +1,5 @@
 def call() {
-//download /units folder from SVN
+//base method for SVN downloading
 def osName = isUnix() ? "UNIX":"WINDOWS" // calling elvis
 echo "osName: " + osName
     def svn_creds = [

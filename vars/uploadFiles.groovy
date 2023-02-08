@@ -1,4 +1,4 @@
-def call(String job, String path) {
+def call(String job, String path) { //for all jenkinsfile
     //path: ${TARGET}
     dir(path) {
         def currentDate = new Date().format( 'yyyyMMdd' )

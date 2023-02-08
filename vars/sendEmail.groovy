@@ -1,4 +1,4 @@
-def call () {
+def call () { //for all jenkinsfile
     startTime = new Date(currentBuild.startTimeInMillis).format('dd.MM.yyyy HH:mm')
     emailext attachLog: true, 
     compressLog: true,
