@@ -3,7 +3,7 @@ properties([
   parameters([
       [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select LABEL',
+      description: 'Select build',
       name: 'LABEL', 
       script: [
         $class: 'GroovyScript', 
@@ -17,7 +17,6 @@ properties([
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'Select node to run',
       referencedParameters: 'LABEL',
       name: 'NODE_NAME', 
       script: [
@@ -98,7 +97,7 @@ properties([
     ],
     [$class: 'CascadeChoiceParameter', 
       choiceType: 'PT_SINGLE_SELECT', 
-      description: 'obj-$(ARCH)d : $(OBJDIR) folder',
+      description: 'FmUX/fm/obj-$(LABEL)$(TAIL) : $(TAIL) debug sign',
       referencedParameters: 'DEBUG',
       name: 'TAIL', 
       script: [
