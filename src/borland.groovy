@@ -145,6 +145,6 @@ pipeline { //CI-56,58,59,72
   }//stages
   post {
     always { cleanWs() }
-    failure { script { sendEmail() } }
+    failure { sendEmail() }
   }
 }//pipeline
