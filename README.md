@@ -26,7 +26,7 @@ JIRA: CI-52
 SVN: PassKey/FM/FmUX
 Jenkinsfile: fm_host.groovy
 NEXUS: FM
-Node: jenkins-gem : 172.16.64.70 (SUSE 12.5)
+Node: jenkins-gem : 172.16.64.70 (SUSE 12.5, amd64)
 Builder: GCC-FM
 ```
 #### Утилиты (Borland C Builder 6.0) : 
@@ -100,10 +100,10 @@ SVN: VT/MicroModules
 Jenkinsfile: mm_nix.groovy
 NEXUS: MicroModule/Linux
 Nodes: label MICROMOD
-jenkins-ubuntu-64 : 172.16.10.234 (ubuntu 18.04, 64)
-jenkins-ubuntu-32 : 172.16.10.233 (ubuntu 16.04, 32)
-jenkins-fedora : 10.255.250.62 (fedora28, 64)
-jenkins-rosa : 172.16.10.236 (rosa-linux, 64), test
+jenkins-ubuntu-64 : 172.16.10.234 (ubuntu 18.04, amd64)
+jenkins-ubuntu-32 : 172.16.10.233 (ubuntu 16.04, i386)
+jenkins-fedora : 10.255.250.62 (fedora28, amd64)
+jenkins-rosa : 172.16.10.236 (rosa-linux, amd64), test
 Builder: GCC
 ```
 ##### Win: 
@@ -125,12 +125,12 @@ android/trunk/app (Gradle)
 evotor (Gradle)
 Jenkinsfile: mm_android.groovy
 NEXUS: MicroModule/Android
-Nodes: jenkins-fedora : 10.255.250.62 (fedora28  X64), label JAVA - production
-JDK build 11.0.14+9-LTS, GRADLE 6.1.1, Maven 3.8.6, Latest Android SDK cmdline-tools for Linux
+Node: jenkins-fedora : 10.255.250.62 (fedora28  amd64), label JAVA
+Builder: JDK build 11.0.14+9-LTS, GRADLE 6.1.1, Maven 3.8.6, Android SDK cmdline-tools
 ```
 ##### General URL
 ```
-NEXUS orpo: http://10.255.250.50:8081/service/rest/repository/browse/orpo/
+NEXUS ORPO:  http://10.255.250.50:8081/service/rest/repository/browse/orpo/
 NEXUS Maven: http://172.16.10.230:3389/nexus/service/local/repositories/ucs_repo/content
 user=jenkucs_sa
 SVN repo: https://172.16.10.230/scm/svn/dev
