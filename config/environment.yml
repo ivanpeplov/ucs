@@ -8,7 +8,8 @@ PALMERA:
 PASSKEY:
   bmp: "*.dll"
 TID: 
-  bmp: "*.bmp,*.ini"
+  frm: "*.bmp,*.ini"
+  bmp: "cardpro.ini"
   bpl: "bdertl60.bpl, dbrtl60.bpl, rtl60.bpl, vcl60.bpl, vcldb60.bpl"
 #for mm_win.groovy
 MMW:
