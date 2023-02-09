@@ -65,7 +65,7 @@ pipeline { //CI-62
         prepareFiles("mm_nix")
       }
     }
-    stage(' CYASSL MYIZIP_Z MICROX_T') {
+    stage('CYASSL MYIZIP_Z MICROX_T') {
       steps {
         dir ('units') {
           script {
