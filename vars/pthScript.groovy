@@ -1,11 +1,7 @@
 def call(String path) { //chk_sql.groovy
     dir (path) { //path="MNR19"
-        def nexus_creds = [ //masking nexus credentials
-            [ path: 'secrets/creds/nexus', secretValues: [
-            [ envVar: 'nexus_pwd', vaultKey: 'password']]]]
         loadScript(place:'linux', name:'spaceToUnderscore.sh')
         sh "./spaceToUnderscore.sh; find . -type d -name .svn -exec rm -rf {} + "
-        loadScript(place:'linux', name:'pthUpload.sh') // bash
         loadScript(place:'linux', name:'pthChecker.sh') // ktr2xml + checkerSQL
         loadScript(place:'linux', name:'xdbChecker.sh') // only checkerSQL
         lvl2 = listDir.Nix("${path}") - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
@@ -16,7 +12,11 @@ def call(String path) { //chk_sql.groovy
             { pthConversion (todo:"${ext}", l1:"${path}", l2:"${jo}", ss:"${lo}") } /*substage recursion*/
             } //stage conversion
             pthConversion (todo:"${ext}", l1:"${path}", l2:"${jo}") /*stage no recursion*/ 
-            wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) 
+            loadScript(place:'linux', name:'pthUpload.sh') // bash
+						def nexus_creds = [ //masking nexus credentials
+            [ path: 'secrets/creds/nexus', secretValues: [
+            [ envVar: 'nexus_pwd', vaultKey: 'password']]]]
+						wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) 
             { sh "./pthUpload.sh ${jo}" } // upload to nexus
         }
     }
