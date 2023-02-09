@@ -13,10 +13,10 @@ def call(String path) { //chk_sql.groovy
             } //stage conversion
             pthConversion (todo:"${ext}", l1:"${path}", l2:"${jo}") /*stage no recursion*/ 
             loadScript(place:'linux', name:'pthUpload.sh') // bash
-						def nexus_creds = [ //masking nexus credentials
+            def nexus_creds = [ //masking nexus credentials
             [ path: 'secrets/creds/nexus', secretValues: [
             [ envVar: 'nexus_pwd', vaultKey: 'password']]]]
-						wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) 
+            wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) 
             { sh "./pthUpload.sh ${jo}" } // upload to nexus
         }
     }
