@@ -26,7 +26,7 @@ pipeline { //CI-63
       steps {
         dir ("units") {
           script {
-            mmBuild.Win(mm) // mm - strings from environment.yml file
+            mmBuild.Win(mm) // mm - string CYASSL,MYIZIP_Z,MICROX_T from environment.yml file
           }
         }
       }
@@ -35,7 +35,7 @@ pipeline { //CI-63
       steps {
         dir ("units/microx_t/samples") {
           script {
-            mmBuild.Win(mmm) //mmm - strings from environment.yml file
+            mmBuild.Win(mmm) //mmm - string MICROP,UCS_XX,SETUP_P from environment.yml file
             loadScript(place:'win', name:'mmArt.bat')
             bat "mmArt.bat" //build for setup_p.zip from setup_p.msi
           }
