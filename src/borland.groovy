@@ -122,16 +122,10 @@ pipeline { //CI-56,58,59,72
               makeBorland("${WORKSPACE}", "${LABEL}")
               makeBorland("FORM", "form")
             break
-            case ('mmseod') :
+            case ['mmseod', 'palmerauloade', 'passkey'] :
+              if (LABEL=='mmseod') 
+              {makeBorland('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin')}
               makeBorland("${WORKSPACE}", "${LABEL}")
-              makeBorland('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin')
-            break
-            case ('palmerauloade') :
-              makeBorland("${WORKSPACE}", "${LABEL}")
-            break
-            case ('passkey') :
-              makeBorland("${WORKSPACE}", "${LABEL}")
-              makeBorland("C:\\PassKey\\", "dll")
             break
           }
         }
