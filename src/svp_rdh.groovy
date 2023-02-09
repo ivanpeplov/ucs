@@ -113,20 +113,9 @@ pipeline {
                 }
             }
         }
-    }
+    } //stages
     post {
-    always {
-      script {             
-          echo 'Clean Workspace'
-          cleanWs()
-      }//script
-    }//always
-    failure {
-      script {
-          //emailing
-          echo 'email'
-          //sendEmail()               
-      }//script
-    }//failure
-   }//post actions
+	    always { cleanWs() }
+	    failure { sendEmail() }
+    }
 } //pipeline
