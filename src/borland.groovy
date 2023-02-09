@@ -117,15 +117,15 @@ pipeline { //CI-56,58,59,72
         script {
           switch (LABEL) {
             case ('cardpro') :
-              makeBorland("CARDLIB", "cardlib")
-              makeBorland("C:\\Windows\\System32", "32")
-              makeBorland("${WORKSPACE}", "${LABEL}")
-              makeBorland("FORM", "form")
+              borlandBuild("CARDLIB", "cardlib")
+              borlandBuild("C:\\Windows\\System32", "32")
+              borlandBuild("${WORKSPACE}", "${LABEL}")
+              borlandBuild("FORM", "form")
             break
             case ['mmseod', 'palmerauloade', 'passkey'] :
               if (LABEL=='mmseod') 
-              {makeBorland('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin')}
-              makeBorland("${WORKSPACE}", "${LABEL}")
+              {borlandBuild('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin')}
+              borlandBuild("${WORKSPACE}", "${LABEL}")
             break
           }
         }
