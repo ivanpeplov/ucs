@@ -69,7 +69,7 @@ pipeline { //CI-62
       steps {
         dir ('units') {
           script {
-            mmBuild.Nix(mm) // mm - strings from environment.yml file
+            mmBuild.Nix(mm) // mm - string CYASSL,MYIZIP_Z,MICROX_T from environment.yml file
           }
         }
       }
@@ -78,7 +78,7 @@ pipeline { //CI-62
       steps {
         dir ('units/microx_t/samples') {
           script {
-            mmBuild.Nix(mmm) // mmm - strings from environment.yml file
+            mmBuild.Nix(mmm) // mmm - string MICROP,UCS_XX from environment.yml file
             loadScript(place:'linux', name:'mmArt.sh')
             sh "./mmArt.sh" // prepare for upload
           }
