@@ -9,3 +9,9 @@ def Win (String units) { // for mm_win
     id=arch.split(',')
     id.each { a -> modules.each { m-> bat "mmBuild.bat ${m} ${a}" } }
 }
+def Android (String units) { // for mm_android
+    if (units=='mmcore') {loadScript(place:'gradle', name:'addToPom.xml')}
+    loadScript(place:'linux', name:'androidBuild.sh')
+    sh "./androidBuild.sh"
+}
+
