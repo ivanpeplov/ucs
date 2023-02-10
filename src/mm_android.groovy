@@ -105,9 +105,7 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
     stage('BUILD') {
       steps {
         dir ("${LABEL}") {
-          script {
-            mmBuild.Android(LABEL)
-          }
+          script { mmBuild.Android(LABEL) }
         }
       }
     }
