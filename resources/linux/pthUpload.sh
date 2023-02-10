@@ -1,11 +1,10 @@
 #!/bin/bash
 #chk_sql.groovy
 #usage: pthUpload.sh ${itLvl2}
-var=$(grep -c 'End check with code:' ./BIN/CheckSql.log)
-var1=$(grep -c 'End check with code: 0' ./BIN/CheckSql.log)
-#count=%((var - var1))
-if [ $var -eq $var1 ] ; then
-echo "All exit codes = 0, $var checks in CheckSql.log" > $1_has_no_err ;
+exitCode=$(grep -c 'End check with code:' ./BIN/CheckSql.log)
+exitCode1=$(grep -c 'End check with code: 0' ./BIN/CheckSql.log)
+if [ $exitCode -eq $exitCode1 ] ; then
+echo "All exit codes = 0, $exitCode1 checks in CheckSql.log" > $1_has_no_err ;
 fi
 if [ -f "$1_has_no_err" ]; then
 zip -u  $1.zip $1_has_no_err

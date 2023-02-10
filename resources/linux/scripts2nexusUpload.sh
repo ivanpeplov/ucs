@@ -1,7 +1,7 @@
 #!/bin/bash
 #scripts2nexus.groovy
 #                                  $1        $2        $3
-#usage: scriptsUpload2Nexus.sh ${itLvl1} ${itLvl2} ${itLvl3}
+#usage: scripts2NexusUpload.sh ${itLvl1} ${itLvl2} ${itLvl3}
 pushd $1/$2/$3
 if [ -z "$(ls -A )" ]; then echo "Empty"
 else
