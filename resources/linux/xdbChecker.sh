@@ -1,7 +1,7 @@
 #!/bin/bash
 #chk_sql.groovy
-#                       $1     $2     $3     $4   
-#usage: xdbChecker.sh ${l2} ${name} ${ext} ${l3}
+#                       $1     $2        $3       $4   
+#usage: xdbChecker.sh ${l2} ${name} ${extension} ${l3}
 set +e
 cd BIN; echo "---------- $2.xml ----------" >> CheckSql.log;
 if [  "$#" -eq 3 ]; then
