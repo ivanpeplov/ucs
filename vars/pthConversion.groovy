@@ -6,9 +6,9 @@ def call (Map pth=[:]) { //PTH, XDB conversion
     {list = listFiles.Nix ("${pth.l1}/${pth.l2}/${pth.l3}").findAll { it=~ /(?i)\.(?:ktr|kjb)$/ } } //get all .ktr/.kjb
     else {list = listFiles.Nix ("${pth.l1}/${pth.l2}/${pth.l3}").findAll { it=~ /(?i)\.(?:xml)$/ } } //get all .xml
     for (i in list) {
-        ext  = FilenameUtils.getExtension(i) //each filename
+        extension  = FilenameUtils.getExtension(i) //each filename
         name = FilenameUtils.removeExtension(i) //each extension
-        if (pth.todo=='PTH') {sh "./pthChecker.sh ${pth.l2} ${name} ${ext} ${pth.l3}"}
-        else {sh "./xdbChecker.sh ${pth.l2} ${name} ${ext} ${pth.l3}"}
+        if (pth.todo=='PTH') {sh "./pthChecker.sh ${pth.l2} ${name} ${extension} ${pth.l3}"}
+        else {sh "./xdbChecker.sh ${pth.l2} ${name} ${extension} ${pth.l3}"}
     }
 }

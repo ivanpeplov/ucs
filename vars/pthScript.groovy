@@ -17,7 +17,7 @@ def call(String path) { //chk_sql.groovy
             } //stage conversion
             pthConversion (todo:"${exe}", l1:"${path}", l2:"${itLvl2}") /*stage no recursion*/ 
             wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) 
-            { sh "./pthUpload.sh ${jo}" } // upload to nexus
+            { sh "./pthUpload.sh ${itLvl2}" } // upload to nexus
         }
     }
 }
