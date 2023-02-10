@@ -106,9 +106,7 @@ pipeline { //CI-69/CI-70 - mmcore, mmlibrary;  CI-73/CI-74 - sample, evotor
       steps {
         dir ("${LABEL}") {
           script {
-            if (LABEL=='mmcore') {loadScript(place:'gradle', name:'addToPom.xml')}
-            loadScript(place:'linux', name:'androidBuild.sh')
-            sh "./androidBuild.sh"
+            mmBuild.Android(LABEL)
           }
         }
       }
