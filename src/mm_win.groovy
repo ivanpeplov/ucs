@@ -22,17 +22,13 @@ pipeline { //CI-63
         prepareFiles("mm_win")
       }
     }
-    stage('CYASSL  MYIZIP_Z  MICROX_T') {
+    stage('BUILD') {
       steps {
         dir ("units") {
           script {
             mmBuild.Win(mm) // mm - string CYASSL,MYIZIP_Z,MICROX_T from environment.yml file
           }
         }
-      }
-    }
-    stage('MICROP  UCS_XX  SETUP_P') {
-      steps {
         dir ("units/microx_t/samples") {
           script {
             mmBuild.Win(mmm) //mmm - string MICROP,UCS_XX,SETUP_P from environment.yml file

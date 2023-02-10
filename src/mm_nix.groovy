@@ -65,17 +65,13 @@ pipeline { //CI-62
         prepareFiles("mm_nix")
       }
     }
-    stage('CYASSL MYIZIP_Z MICROX_T') {
+    stage('BUILD') {
       steps {
         dir ('units') {
           script {
             mmBuild.Nix(mm) // mm - string CYASSL,MYIZIP_Z,MICROX_T from environment.yml file
           }
         }
-      }
-    }
-    stage('MICROP UCS_XX') {
-      steps {
         dir ('units/microx_t/samples') {
           script {
             mmBuild.Nix(mmm) // mmm - string MICROP,UCS_XX from environment.yml file
