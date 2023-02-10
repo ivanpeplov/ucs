@@ -7,15 +7,15 @@ def call(String path) { //chk_sql.groovy
         sh "./spaceToUnderscore.sh; find . -type d -name .svn -exec rm -rf {} + "
         loadScript(place:'linux', name:'pthUpload.sh') // bash
         loadScript(place:'linux', name:'pthChecker.sh') // ktr2xml + checkerSQL
-        loadScript(place:'linux', name:'xdbChecker.sh') // only checkerSQL
+        loadScript(place:'linux', name:'xdbChecker.sh') // sql checker
         lvl2 = listDir.Nix("${path}") - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
-        for (jo in lvl2) {
-            ext = jo.substring(jo.indexOf(".")+1); // [PTH, PTH, ..., XDB]
-            stage = listDir.Nix("${path}/${jo}") 
-            if (stage != '') { for (lo in stage) // if has folders - recursively process them
-            { pthConversion (todo:"${ext}", l1:"${path}", l2:"${jo}", ss:"${lo}") } /*substage recursion*/
+        for (itLvl2 in lvl2) {
+            exe = itLvl2.substring(itLvl2.indexOf(".")+1); // [PTH, PTH, ..., XDB]
+            lvl3 = listDir.Nix("${path}/${itLvl2}") 
+            if (lvl3 != '') { for (itLvl3 in lvl3) // if has folders - recursively process them
+            { pthConversion (todo:"${exe}", l1:"${path}", l2:"${itLvl2}", l3:"${itLvl3}") } /*substage recursion*/
             } //stage conversion
-            pthConversion (todo:"${ext}", l1:"${path}", l2:"${jo}") /*stage no recursion*/ 
+            pthConversion (todo:"${exe}", l1:"${path}", l2:"${itLvl2}") /*stage no recursion*/ 
             wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) 
             { sh "./pthUpload.sh ${jo}" } // upload to nexus
         }
