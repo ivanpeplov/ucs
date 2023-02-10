@@ -1,7 +1,7 @@
 #!/bin/bash
 #chk_sql.groovy
-#                          $1      $2     $3      $4   
-#usage: pthChecker.sh   ${lvl2} ${name} ${ext} ${stage}
+#                         $1     $2     $3     $4   
+#usage: pthChecker.sh   ${l2} ${name} ${ext} ${l3}
 set +e
 if [ "$#" -eq 3 ]; then
 java -jar BIN/xsltc.jar -i "$1/$2.$3" -o "$1/$2.$3.xml" -l stdout.log -x BIN/pth2lst.xslt
