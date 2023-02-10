@@ -14,7 +14,7 @@ TID:
 #for mm_win.groovy
 MMW:
   mm: "cyassl-3.2.0,myizip_z,myizip_u,microx_t"
-  mmm: "microp,ucs_ms,ucs_dt,ucs_mu,ucs_mm"
+  mmm: "microp,ucs_ms,ucs_dt,ucs_mu,ucs_mm,setup_p"
   arch: "Win32,x64"
 #for mm_nix.groovy
 MMX:
