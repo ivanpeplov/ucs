@@ -3,13 +3,10 @@ def call(String path) { //chk_sql.groovy
         def nexus_creds = [ //masking nexus credentials
             [ path: 'secrets/creds/nexus', secretValues: [
             [ envVar: 'nexus_pwd', vaultKey: 'password']]]]
-
-        loadScript(place:'linux', name:'spaceToUnderscore.sh')
+        sciptList=list.split(',')
+        sciptList.each {s -> loadScript(place:'linux', name: "${s}")}
         sh "./spaceToUnderscore.sh; find . -type d -name .svn -exec rm -rf {} + "
-        loadScript(place:'linux', name:'pthUpload.sh') // bash
-        loadScript(place:'linux', name:'pthChecker.sh') // ktr2xml + checkerSQL
-        loadScript(place:'linux', name:'xdbChecker.sh') // sql checker
-        
+
         lvl2 = listDir.Nix("${path}") - 'BIN' //[AMSBatch.PTH, BonusETL.PTH, ..., NTPREFS.XDB] - 'BIN'
         for (itLvl2 in lvl2) {
             exe = itLvl2.substring (itLvl2.indexOf(".") +1) // [PTH, PTH, ..., XDB]

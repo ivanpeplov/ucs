@@ -18,7 +18,10 @@ def call() { //for all jenkinsfile
                 env.mmm=yaml_cfg.get(APP).get('mmm')
                 env.arch=yaml_cfg.get(APP).get('arch')
             break
+            case ['chk_sql'] :
+                env.list=yaml_cfg.get(APP).get('list')
+            break
             default :
-            println "For Non-Borland C++ Builder pipelines"
+            println "TBD later"
         }
 }
