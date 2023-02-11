@@ -29,6 +29,7 @@ pipeline { //CI-60/CI-67/CI-75
     environment {
       ROOT="TestSQLtoNexus/${MNR}" //project root at SVN 
       SVN_PATH ="${ROOT}" //full path for download fron SVN
+      APP='SQL' //label for .yaml;
     }
     stages {
       stage('SET Env') {
