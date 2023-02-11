@@ -20,7 +20,10 @@ MMW:
 MMX:
   mm: "cyassl-3.2.0,myizip_z,microx_t"
   mmm: "microp,ucs_ms,ucs_dt,ucs_mm"
-  arch: 
+  arch:
+#for chk_sql.groovy
+SQL:
+  list: "spaceToUnderscore.sh,pthUpload.sh,pthChecker.sh,xdbChecker.sh" 
 #
 #mail_recipients_dev: 'gerasimov.vyacheslav@ucscards.ru, titaev.leonid@ucscards.ru, shitikov.sergei@ucscards.ru, petelin.konstantin@ucscards.ru, konovalov.sergei@ucscards.ru, a.kustov@ucscards.ru'
 mail_recipients_dev: a.kustov@ucscards.ru
