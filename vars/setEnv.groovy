@@ -19,7 +19,7 @@ def call() { //for all jenkinsfile
                 env.arch=yaml_cfg.get(APP).get('arch')
             break
             case ['chk_sql'] :
-                env.list=yaml_cfg.get(APP).get('list')
+                env.listSQL=yaml_cfg.get(APP).get('list')
             break
             default :
             println "TBD later"
