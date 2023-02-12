@@ -126,7 +126,6 @@ pipeline { //CI-56,58,59,72
             case ['mmseod', 'palmerauloade', 'passkey'] :
               if (LABEL=='mmseod') {
               borlandCopy('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin') }
-              //{borlandBuild('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin')}
               borlandBuild("${WORKSPACE}", "${LABEL}")
             break
           }

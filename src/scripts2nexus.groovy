@@ -15,7 +15,7 @@ pipeline { //CI-57
         stage ('PREPARE') {
             steps { getSVN() }
         }
-        stage('GROUP.. UPLOAD') {
+        stage('BUILD') {
             steps {
                 dir(ROOT) {
                     script {

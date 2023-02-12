@@ -41,7 +41,7 @@ pipeline { //CI-60/CI-67/CI-75
       stage ('PREPARE') {
         steps { getSVN() }
       }
-      stage('Extract Transform Load') {
+      stage('BUILD') {
         steps { pthScript("${MNR}") }
       }
     } //stages
