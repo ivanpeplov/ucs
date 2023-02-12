@@ -1,6 +1,3 @@
-// This is the 'include file'
-import java.text.SimpleDateFormat
-
 def getNameForRegion(Map args){
 //input region:
 //output server list
