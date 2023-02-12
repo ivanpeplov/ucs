@@ -1,5 +1,4 @@
-//for all jenkinsfile
-def Nix(String dir) {
+def Nix(String dir) { //for all jenkinsfile
     full_dir="${WORKSPACE}/${dir}"
     output = sh returnStdout: true, script: "ls -l ${full_dir} | grep ^d | awk '{print \$9}'"
     dirList = output.split().toList()

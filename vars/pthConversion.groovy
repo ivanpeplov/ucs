@@ -1,4 +1,4 @@
-//called from pthscript.groovy
+//called from pthScript.groovy
 import org.apache.commons.io.FilenameUtils
 def call (Map pth=[:]) { //PTH, XDB conversion
     pth.get('l3', '') // default value for map. change 'null' to ''
