@@ -2,7 +2,7 @@
 #for borland.groovy
 MMS: 
   app_list: "mmseod.exe,*.ini,*.dbf,*.tsk"
-  bpl: "borlndmm.dll,cc3260mt.dll"
+  lib: "borlndmm.dll,cc3260mt.dll"
 PALMERA:
   app_list: "palmerauloade.exe,*.ini,*.bat"
 PASSKEY:
@@ -10,7 +10,7 @@ PASSKEY:
 TID: 
   printCfg_list: "*.bmp,*.ini"
   app_list: "cardpro.exe,cardpro.ini"
-  bpl: "bdertl60.bpl, dbrtl60.bpl, rtl60.bpl, vcl60.bpl, vcldb60.bpl"
+  lib: "bdertl60.bpl, dbrtl60.bpl, rtl60.bpl, vcl60.bpl, vcldb60.bpl"
 #for mm_win.groovy
 MMW:
   mm: "cyassl-3.2.0,myizip_z,myizip_u,microx_t"
