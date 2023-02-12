@@ -118,13 +118,15 @@ pipeline { //CI-56,58,59,72
           switch (LABEL) {
             case ('cardpro') :
               borlandBuild("CARDLIB", "cardlib")
-              borlandBuild("C:\\Windows\\System32", "32")
+              borlandCopy("C:\\Windows\\System32", "32")
               borlandBuild("${WORKSPACE}", "${LABEL}")
               borlandBuild("FORM", "form")
+              borlandCopy('FORM\\PRINT.CFG', 'print')
             break
             case ['mmseod', 'palmerauloade', 'passkey'] :
-              if (LABEL=='mmseod') 
-              {borlandBuild('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin')}
+              if (LABEL=='mmseod') {
+              borlandCopy('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin') }
+              //{borlandBuild('C:\\Program Files\\Borland\\CBuilder6\\Bin', 'bin')}
               borlandBuild("${WORKSPACE}", "${LABEL}")
             break
           }
