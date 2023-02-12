@@ -10,8 +10,8 @@ def call(String workdir, String module) { //borland groovy
                 bpl.split(',').each { f -> bat "xcopy ${f} ${TARGET}" }
             break
             case ("form") : //cardpro
-                dir = listDir.Win("form") - 'TEMPLATE'
-                for (io in dir) {
+                dirList = listDir.Win("form") - 'TEMPLATE'
+                for (io in dirList) {
                     if (io=='PRINT.CFG') { printCfg_list.split(',').each
                     {f->bat "xcopy .\\${io}\\${f} ${TARGET}\\${workdir}\\${io}\\"} }
                     else 
