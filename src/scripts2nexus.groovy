@@ -25,9 +25,9 @@ pipeline { //CI-57
                     sh "find . -type d -name .svn -exec rm -rf {} +" //to delete ./svn folder recursively
                     loadScript(place:'linux', name:'scripts2nexusUpload.sh') //bash for curl to Nexus
                     lvl1 = listDir.Nix("${ROOT}")
-                        for (itLvl1 in lvl1) { lvl2=listDir.Nix("${ROOT}/${itLvl1}")
-                            for (itLvl2 in lvl2) { lvl3=listDir.Nix("${ROOT}/${itLvl1}/${itLvl2}")
-                                for (itLvl3 in lvl3) {
+                        lvl1.each { itLvl1-> lvl2=listDir.Nix("${ROOT}/${itLvl1}")
+                            lvl2.each { itLvl2-> lvl3=listDir.Nix("${ROOT}/${itLvl1}/${itLvl2}")
+                                lvl3.each { itLvl3->
                                 wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
                                 sh "./scripts2nexusUpload.sh ${itLvl1} ${itLvl2} ${itLvl3}" } } } }
                     }
