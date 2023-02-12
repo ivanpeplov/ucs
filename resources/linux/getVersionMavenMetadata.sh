@@ -1,5 +1,5 @@
 #!/bin/bash
-#used at jenkins-master only
+#used at jenkins-master only, mm_android.groovy
 xquery='''
 for $x in doc("maven-metadata.xml")/metadata/versioning/versions
 return $x/version'''
