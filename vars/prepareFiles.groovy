@@ -17,7 +17,7 @@ def call(String name) { //for all jenkinsfile
         if (SVN=='trunk' || SVN=='src') { 
             bat "xcopy .\\${SVN} . /i /q /d /e & mkdir ${TARGET}"
             if (SVN=='src') { 
-            bat "copy c:\\PassKey\\*.dll . & move PassKey(repo).mak passkey.mak" } }
+            bat "move PassKey(repo).mak passkey.mak" } }
         else { 
             bat "xcopy .\\${VERSION} . /i /q /d /e & mkdir ${TARGET}" }
         break
