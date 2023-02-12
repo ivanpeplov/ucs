@@ -11,7 +11,7 @@ def call() { //for all jenkinsfile
             case ['borland'] :
                 env.app_list=yaml_cfg.get(APP).get('app_list')
                 env.lib=yaml_cfg.get(APP).get('lib')
-                env.printCfg_list=yaml_cfg.get(APP).get('printCfg_list')
+                env.printCfg=yaml_cfg.get(APP).get('printCfg')
             break
             case ['mm_nix', 'mm_win'] :
                 env.mm=yaml_cfg.get(APP).get('mm')
