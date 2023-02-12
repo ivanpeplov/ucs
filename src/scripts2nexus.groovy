@@ -30,9 +30,9 @@ pipeline { //CI-57
                                 for (itLvl3 in lvl3) {
                                 wrap([$class: 'VaultBuildWrapper', vaultSecrets: nexus_creds]) {
                                 sh "./scripts2nexusUpload.sh ${itLvl1} ${itLvl2} ${itLvl3}" } } } }
-                    } //script
-                } // dir()
-            } //steps
+                    }
+                }
+            }
         }
     } //stages
     post {
