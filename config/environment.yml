@@ -8,7 +8,7 @@ PALMERA:
 PASSKEY:
   app_list: "passkey.exe,*.dll"
 TID: 
-  printCfg_list: "*.bmp,*.ini"
+  printCfg: "*.bmp,*.ini"
   app_list: "cardpro.exe,cardpro.ini"
   lib: "bdertl60.bpl, dbrtl60.bpl, rtl60.bpl, vcl60.bpl, vcldb60.bpl"
 #for mm_win.groovy
