@@ -9,9 +9,9 @@ def call() { //for all jenkinsfile
         env.MAIL_RECIPIENTS_DEV = yaml_cfg.get('mail_recipients_dev')
         switch (JOB_BASE_NAME) {
             case ['borland'] :
-                env.bmp=yaml_cfg.get(APP).get('bmp')
+                env.app_list=yaml_cfg.get(APP).get('app_list')
                 env.bpl=yaml_cfg.get(APP).get('bpl')
-                env.frm=yaml_cfg.get(APP).get('frm')
+                env.printCfg_list=yaml_cfg.get(APP).get('printCfg_list')
             break
             case ['mm_nix', 'mm_win'] :
                 env.mm=yaml_cfg.get(APP).get('mm')
