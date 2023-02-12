@@ -10,7 +10,7 @@ def call() { //for all jenkinsfile
         switch (JOB_BASE_NAME) {
             case ['borland'] :
                 env.app_list=yaml_cfg.get(APP).get('app_list')
-                env.bpl=yaml_cfg.get(APP).get('bpl')
+                env.lib=yaml_cfg.get(APP).get('lib')
                 env.printCfg_list=yaml_cfg.get(APP).get('printCfg_list')
             break
             case ['mm_nix', 'mm_win'] :
