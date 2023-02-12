@@ -6,7 +6,8 @@ MMS:
 PALMERA:
   app_list: "palmerauloade.exe,*.ini,*.bat"
 PASSKEY:
-  app_list: "passkey.exe,*.dll"
+  app_list: "passkey.exe"
+  lib: "*.dll"
 TID: 
   printCfg: "*.bmp,*.ini"
   app_list: "cardpro.exe,cardpro.ini"
