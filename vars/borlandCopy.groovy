@@ -1,6 +1,6 @@
-def call(String workdir, String module) { //borland groovy
+def call(String workdir) { //borland.groovy
     dir (workdir) {
-        if (module=='print') {
+        if (workdir=='FORM\\PRINT.CFG') {
             printCfg.split(',').each
             { file->bat "xcopy ${file} ${TARGET}\\${workdir}\\" } }
         else { lib.split(',').each { file -> bat "xcopy ${file} ${TARGET}" } }
