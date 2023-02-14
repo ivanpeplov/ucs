@@ -1,6 +1,6 @@
 def Nix(String dir) { //for all jenkinsfile
-    full_dir="${WORKSPACE}/${dir}"
-    output = sh returnStdout: true, script: "ls -l ${full_dir} | grep ^d | awk '{print \$9}'"
+    full_path="${WORKSPACE}/${dir}"
+    output = sh returnStdout: true, script: "ls -l ${full_path} | grep ^d | awk '{print \$9}'"
     dirList = output.split().toList()
     return dirList
 }
