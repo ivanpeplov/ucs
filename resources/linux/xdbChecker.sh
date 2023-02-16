@@ -1,5 +1,5 @@
 #!/bin/bash
-#chk_sql.groovy, pthConversion.groovy
+#pthConversion.groovy
 #                       $1     $2        $3       $4   
 #usage: xdbChecker.sh ${l2} ${name} ${extension} ${l3}
 set +e
